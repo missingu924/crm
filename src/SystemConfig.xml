@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Config>
+	
+	<!-- 系统数据库 -->
+	<db>
+		<dbDriverClassName>com.microsoft.sqlserver.jdbc.SQLServerDriver</dbDriverClassName>
+		<dbUrl>jdbc:sqlserver://127.0.0.1:1433;DatabaseName=crm</dbUrl>
+		<dbUser>sa</dbUser>
+		<dbPassword>Wyg2461290!</dbPassword>
+	</db>
+	
+</Config>

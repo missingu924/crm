@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="gb2312"?>
+<DictConfig version="1.0">
+	<DictConfigList>
+		<!-- 具体业务字典，根据也许需要添加或修改 -->
+		<DictConfig isSystemDict="true" dictShowName="客户字典" dictName="客户字典" dictTable="crm_customer" dictKeyCol="id" dictValueCol="customer_full_name" dictOrderByCol="customer_full_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="商机字典" dictName="商机字典" dictTable="crm_commercial_opportunity" dictKeyCol="id" dictValueCol="opportunity_name" dictOrderByCol="opportunity_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="合同字典" dictName="合同字典" dictTable="crm_contract" dictKeyCol="id" dictValueCol="contract_name" dictOrderByCol="contract_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="经营活动类型字典" dictName="经营活动类型字典" values="01=商机经营活动,02=普通经营活动"/>
+		
+		<!-- 基础档案字典，请勿修改 -->
+		<DictConfig isSystemDict="true" dictShowName="客户分类字典" dictName="客户分类字典" dictTable="dict_customer_type" dictKeyCol="customer_type_code" dictValueCol="customer_type_name" dictOrderByCol="customer_type_code" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="区域字典" dictName="区域字典" dictTable="dict_region" dictKeyCol="region_code" dictValueCol="region_name" dictOrderByCol="region_code" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="销售阶段字典" dictName="销售阶段字典" dictTable="dict_sale_stage" dictKeyCol="sale_stage_code" dictValueCol="sale_stage_name" dictOrderByCol="sale_stage_code" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="经营类型字典" dictName="经营类型字典" dictTable="dict_management_type" dictKeyCol="management_code" dictValueCol="management_name" dictOrderByCol="management_code" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="产品字典" dictName="产品字典" dictTable="dict_product" dictKeyCol="product_code" dictValueCol="product_name" dictOrderByCol="product_code" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="产品版本字典" dictName="产品版本字典" dictTable="dict_product_version" dictKeyCol="version_code" dictValueCol="version_name" dictOrderByCol="version_code" filter=""/>
+
+		<!-- 系统字典，请勿修改 -->
+		<DictConfig isSystemDict="true" dictShowName="每页行数" dictName="pageCount" values="10,15,20,25,50,100,500"/>
+		<DictConfig isSystemDict="true" dictShowName="字典类型字典" dictName="字典类型字典" values="数据库型,枚举型"/>
+		<DictConfig isSystemDict="true" dictShowName="是否字典" dictName="是否字典" values="1=是,0=否"/>
+		<DictConfig isSystemDict="true" dictShowName="性别字典" dictName="性别字典" values="男,女"/>
+		<DictConfig isSystemDict="true" dictShowName="导入相同数据处理方式字典" dictName="导入相同数据处理方式字典" values="保持系统中数据不变,覆盖系统中相同数据"/>
+		<DictConfig isSystemDict="true" dictShowName="导入数据处理方式字典" dictName="导入数据处理方式字典" values="新增,覆盖"/>
+		
+		<!-- 权限字典，请勿修改 -->
+		<DictConfig isSystemDict="true" dictShowName="账号字典" dictName="账号字典" dictTable="auth_user" dictKeyCol="account" dictValueCol="name" dictOrderByCol="name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="部门字典" dictName="部门字典" dictTable="auth_department" dictKeyCol="departmentcode" dictValueCol="departmentname" dictOrderByCol="departmentcode" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="角色字典" dictName="角色字典" dictTable="auth_role" dictKeyCol="rolecode" dictValueCol="rolename" dictOrderByCol="rolecode" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="权限项字典" dictName="权限项字典" dictTable="auth_function" dictKeyCol="functioncode" dictValueCol="functionname" dictOrderByCol="functioncode" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="职务字典" dictName="职务字典" dictTable="auth_office" dictKeyCol="officecode" dictValueCol="officename" dictOrderByCol="officecode" filter=""/>
+		
+		</DictConfigList>
+	<DictRelationList>
+		<DictRelation fromDict="U8部门字典" toDict="U8人员字典" fromDictCol="cdepcode"/>
+		<DictRelation fromDict="U8人员字典" toDict="U8客户字典" fromDictCol="cCusPPerson"/>
+		<DictRelation fromDict="U8仓库字典" toDict="U8存货字典" fromDictCol="cDefWareHouse"/> 
+	</DictRelationList>
+</DictConfig>

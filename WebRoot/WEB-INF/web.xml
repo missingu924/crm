@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!-- 权限过滤器 -->
+	<!-- 
+	<filter>
+		<filter-name>AuthFilter</filter-name>
+		<filter-class>com.wuyg.auth.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 -->
+	 
+	 <!-- 跨域 -->
+	 <filter>
+	  <filter-name>CorsFilter</filter-name>
+	  <filter-class>com.wuyg.cros.CrosFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>CorsFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 权限servlet -->
+	<servlet>
+		<servlet-name>AuthDepartmentServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthDepartmentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthDepartmentServlet</servlet-name>
+		<url-pattern>/AuthDepartment/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthRoleServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthRoleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthRoleServlet</servlet-name>
+		<url-pattern>/AuthRole/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthUserServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthUserServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthUserServlet</servlet-name>
+		<url-pattern>/AuthUser/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthFunctionServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthFunctionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthFunctionServlet</servlet-name>
+		<url-pattern>/AuthFunction/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthLogLoginServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthLogLoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AuthOfficeServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthOfficeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthOfficeServlet</servlet-name>
+		<url-pattern>/AuthOffice/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthUserRoleServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthUserRoleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthUserRoleServlet</servlet-name>
+		<url-pattern>/AuthUserRole/Servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AuthLogLoginServlet</servlet-name>
+		<url-pattern>/AuthLogLogin/Servlet</url-pattern>
+	</servlet-mapping>
+	<!-- 字典servlet -->
+	<servlet>
+		<servlet-name>DictionaryServlet</servlet-name>
+		<servlet-class>com.wuyg.dictionary.DictionaryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictionaryServlet</servlet-name>
+		<url-pattern>/Dictionary/Servlet</url-pattern>
+	</servlet-mapping>
+	<!-- Excel导入servlet -->
+	<servlet>
+		<servlet-name>ExcelParserServlet</servlet-name>
+		<servlet-class>
+			com.excelparser.ExcelParserServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExcelParserServlet</servlet-name>
+		<url-pattern>/ExcelParser/Servlet</url-pattern>
+	</servlet-mapping>
+	<!-- 系统servlet -->
+	<servlet>
+		<servlet-name>SystemServlet</servlet-name>
+		<servlet-class>com.wuyg.system.SystemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServlet</servlet-name>
+		<url-pattern>/System/Servlet</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- ==以下为具体应用的servlet== -->
+	<servlet>
+		<servlet-name>DictCustomerTypeServlet</servlet-name>
+		<servlet-class>com.crm.DictCustomerTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictCustomerTypeServlet</servlet-name>
+		<url-pattern>/DictCustomerType/Servlet</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>DictSaleStageServlet</servlet-name>
+		<servlet-class>com.crm.DictSaleStageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictSaleStageServlet</servlet-name>
+		<url-pattern>/DictSaleStage/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictManagementTypeServlet</servlet-name>
+		<servlet-class>com.crm.DictManagementTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictManagementTypeServlet</servlet-name>
+		<url-pattern>/DictManagementType/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictRegionServlet</servlet-name>
+		<servlet-class>com.crm.DictRegionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictRegionServlet</servlet-name>
+		<url-pattern>/DictRegion/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictProductVersionServlet</servlet-name>
+		<servlet-class>com.crm.DictProductVersionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictProductVersionServlet</servlet-name>
+		<url-pattern>/DictProductVersion/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictProductServlet</servlet-name>
+		<servlet-class>com.crm.DictProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictProductServlet</servlet-name>
+		<url-pattern>/DictProduct/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmCustomerServlet</servlet-name>
+		<servlet-class>com.crm.CrmCustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmCustomerServlet</servlet-name>
+		<url-pattern>/CrmCustomer/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmContactServlet</servlet-name>
+		<servlet-class>com.crm.CrmContactServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmContactServlet</servlet-name>
+		<url-pattern>/CrmContact/Servlet</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>CrmManagementActivityServlet</servlet-name>
+		<servlet-class>com.crm.CrmManagementActivityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmManagementActivityServlet</servlet-name>
+		<url-pattern>/CrmManagementActivity/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmCommercialOpportunityServlet</servlet-name>
+		<servlet-class>com.crm.CrmCommercialOpportunityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmCommercialOpportunityServlet</servlet-name>
+		<url-pattern>/CrmCommercialOpportunity/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmBillServlet</servlet-name>
+		<servlet-class>com.crm.CrmBillServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmBillServlet</servlet-name>
+		<url-pattern>/CrmBill/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmContractServlet</servlet-name>
+		<servlet-class>com.crm.CrmContractServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmContractServlet</servlet-name>
+		<url-pattern>/CrmContract/Servlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<!-- ==session超时时间，单位秒== -->
+	<session-config>
+		<session-timeout>3600</session-timeout>
+	</session-config>
+	<!-- ==该应用的首页面== -->
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+</web-app>

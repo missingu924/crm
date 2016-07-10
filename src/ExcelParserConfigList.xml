@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExcelParserConfigList version="V1.0" name="Excel解析配置文件">
+	<ExcelParserConfig name="user">
+		<!-- 对应的javabean -->
+		<javaBean>com.wuyg.test.obj.UserObj</javaBean>
+		<!-- 需解析的sheet名，默认为空，即解第1个sheet -->
+		<sheetName/>
+		<!-- 表头位于第几行，默认第1行 -->
+		<headRowNum>1</headRowNum>
+		<!-- 数据从第几行开始，默认第2行 -->
+		<dataStartRowNum>2</dataStartRowNum>
+		<!-- 解析开始前执行的动作，默认为空 -->
+		<beforeParser/>
+		<!-- 解析结束后执行的动作，默认为空 -->
+		<afterParser/>
+		<!-- 是否使用excel的列名进行映射取值，默认为否 -->
+		<parseByExcelColumnName>true</parseByExcelColumnName>
+		<ExcelColumnList>
+			<ExcelColumn excelColumnName="姓名" javaBeanProperty="name"/>
+			<ExcelColumn excelColumnName="性别" javaBeanProperty="sex"/>
+			<ExcelColumn excelColumnName="年龄" javaBeanProperty="age"/>
+			<ExcelColumn excelColumnName="生日" javaBeanProperty="birthday"/>
+		</ExcelColumnList>
+	</ExcelParserConfig>
+	<ExcelParserConfig name="核算科室1">
+		<!-- 对应的javabean -->
+		<javaBean>com.cost.obj.EfCostDeptObj</javaBean>
+		<!-- 需解析的sheet名，默认为空，即解第1个sheet -->
+		<sheetName/>
+		<!-- 表头位于第几行，默认第1行 -->
+		<headRowNum>1</headRowNum>
+		<!-- 数据从第几行开始，默认第2行 -->
+		<dataStartRowNum>2</dataStartRowNum>
+		<!-- 解析开始前执行的动作，默认为空 -->
+		<beforeParser/>
+		<!-- 解析结束后执行的动作，默认为空 -->
+		<afterParser/>
+		<!-- 是否使用excel的列名进行映射取值，默认为否 -->
+		<parseByExcelColumnName>true</parseByExcelColumnName>
+		<ExcelColumnList>
+			<!-- <ExcelColumn excelColumnName="序号" javaBeanProperty="id"/>
+			<ExcelColumn excelColumnName="科室编码" javaBeanProperty="cdeptcode"/>
+			<ExcelColumn excelColumnName="科室名称" javaBeanProperty="cdeptname"/>
+			<ExcelColumn excelColumnName="上级科室编码" javaBeanProperty="cparentcode"/>
+			<ExcelColumn excelColumnName="是否末级" javaBeanProperty="cend"/>
+			<ExcelColumn excelColumnName="分摊类别编码" javaBeanProperty="csharekindcode"/>
+			<ExcelColumn excelColumnName="科室类别编码" javaBeanProperty="cdeptkindcode"/>
+			<ExcelColumn excelColumnName="分摊参数编码" javaBeanProperty="cshareparamcode"/>
+			<ExcelColumn excelColumnName="是否虚拟" javaBeanProperty="cvirtual"/>
+			<ExcelColumn excelColumnName="级次" javaBeanProperty="igrade"/>
+			<ExcelColumn excelColumnName="是否停用" javaBeanProperty="cksstop"/>
+			 -->
+			<ExcelColumn excelColumnName="部门编码" javaBeanProperty="cdeptcode" isUnique="true"/>
+			<ExcelColumn excelColumnName="部门名称" javaBeanProperty="cdeptname"/>
+		</ExcelColumnList>
+	</ExcelParserConfig>
+	<ExcelParserConfig name="住院收入">
+		<!-- 对应的javabean -->
+		<javaBean>com.excelparser.obj.ZhuYuanShouRuObj</javaBean>
+		<!-- 需解析的sheet名，默认为空，即解第1个sheet -->
+		<sheetName/>
+		<!-- 表头位于第几行，默认第1行 -->
+		<headRowNum>3</headRowNum>
+		<!-- 数据从第几行开始，默认第2行 -->
+		<dataStartRowNum>4</dataStartRowNum>
+		<!-- 解析开始前执行的动作，默认为空 -->
+		<beforeParser/>
+		<!-- 解析结束后执行的动作，默认为空 -->
+		<afterParser/>
+		<!-- 是否使用excel的列名进行映射取值，默认为否 -->
+		<parseByExcelColumnName>false</parseByExcelColumnName>
+		<ExcelColumnList>
+			<ExcelColumn excelColumnName="科室" javaBeanProperty="ke_shi"/>
+			<ExcelColumn excelColumnName="西药费" javaBeanProperty="xi_yao_fei"/>
+			<ExcelColumn excelColumnName="中成药" javaBeanProperty="zhong_cheng_yao"/>
+			<ExcelColumn excelColumnName="中草药" javaBeanProperty="zhong_cao_yao"/>
+			<ExcelColumn excelColumnName="诊查费" javaBeanProperty="zhen_cha_fei"/>
+			<ExcelColumn excelColumnName="治疗费" javaBeanProperty="zhi_liao_fei"/>
+			<ExcelColumn excelColumnName="床位费" javaBeanProperty="chuang_wei_fei"/>
+			<ExcelColumn excelColumnName="护理费" javaBeanProperty="hu_li_fei"/>
+			<ExcelColumn excelColumnName="化验费" javaBeanProperty="hua_yan_fei"/>
+			<ExcelColumn excelColumnName="手术费" javaBeanProperty="shou_shu_fei"/>
+			<ExcelColumn excelColumnName="放射费" javaBeanProperty="fang_she_fei"/>
+			<ExcelColumn excelColumnName="其他费" javaBeanProperty="qi_ta_fei"/>
+			<ExcelColumn excelColumnName="麻醉费" javaBeanProperty="ma_zui_fei"/>
+			<ExcelColumn excelColumnName="CT费" javaBeanProperty="ct_fei"/>
+			<ExcelColumn excelColumnName="手术材料费" javaBeanProperty="shou_shu_cai_liao_fei"/>
+			<ExcelColumn excelColumnName="材料费" javaBeanProperty="cai_liao_fei"/>
+			<ExcelColumn excelColumnName="输氧费" javaBeanProperty="shu_yang_fei"/>
+			<ExcelColumn excelColumnName="煎药费" javaBeanProperty="jian_yao_fei"/>
+			<ExcelColumn excelColumnName="B超费" javaBeanProperty="b_chao_fei"/>
+			<ExcelColumn excelColumnName="心脑电费" javaBeanProperty="xin_nao_dian_fei"/>
+			<ExcelColumn excelColumnName="胃镜费" javaBeanProperty="wei_jing_fei"/>
+			<ExcelColumn excelColumnName="访视费" javaBeanProperty="fang_shi_fei"/>
+			<ExcelColumn excelColumnName="会诊费" javaBeanProperty="hui_zhen_fei"/>
+			<ExcelColumn excelColumnName="c型臂费" javaBeanProperty="c_xing_bi_fei"/>
+			<ExcelColumn excelColumnName="碎石费" javaBeanProperty="sui_shi_fei"/>
+			<ExcelColumn excelColumnName="磁共振费" javaBeanProperty="ci_gong_zhen_fei"/>
+			<ExcelColumn excelColumnName="口腔收入" javaBeanProperty="kou_qiang_shou_ru"/>
+			<ExcelColumn excelColumnName="高压氧" javaBeanProperty="gao_ya_yang"/>
+			<ExcelColumn excelColumnName="肠镜费" javaBeanProperty="chang_jing_fei"/>
+			<ExcelColumn excelColumnName="中医护理" javaBeanProperty="zhong_yi_hu_li"/>
+			<ExcelColumn excelColumnName="合计" javaBeanProperty="he_ji"/>
+		</ExcelColumnList>
+	</ExcelParserConfig>
+	<ExcelParserConfig name="门诊收入">
+		<!-- 对应的javabean -->
+		<javaBean>com.wuyg.test.obj.MenZhenShouRuObj</javaBean>
+		<!-- 需解析的sheet名，默认为空，即解第1个sheet -->
+		<sheetName/>
+		<!-- 表头位于第几行，默认第1行 -->
+		<headRowNum>3</headRowNum>
+		<!-- 数据从第几行开始，默认第2行 -->
+		<dataStartRowNum>4</dataStartRowNum>
+		<!-- 解析开始前执行的动作，默认为空 -->
+		<beforeParser/>
+		<!-- 解析结束后执行的动作，默认为空 -->
+		<afterParser/>
+		<!-- 是否使用excel的列名进行映射取值，默认为否 -->
+		<parseByExcelColumnName>false</parseByExcelColumnName>
+		<ExcelColumnList>
+			<ExcelColumn excelColumnName="科室" javaBeanProperty="ke_shi"/>
+			<ExcelColumn excelColumnName="西药费" javaBeanProperty="xi_yao_fei"/>
+			<ExcelColumn excelColumnName="中成药费" javaBeanProperty="zhong_cheng_yao_fei"/>
+			<ExcelColumn excelColumnName="中药费" javaBeanProperty="zhong_yao_fei"/>
+			<ExcelColumn excelColumnName="诊查费" javaBeanProperty="zhen_cha_fei"/>
+			<ExcelColumn excelColumnName="治疗费" javaBeanProperty="zhi_liao_fei"/>
+			<ExcelColumn excelColumnName="床位费" javaBeanProperty="chuang_wei_fei"/>
+			<ExcelColumn excelColumnName="护理费" javaBeanProperty="hu_li_fei"/>
+			<ExcelColumn excelColumnName="化验费" javaBeanProperty="hua_yan_fei"/>
+			<ExcelColumn excelColumnName="手术费" javaBeanProperty="shou_shu_fei"/>
+			<ExcelColumn excelColumnName="放射费" javaBeanProperty="fang_she_fei"/>
+			<ExcelColumn excelColumnName="其他费" javaBeanProperty="qi_ta_fei"/>
+			<ExcelColumn excelColumnName="麻醉费" javaBeanProperty="ma_zui_fei"/>
+			<ExcelColumn excelColumnName="CT费" javaBeanProperty="ct_fei"/>
+			<ExcelColumn excelColumnName="手术材料费" javaBeanProperty="shou_shu_cai_liao_fei"/>
+			<ExcelColumn excelColumnName="材料费" javaBeanProperty="cai_liao_fei"/>
+			<ExcelColumn excelColumnName="输氧费" javaBeanProperty="shu_yang_fei"/>
+			<ExcelColumn excelColumnName="煎药费" javaBeanProperty="jian_yao_fei"/>
+			<ExcelColumn excelColumnName="B超费" javaBeanProperty="b_chao_fei"/>
+			<ExcelColumn excelColumnName="心脑电费" javaBeanProperty="xin_nao_dian_fei"/>
+			<ExcelColumn excelColumnName="车费" javaBeanProperty="che_fei"/>
+			<ExcelColumn excelColumnName="胃镜费" javaBeanProperty="wei_jing_fei"/>
+			<ExcelColumn excelColumnName="挂号费" javaBeanProperty="gua_hao_fei"/>
+			<ExcelColumn excelColumnName="访视费" javaBeanProperty="fang_shi_fei"/>
+			<ExcelColumn excelColumnName="会诊费" javaBeanProperty="hui_zhen_fei"/>
+			<ExcelColumn excelColumnName="查体费" javaBeanProperty="cha_ti_fei"/>
+			<ExcelColumn excelColumnName="碎石费" javaBeanProperty="sui_shi_fei"/>
+			<ExcelColumn excelColumnName="磁共振费" javaBeanProperty="ci_gong_zhen_fei"/>
+			<ExcelColumn excelColumnName="口腔收入" javaBeanProperty="kou_qiang_shou_ru"/>
+			<ExcelColumn excelColumnName="高压氧" javaBeanProperty="gao_ya_yang"/>
+			<ExcelColumn excelColumnName="肠镜费" javaBeanProperty="chang_jing_fei"/>
+			<ExcelColumn excelColumnName="中医护理" javaBeanProperty="zhong_yi_hu_li"/>
+			<ExcelColumn excelColumnName="合计" javaBeanProperty="he_ji"/>
+		</ExcelColumnList>
+	</ExcelParserConfig>
+</ExcelParserConfigList>

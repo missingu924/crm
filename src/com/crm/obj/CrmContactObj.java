@@ -1,0 +1,158 @@
+package com.crm.obj;
+import java.sql.Timestamp;
+import com.wuyg.common.dao.BaseDbObj;
+import java.util.LinkedHashMap;
+import java.util.Arrays;
+import java.util.List;
+import com.alibaba.fastjson.JSON;
+public class CrmContactObj extends BaseDbObj
+{
+private Long id;
+private Long customer_id;
+private Long commerical_opportunity_id;
+private String contact_name;
+private String contact_sex;
+private Timestamp contact_birthday;
+private String contact_telephone;
+private String contact_email;
+private String record_account;
+private Timestamp record_time;
+@Override
+public String findKeyColumnName()
+{
+	return "id";
+}
+@Override
+public String findParentKeyColumnName()
+{
+	return "commerical_opportunity_id";
+}
+@Override
+public String findTableName()
+{
+	return "crm_contact";
+}
+@Override 
+public String findDefaultOrderBy()
+{
+	return super.findDefaultOrderBy();
+}
+@Override
+public String getBasePath()
+{
+	return "CrmContact";
+}
+@Override
+public String getCnName()
+{
+	return "客户联系人";
+}
+@Override
+public List<String> findUniqueIndexProperties()
+{
+	return Arrays.asList(new String[]
+	{ "null" });
+}
+public LinkedHashMap<String, String> findProperties()
+{
+		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
+
+		pros.put("id", "编号");
+		pros.put("customer_id", "客户");
+		pros.put("commerical_opportunity_id","商机");
+		pros.put("contact_name", "姓名");
+		pros.put("contact_sex", "性别");
+		pros.put("contact_birthday", "生日");
+		pros.put("contact_telephone", "电话");
+		pros.put("contact_email", "email");
+		pros.put("record_account", "录入人");
+		pros.put("record_time", "录入时间");
+		return pros;
+}
+public Long getId()
+{
+	return id;
+}
+public void setId(Long id)
+{
+	this.id = id;
+}
+public Long getCustomer_id()
+{
+	return customer_id;
+}
+public void setCustomer_id(Long customer_id)
+{
+	this.customer_id = customer_id;
+}
+public Long getCommerical_opportunity_id()
+{
+	return commerical_opportunity_id;
+}
+public void setCommerical_opportunity_id(Long commerical_opportunity_id)
+{
+	this.commerical_opportunity_id = commerical_opportunity_id;
+}
+public String getContact_name()
+{
+	return contact_name;
+}
+public void setContact_name(String contact_name)
+{
+	this.contact_name = contact_name;
+}
+public String getContact_sex()
+{
+	return contact_sex;
+}
+public void setContact_sex(String contact_sex)
+{
+	this.contact_sex = contact_sex;
+}
+public Timestamp getContact_birthday()
+{
+	return contact_birthday;
+}
+public void setContact_birthday(Timestamp contact_birthday)
+{
+	this.contact_birthday = contact_birthday;
+}
+public String getContact_telephone()
+{
+	return contact_telephone;
+}
+public void setContact_telephone(String contact_telephone)
+{
+	this.contact_telephone = contact_telephone;
+}
+public String getContact_email()
+{
+	return contact_email;
+}
+public void setContact_email(String contact_email)
+{
+	this.contact_email = contact_email;
+}
+public String getRecord_account()
+{
+	return record_account;
+}
+public void setRecord_account(String record_account)
+{
+	this.record_account = record_account;
+}
+public Timestamp getRecord_time()
+{
+	return record_time;
+}
+public void setRecord_time(Timestamp record_time)
+{
+	this.record_time = record_time;
+}
+@Override
+public String toString()
+{
+	return JSON.toJSONString(this);
+}
+}
+
