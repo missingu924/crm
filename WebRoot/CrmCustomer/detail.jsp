@@ -454,7 +454,7 @@
 						<%=DictionaryUtil.getDictValueByDictKey("商机字典",o.getCommercial_oppotunity_id()+"")%>
 						<%} %></td>  
 					<td><%=TimeUtil.date2str(o.getActivity_date(),"yyyy-MM-dd")%></td>
-					<td><%=StringUtil.getNotEmptyStr(o.getParticipant())%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getParticipant())%></td> 
 					<td><%=o.isOpportunityActivity()?DictionaryUtil.getDictValueByDictKey("销售阶段字典",o.getSale_stage_code()+""):""%></td>  
 					<td title="<%=StringUtil.getNotEmptyStr(o.getActivity_content())%>">
 					<%=StringUtil.getNotEmptyStr(o.getActivity_content(),10)%>
