@@ -133,7 +133,7 @@
 						<input name="contract_sign_time" type="text" id="contract_sign_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getContract_sign_time(),"yyyy-MM-dd"),TimeUtil.nowTime2str("yyyy-MM-dd"))%>" size="12" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" > 
 						<font color="red">*</font>					</td> 
 				    <td><%=domainInstance.getPropertyCnName("is_finished") %>: </td>
-				    <td><%=DictionaryUtil.getSelectHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), "0"))%> <font color="red">*</font></td>
+				    <td><%=DictionaryUtil.getSelectHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), "否"))%> <font color="red">*</font></td>
 			    </tr> 
 				<tr> 
 					<td><%=domainInstance.getPropertyCnName("contract_price") %>: </td> 

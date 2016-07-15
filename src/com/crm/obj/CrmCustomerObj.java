@@ -1,17 +1,26 @@
 package com.crm.obj;
 
+import java.beans.PropertyDescriptor;
 import java.sql.Timestamp;
 import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
+import com.wuyg.common.util.MyBeanUtils;
+import com.wuyg.common.util.StringUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSON;
 
 public class CrmCustomerObj extends BaseDbObj
 {
+	private Logger logger = Logger.getLogger(getClass());
 	private Long id;
 	private String customer_full_name;
 	private String customer_type_code;
@@ -309,7 +318,7 @@ public class CrmCustomerObj extends BaseDbObj
 	{
 		return JSON.toJSONString(this);
 	}
-	
+
 	// 联系人
 	public List<CrmContactObj> findContactList()
 	{
@@ -325,6 +334,14 @@ public class CrmCustomerObj extends BaseDbObj
 
 		return dao.searchByClause(CrmCommercialOpportunityObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
 	}
+	
+	// 变更记录
+	public List<CrmContactObj> findChangeLogList()
+	{
+		IBaseDAO dao = new DefaultBaseDAO(CrmCustomerChangelogObj.class);
+
+		return dao.searchByClause(CrmCustomerChangelogObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
+	}
 
 	// 合同
 	public List<VCrmContractObj> findContractList()
@@ -333,7 +350,7 @@ public class CrmCustomerObj extends BaseDbObj
 
 		return dao.searchByClause(VCrmContractObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
 	}
-	
+
 	// 开票收款
 	public List<CrmBillObj> findBillList()
 	{
@@ -341,12 +358,38 @@ public class CrmCustomerObj extends BaseDbObj
 
 		return dao.searchByClause(CrmBillObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
 	}
-	
+
 	// 经营活动
 	public List<CrmManagementActivityObj> findActivityList()
 	{
 		IBaseDAO dao = new DefaultBaseDAO(CrmManagementActivityObj.class);
 
 		return dao.searchByClause(CrmManagementActivityObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
+	}
+
+	public String compare(CrmCustomerObj preObject)
+	{
+		String changeLog = "";
+		try
+		{
+			List<PropertyDescriptor> propertyList = MyBeanUtils.getNotNullPropertyDescriptors(this, findKeyColumnName(), null);
+
+			for (int i = 0; i < propertyList.size(); i++)
+			{
+				String pname = propertyList.get(i).getName();
+				Object currentValue = PropertyUtils.getProperty(this, pname);
+				Object preValue = PropertyUtils.getProperty(preObject, pname);
+				
+				if (!currentValue.equals(preValue))
+				{
+					changeLog += getPropertyCnName(pname) + " : 从\"" + StringUtil.getNotEmptyStr(preValue,"空值") + "\" 变更为 \"" + currentValue + "\"\n";
+				}
+			}
+
+		} catch (Exception e)
+		{
+			logger.error(e.getMessage(), e);
+		}
+		return changeLog;
 	}
 }

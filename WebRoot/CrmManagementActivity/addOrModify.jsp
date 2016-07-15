@@ -150,7 +150,7 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("participant") %>:					</td> 
 					<td colspan="3"> 
-					<%=DictionaryUtil.getSelectHtml("账号字典", "participant", StringUtil.getNotEmptyStr(domainInstance.getParticipant(), ""),true)%>
+					<%=DictionaryUtil.getSelectHtml("账号字典", "participant", StringUtil.getNotEmptyStr(domainInstance.getParticipant(), user.getAccount()),true)%>
 						<font color="red">*</font>					</td> 
 			    </tr> 
 				

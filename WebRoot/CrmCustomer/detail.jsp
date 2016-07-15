@@ -12,6 +12,7 @@
 <%@page import="com.crm.obj.CrmBillObj"%>
 <%@page import="com.crm.obj.CrmManagementActivityObj"%>
 <%@page import="com.crm.obj.CrmContactObj"%>
+<%@page import="com.crm.obj.CrmCustomerChangelogObj"%>
 <%
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();
@@ -132,6 +133,9 @@
 				<td div_id="bill_info_div" style="width: 80px">
 					开票信息
 				</td>
+				<td div_id="changelog_div" style="width: 80px">
+					变更记录
+				</td>
 				<td></td>
 			</tr>
 		</table>
@@ -243,6 +247,37 @@
 						<%=TimeUtil.date2str(domainInstance.getService_due_date(), "yyyy-MM-dd")%>
 					</td>
 				</tr>
+			</table>
+		</div>
+		
+		<%
+			d = new CrmCustomerChangelogObj();
+			dataList = domainInstance.findChangeLogList();
+		%>
+		<div id="changelog_div">
+		<table class="table table-bordered table-striped" align="center" width="100%"> 
+				<thead> 
+					<tr> 
+						<th><%=d.getPropertyCnName("record_account") %></th> 
+						<th><%=d.getPropertyCnName("record_time") %></th>
+						<th><%=d.getPropertyCnName("change_log") %></th>
+						<th>详情</th>
+					</tr> 
+				</thead> 
+				<% 
+					for (int i = 0; i < dataList.size(); i++) 
+						{ 
+						CrmCustomerChangelogObj o = (CrmCustomerChangelogObj) dataList.get(i); 
+				%> 
+				<tr> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getRecord_account())%></td>  
+					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
+					<td title="<%=StringUtil.getNotEmptyStr(o.getChange_log())%>"><%=StringUtil.getNotEmptyStr(o.getChange_log(),10)%></td> 
+					<td style="text-align:center"><input type="button"  class="button button_detail" onClick="openBigModalDialog('<%=contextPath%>/<%=d.getBasePath()%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"></td> 
+				</tr> 
+				<% 
+					} 
+				%> 
 			</table>
 		</div>
 		

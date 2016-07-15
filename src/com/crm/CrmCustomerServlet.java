@@ -13,6 +13,7 @@ import com.crm.obj.CrmBillObj;
 import com.crm.obj.CrmCommercialOpportunityObj;
 import com.crm.obj.CrmContactObj;
 import com.crm.obj.CrmContractObj;
+import com.crm.obj.CrmCustomerChangelogObj;
 import com.crm.obj.CrmCustomerObj;
 import com.crm.obj.CrmManagementActivityObj;
 import com.crm.searchcondition.CrmCustomerSearchCondition;
@@ -24,6 +25,7 @@ import com.wuyg.common.servlet.AbstractBaseServletTemplate;
 import com.wuyg.common.util.MyBeanUtils;
 import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.SystemConstant;
+import com.wuyg.common.util.TimeUtil;
 import com.wuyg.dictionary.DictionaryUtil;
 
 public class CrmCustomerServlet extends AbstractBaseServletTemplate
@@ -156,25 +158,53 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 			success = getDomainDao().update(domainInstance);
 		}
 
+		// 修改前后对比
+		if (success)
+		{
+			try
+			{
+				Object preDomainInstance = request.getSession().getAttribute("preDomainInstance");
+				if (preDomainInstance != null)
+				{
+					String changeLog = customer.compare((CrmCustomerObj) preDomainInstance);
+					logger.info("客户档案变化：\n" + changeLog);
+					if (!StringUtil.isEmpty(changeLog))
+					{
+						CrmCustomerChangelogObj changelog = new CrmCustomerChangelogObj();
+						changelog.setRecord_account(currentUser.getAccount());
+						changelog.setRecord_time(TimeUtil.nowTime2TimeStamp());
+						changelog.setCustomer_id(customer.getId() + "");
+						changelog.setChange_log(changeLog);
+
+						changelog.save();
+					}
+				}
+			} catch (Exception e)
+			{
+				logger.error(e.getMessage(), e);
+			}
+		}
+
 		// 用新的替换老的
-//		IBaseDAO contactDao = new DefaultBaseDAO(CrmContactObj.class);
-//
-//		boolean saveSuccess = false;
-//		BaseDbObj childInstance = new CrmContactObj();
-//		String[] contact_names = request.getParameterValues("contact_name");
-//		if (contact_names != null)
-//		{
-//			// 先增加
-//			List<BaseDbObj> contactList = MyBeanUtils.createInstanceListFromHttpRequest(request, domainInstance, childInstance.getClass(), contact_names.length, false);
-//			saveSuccess = contactDao.save(contactList);
-//
-//			// 再删除
-//			if (contactList.size() > 0 && saveSuccess)
-//			{
-//				// 删除属于该父对象且子对象id小于本次插入的最小id的数据
-//				contactDao.deleteByClause(childInstance.findParentKeyColumnName() + "=" + domainInstance.getKeyValue() + " and " + childInstance.findKeyColumnName() + "<" + contactList.get(0).getKeyValue());
-//			}
-//		}
+		// IBaseDAO contactDao = new DefaultBaseDAO(CrmContactObj.class);
+		//
+		// boolean saveSuccess = false;
+		// BaseDbObj childInstance = new CrmContactObj();
+		// String[] contact_names = request.getParameterValues("contact_name");
+		// if (contact_names != null)
+		// {
+		// // 先增加
+		// List<BaseDbObj> contactList = MyBeanUtils.createInstanceListFromHttpRequest(request, domainInstance, childInstance.getClass(), contact_names.length, false);
+		// saveSuccess = contactDao.save(contactList);
+		//
+		// // 再删除
+		// if (contactList.size() > 0 && saveSuccess)
+		// {
+		// // 删除属于该父对象且子对象id小于本次插入的最小id的数据
+		// contactDao.deleteByClause(childInstance.findParentKeyColumnName() + "=" + domainInstance.getKeyValue() + " and " + childInstance.findKeyColumnName() + "<" +
+		// contactList.get(0).getKeyValue());
+		// }
+		// }
 
 		// 声明是新增后转到的详情页面
 		request.setAttribute("needRefresh", true);
@@ -192,7 +222,23 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 	// 修改前查询领域对象信息
 	public void preModify4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.preModify(request, response);
+		// super.preModify(request, response);
+		// 查询
+		Object domainObj = getDomainDao().searchByKey(getDomainInstanceClz(), domainInstance.getKeyValue() + "");
+
+		if (domainObj != null)
+		{
+			request.setAttribute(DOMAIN_INSTANCE, domainObj);
+		} else
+		{
+			request.setAttribute(DOMAIN_INSTANCE, domainInstance);
+		}
+
+		// 修改前对象
+		request.getSession().setAttribute("preDomainInstance", domainObj);
+
+		// 转向
+		request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_ADD_OR_MODIFY + ".jsp").forward(request, response);
 	}
 
 	// 详情

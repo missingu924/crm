@@ -138,7 +138,7 @@
 					<td> 
 						合同是否结束:					</td> 
 					<td colspan="3"> 
-						<%=DictionaryUtil.getSelectHtml("是否字典", "is_finished", "0")%> 
+						<%=DictionaryUtil.getSelectHtml("是否字典", "is_finished", "否")%> 
 						<font color="red">*</font>					</td> 
 			    </tr> 
 			    <tr>

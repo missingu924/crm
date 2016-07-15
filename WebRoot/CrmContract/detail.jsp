@@ -37,7 +37,7 @@
               <input name="button" type="button" class="button button_modify" value="修改"/>
               </a>
               	<input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
-                <%if("0".equals(domainInstance.getIs_finished())){ %>
+                <%if("否".equals(domainInstance.getIs_finished())){ %>
                 <input name="billButton" type="button" class="button button_add" onClick="openBigModalDialog('<%=contextPath%>/CrmBill/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id() %>&commerical_opportunity_id=<%=domainInstance.getCommercial_oppotunity_id() %>&contract_id=<%=domainInstance.getKeyValue() %>')" value="开票收款"/>
            		<%} %>
             </td>

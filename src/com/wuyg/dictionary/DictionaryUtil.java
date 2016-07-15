@@ -47,6 +47,7 @@ public class DictionaryUtil
 		if (isMultiple)
 		{
 			items.remove(0);// 多选时，去掉'--请选择--'的提示
+			selectedItemKey = "," + selectedItemKey + ",";
 		}
 
 		sb.append("<select name='" + selectName + "' " + (isMultiple ? "multiple='multiple'" : "") + "size='" + (isMultiple ? items.size() : 1) + "' id='" + selectName + "' >");
@@ -269,9 +270,10 @@ public class DictionaryUtil
 
 		return values;
 	}
-	
+
 	/**
 	 * 根据前台选择的多个key值返回一个list，如输入multi:01,02,03，输出 {01,02,03}
+	 * 
 	 * @param keysWithMulti
 	 * @return
 	 */

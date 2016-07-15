@@ -225,6 +225,14 @@
 		<servlet-name>CrmContractServlet</servlet-name>
 		<url-pattern>/CrmContract/Servlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>CrmCustomerChangelogServlet</servlet-name>
+		<servlet-class>com.crm.CrmCustomerChangelogServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrmCustomerChangelogServlet</servlet-name>
+		<url-pattern>/CrmCustomerChangelog/Servlet</url-pattern>
+	</servlet-mapping>
 	
 	
 	

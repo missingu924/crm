@@ -162,14 +162,6 @@
 				</tr>
 				<%
 					}
-					if (dataList.size() > 0)
-					{
-				%>
-				<script type="text/javascript">
-					$('#followOpportunityButton').hide();
-				</script>
-				<%
-					}
 				%>
 			</table>
 
@@ -222,6 +214,7 @@
 				%>
 				<script type="text/javascript">
 					$('#createCrontractButton').hide();
+					$('#followOpportunityButton').hide();
 				</script>
 				<%
 					}

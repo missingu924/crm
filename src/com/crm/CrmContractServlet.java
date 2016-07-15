@@ -118,13 +118,13 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 			success = getDomainDao().update(domainInstance);
 		}
 
-		// 更新商机状态为 成交 ，成交 编码为 04
+		// 更新商机状态为 成交 ，
 		CrmContractObj contract = (CrmContractObj) domainInstance;
 		if (success)
 		{
 			CrmCommercialOpportunityObj opportunity = new CrmCommercialOpportunityObj();
 			opportunity.setId(StringUtil.parseLong(contract.getCommercial_oppotunity_id()));
-			opportunity.setSale_stage_code("04");
+			opportunity.setSale_stage_code("成交");
 			opportunity.update();
 		}
 
@@ -133,7 +133,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 		{
 			CrmCustomerObj customer = new CrmCustomerObj();
 			customer.setId(StringUtil.parseLong(contract.getCustomer_id()));
-			customer.setCustomer_is_deal("1");
+			customer.setCustomer_is_deal("是");
 			customer.update();
 		}
 

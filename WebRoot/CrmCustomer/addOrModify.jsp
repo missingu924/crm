@@ -149,12 +149,12 @@
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("customer_manager_account")%>:
 					</td>
-					<td><%=DictionaryUtil.getSelectHtml("账号字典", "customer_manager_account", StringUtil.getNotEmptyStr(domainInstance.getCustomer_manager_account(), ""),true)%>
+					<td><%=DictionaryUtil.getSelectHtml("账号字典", "customer_manager_account", StringUtil.getNotEmptyStr(domainInstance.getCustomer_manager_account(), user.getAccount()),true)%>
 						<font color="red">*</font>
 					</td>
 					<td><%=domainInstance.getPropertyCnName("service_engineer_account")%>:
 					</td>
-					<td><%=DictionaryUtil.getSelectHtml("账号字典", "service_engineer_account", StringUtil.getNotEmptyStr(domainInstance.getService_engineer_account(), ""),true)%>
+					<td><%=DictionaryUtil.getSelectHtml("账号字典", "service_engineer_account", StringUtil.getNotEmptyStr(domainInstance.getService_engineer_account(), user.getAccount()),true)%>
 						<font color="red">*</font>
 					</td>
 				</tr>
@@ -175,7 +175,7 @@
 					<td><%=domainInstance.getPropertyCnName("record_time")%>:
 					</td>
 					<td>
-						<input name="record_time" type="text" id="record_time" value="<%=TimeUtil.nowTime2str()%>" size="20">
+						<input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20">
 					</td>
 				</tr>
 			</table>
@@ -254,7 +254,7 @@
 						<td><%=domainInstance.getPropertyCnName("service_charge_peryear")%>:
 						</td>
 						<td>
-							<input name="service_charge_peryear" type="text" id="service_charge_peryear" value="<%=StringUtil.getNotEmptyStr(domainInstance.getService_charge_peryear(), "")%>" size="20">
+							<input name="service_charge_peryear" type="text" id="service_charge_peryear" value="<%=StringUtil.formatDouble(domainInstance.getService_charge_peryear(), 2)%>" size="20">
 						</td>
 						<td><%=domainInstance.getPropertyCnName("service_due_date")%>:
 						</td>
