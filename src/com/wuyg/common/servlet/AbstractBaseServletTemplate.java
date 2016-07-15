@@ -3,6 +3,7 @@ package com.wuyg.common.servlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.registry.infomodel.User;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
@@ -22,6 +24,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
+import com.inspur.common.dictionary.Dictionary;
+import com.wuyg.auth.obj.AuthLogOperationObj;
 import com.wuyg.auth.obj.AuthUserObj;
 import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.dao.IBaseDAO;
@@ -32,6 +36,7 @@ import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.SystemConstant;
 import com.wuyg.common.util.TimeUtil;
+import com.wuyg.dictionary.DictionaryUtil;
 
 public abstract class AbstractBaseServletTemplate extends HttpServlet
 {
@@ -73,6 +78,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public static final String BASE_METHOD_CHECK_ID = "checkId";// 检查我一性
 
 	public static final String DOMAIN_INSTANCE = "domainInstance";
+	public static final String DOMAIN_SEARCH_CONDITION = "domainSearchCondition";
 	public static final String DOMAIN_PAGINATION = "domainPagination";
 
 	@Override
@@ -135,6 +141,13 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 			// 跨域
 			response.setHeader("Access-Control-Allow-Origin", "*");
 
+			// 记录操作日志
+			if (currentUser != null && !exceptModule(domainInstance.getBasePath()))
+			{
+				// 忽略操作日志自身
+				saveOperationLog(method);
+			}
+
 			// 执行相关方法
 			if (BASE_METHOD_LIST.equals(method))
 			{
@@ -171,13 +184,46 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		}
 	}
 
+	// 以下模块不记录日志
+	private boolean exceptModule(String basePath)
+	{
+		String[] exceptModules=new String[]{"AuthLogOperation","Dictionary"};
+		return Arrays.asList(exceptModules).contains(basePath);
+	}
+
+	// 保存操作日志
+	private void saveOperationLog(String method)
+	{
+		try
+		{
+			String domainInstanceJson = JSON.toJSONString(domainInstance, true);
+//			String domainSearchConditionJson = JSON.toJSONString(domainSearchCondition, true);
+
+			AuthLogOperationObj operation = new AuthLogOperationObj();
+			operation.setUseraccount(currentUser.getAccount());
+			operation.setUsername(currentUser.getName());
+			operation.setUserdepartmentcode(currentUser.getDepartmentcode());
+			operation.setModule_name(domainInstance.getCnName());
+			operation.setModule_method(method);
+			operation.setFull_info(domainInstanceJson);
+			operation.setTimestamp(TimeUtil.nowTime2TimeStamp());
+
+			operation.save();
+		} catch (Exception e)
+		{
+			log.error(e.getMessage(), e);
+		}
+	}
+
 	// 查询
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// 查询
-		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, true, domainInstance.findDefaultOrderBy(), domainSearchCondition.getPageNo(), domainSearchCondition.getPageCount());// 使用like构造条件
+		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, true, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), domainSearchCondition.getPageNo(),
+				domainSearchCondition.getPageCount());// 使用like构造条件
 
 		request.setAttribute(DOMAIN_INSTANCE, domainInstance);
+		request.setAttribute(DOMAIN_SEARCH_CONDITION, domainSearchCondition);
 		request.setAttribute(DOMAIN_PAGINATION, domainPagination);
 
 		// 转向
@@ -251,6 +297,9 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		if (domainObj != null)
 		{
 			request.setAttribute(DOMAIN_INSTANCE, domainObj);
+		} else
+		{
+			request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 		}
 
 		// 转向
@@ -274,6 +323,12 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 			request.setAttribute(DOMAIN_INSTANCE, domainObj);
 		}
 
+		// 传递needRefresh
+		if (request.getAttribute("needRefresh") == null)
+		{
+			request.setAttribute("needRefresh", request.getParameter("needRefresh"));
+		}
+
 		// 转向
 		if ("true".equalsIgnoreCase(request.getParameter("4m")))
 		{
@@ -289,6 +344,9 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		int successCount = getDomainDao().deleteByKey(domainInstanceKeyValue);
+
+		// 传递needRefresh
+		request.setAttribute("needRefresh", true);
 
 		// 转向
 		if (successCount > 0)
@@ -319,11 +377,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public void export(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// 导出时不限条数，放到最大值
-		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, domainInstance.findDefaultOrderBy(), 1, Integer.MAX_VALUE);
-
-		// RequestUtil.downloadFile(this, response,
-		// domainPagination.getDataList(), domainInstance.getProperties(),
-		// StringUtil.getNotEmptyStr(domainInstance.getCnName(), "明细数据"));
+		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), 1, Integer.MAX_VALUE);
 
 		RequestUtil.downloadFile(this, response, domainPagination.getDataList(), getDomainInstanceClz());
 	}

@@ -6,7 +6,11 @@
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.crm.obj.CrmBillObj"%> 
+<%@page import="com.crm.obj.CrmBillObj"%>
+<%@page import="com.wuyg.common.util.TimeUtil"%>
+<%@page import="com.crm.searchcondition.CrmBillSearchCondition"%> 
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%> 
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -14,12 +18,17 @@
  
 	// 该功能对象实例 
 	CrmBillObj domainInstance = (CrmBillObj) request.getAttribute("domainInstance"); 
+	// 该功能对象查询条件实例
+	CrmBillSearchCondition domainSearchCondition = (CrmBillSearchCondition) request.getAttribute("domainSearchCondition"); 
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
  
 	// 查询结果 
 	PaginationObj pagination = null; 
 	List list = new ArrayList(); 
+	
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
  
 	Object paginationObj = request.getAttribute("domainPagination"); 
 	if (paginationObj != null) 
@@ -46,37 +55,31 @@
 				<tr> 
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("customer_id") %> 
-						<%=DictionaryUtil.getSelectHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("commerical_opportunity_id") %> 
-						<%=DictionaryUtil.getSelectHtml("商机字典", "commerical_opportunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommerical_opportunity_id(), ""))%> 
-						&nbsp;  
+						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""),user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%>
+						&nbsp; 
 						<%=domainInstance.getPropertyCnName("contract_id") %> 
-						<%=DictionaryUtil.getSelectHtml("合同字典", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""))%> 
+						<%=DictionaryUtil.getInputHtml("合同字典", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""),"客户字典","customer_id",user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",10)%>
 						&nbsp;  
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
-					</td> 
-					<td align="right"> 
-						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
-						<%if(list.size()>0){ %> 
-						<input name="deleteAllButton" type="button" class="button button_delete" value="全删" onClick="if(confirm('您确认要删除本次查询出的 <%=list.size() %> 条数据吗?')){$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=deleteAll4this').submit();}"> 
-						<%} %> 
+						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)">
 					</td> 
 				</tr> 
 			</table> 
  
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
-					<tr> 
-						<th><%=domainInstance.getPropertyCnName("id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("customer_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("commerical_opportunity_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("contract_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("bill_money") %></th> 
-						<th><%=domainInstance.getPropertyCnName("gather_money") %></th> 
-						<th><%=domainInstance.getPropertyCnName("record_account") %></th> 
-						<th><%=domainInstance.getPropertyCnName("record_time") %></th> 
-						<th>操作</th> 
+					<tr>
+						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(),"") %>">
+						<th onClick="sortBy(this)" db_col="contract_id" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_id") %>"><%=domainInstance.getPropertyCnName("contract_id") %></th> 
+						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id") %>"><%=domainInstance.getPropertyCnName("customer_id") %></th> 
+						<th onClick="sortBy(this)" db_col="commerical_opportunity_id" class="<%=domainSearchCondition.getSortClassByDbColumn("commerical_opportunity_id") %>"><%=domainInstance.getPropertyCnName("commerical_opportunity_id") %></th> 
+						<th onClick="sortBy(this)" db_col="bill_money" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_money") %>"><%=domainInstance.getPropertyCnName("bill_money") %></th> 
+						<th onClick="sortBy(this)" db_col="gather_money" class="<%=domainSearchCondition.getSortClassByDbColumn("gather_money") %>"><%=domainInstance.getPropertyCnName("gather_money") %></th> 
+						<th onClick="sortBy(this)" db_col="comment" class="<%=domainSearchCondition.getSortClassByDbColumn("comment") %>"><%=domainInstance.getPropertyCnName("comment") %></th> 
+						<th onClick="sortBy(this)" db_col="record_account" class="<%=domainSearchCondition.getSortClassByDbColumn("record_account") %>"><%=domainInstance.getPropertyCnName("record_account") %></th> 
+						<th onClick="sortBy(this)" db_col="record_time" class="<%=domainSearchCondition.getSortClassByDbColumn("record_time") %>"><%=domainInstance.getPropertyCnName("record_time") %></th> 
+						<th>详情</th>
 					</tr> 
 				</thead> 
 				<% 
@@ -85,25 +88,15 @@
 							CrmBillObj o = (CrmBillObj) list.get(i); 
 				%> 
 				<tr> 
-					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
-					</td> 
-					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td>  
-					<td><%=DictionaryUtil.getDictValueByDictKey("商机字典",o.getCommerical_opportunity_id()+"")%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("合同字典",o.getContract_id()+"")%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getBill_money())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getGather_money())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getRecord_account())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getRecord_time())%></td> 
-					<td width="80" style="text-align:center"> 
-						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
-						&nbsp; 
-						<input type="button" class="button button_delete" title="删除" 
-							onClick="javascript: 
-								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
-								$('#pageForm').submit(); 
-								" /> 
-					</td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("商机字典",o.getCommerical_opportunity_id()+"")%></td>  
+					<td style="text-align:right"><%=StringUtil.formatDouble(o.getBill_money(),2)%></td> 
+					<td style="text-align:right"><%=StringUtil.formatDouble(o.getGather_money(),2)%></td>
+					<td title="<%=StringUtil.getNotEmptyStr(o.getComment())%>"><%=StringUtil.getNotEmptyStr(o.getComment(),10)%></td>  
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典", o.getRecord_account())%></td> 
+					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
+					<td style="text-align:center"><input type="button"  class="button button_detail" title="详情" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"></td>
 				</tr> 
 				<% 
 					} 

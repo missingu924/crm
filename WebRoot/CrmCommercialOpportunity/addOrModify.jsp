@@ -1,43 +1,50 @@
-<!DOCTYPE html> 
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage=""%> 
-<!-- 引入类 -->  
-<%@page import="java.util.List"%> 
-<%@page import="java.util.ArrayList"%> 
-<%@page import="com.wuyg.common.util.StringUtil"%> 
-<%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.crm.obj.CrmCommercialOpportunityObj"%> 
-<!-- 基本信息 -->  
-<% 
+<!DOCTYPE html>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage=""%>
+<!-- 引入类 -->
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.wuyg.common.util.StringUtil"%>
+<%@page import="com.wuyg.dictionary.DictionaryUtil"%>
+<%@page import="com.crm.obj.CrmCommercialOpportunityObj"%>
+<%@page import="com.wuyg.common.util.TimeUtil"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
+<!-- 基本信息 -->
+<%
 	// 上下文路径 
-	String contextPath = request.getContextPath(); 
-	 
+	String contextPath = request.getContextPath();
+
 	// 对象实例 
-	CrmCommercialOpportunityObj domainInstance = new CrmCommercialOpportunityObj(); 
+	CrmCommercialOpportunityObj domainInstance = new CrmCommercialOpportunityObj();
 	// 该功能基本路径 
-	String basePath = domainInstance.getBasePath(); 
- 
+	String basePath = domainInstance.getBasePath();
+
 	// 如果是修改，则获取对象信息 
-	Object domainInstanceObj = request.getAttribute("domainInstance"); 
-	if (domainInstanceObj != null) 
-	{ 
-		domainInstance = (CrmCommercialOpportunityObj) domainInstanceObj; 
-	} 
- 
+	Object domainInstanceObj = request.getAttribute("domainInstance");
+	if (domainInstanceObj != null)
+	{
+		domainInstance = (CrmCommercialOpportunityObj) domainInstanceObj;
+	}
+
 	// 是否是修改 
-	boolean isModify = domainInstance.getKeyValue() > 0; 
+	boolean isModify = domainInstance.getKeyValue() > 0;
 	// 唯一性检查用的字段 
-	String keyCol = "null"; 
-%> 
-<html> 
-	<head> 
-		<base target="_self" /> 
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />		<title><%=isModify ? "修改" + domainInstance.getCnName() : "增加" + domainInstance.getCnName()%></title> 
-		<link href="../css/global.css" rel="stylesheet" type="text/css"> 
-		<link href="../css/table.css" rel="stylesheet" type="text/css"> 
-		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script> 
-		<script type="text/javascript" src="../js/utils.js"></script> 
-		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script> 
+	String keyCol = "null";
+
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+%>
+<html>
+	<head>
+		<base target="_self" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />
+		<title><%=isModify ? "修改" + domainInstance.getCnName() : "增加" + domainInstance.getCnName()%></title>
+		<link href="../css/global.css" rel="stylesheet" type="text/css">
+		<link href="../css/table.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="../js/utils.js"></script>
+		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
 		<script> 
 		//  新增或修改 
 		function addOrModify() 
@@ -83,122 +90,104 @@
 		{ 
 					$("#addOrModifyForm").submit(); 
 		} 
-		</script> 
-	</head> 
-	<body> 
-		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post"> 
-			<!-- 表格标题 --> 
-			<table width="700" align="center" class="title_table"> 
-				<tr> 
-					<td> 
-						<img src="../images/svg/heavy/green/list.png" width="18" height="18" align="absmiddle"> 
-						&nbsp;&nbsp;<%=isModify ? "修改" : "增加"%><%=domainInstance.getCnName()%> 
-					</td> 
+		</script>
+	</head>
+	<body>
+		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post">
+			<!-- 表格标题 -->
+			<table width="800" align="center" class="title_table">
+				<tr>
+					<td>
+						<%=isModify ? "修改" : "增加"%><%=domainInstance.getCnName()%>
+					</td>
 				</tr>
-			</table> 
- 
-			<!-- 详细信息 --> 
-			<table width="700" align="center" class="detail_table detail_table-bordered"> 
-				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>"> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("customer_id") %>: 
-					</td> 
-					<td> 
-						<%=DictionaryUtil.getSelectHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""))%> 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("opportunity_name") %>: 
-					</td> 
-					<td> 
-						<input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name(),"")%>" size="20"  > 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("management_type_code") %>: 
-					</td> 
-					<td> 
-						<%=DictionaryUtil.getSelectHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%> 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("sale_stage_code") %>: 
-					</td> 
-					<td> 
-						<%=DictionaryUtil.getSelectHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%> 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("target_price") %>: 
-					</td> 
-					<td> 
-						<input name="target_price" type="text" id="target_price" value="<%=StringUtil.getNotEmptyStr(domainInstance.getTarget_price(),"")%>" size="20"  > 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("estimate_sign_time") %>: 
-					</td> 
-					<td> 
-						<input name="estimate_sign_time" type="text" id="estimate_sign_time" value="<%=StringUtil.getNotEmptyStr(domainInstance.getEstimate_sign_time(),"")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" > 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("management_account") %>: 
-					</td> 
-					<td> 
-						<%=DictionaryUtil.getSelectHtml("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), ""))%> 
-						<font color="red">*</font> 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("customer_request") %>: 
-					</td> 
-					<td> 
-						<input name="customer_request" type="text" id="customer_request" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(),"")%>" size="20"  > 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("next_step") %>: 
-					</td> 
-					<td> 
-						<input name="next_step" type="text" id="next_step" value="<%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(),"")%>" size="20"  > 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("record_account") %>: 
-					</td> 
-					<td> 
-						<input name="record_account" type="text" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(),"")%>" size="20"  > 
-					</td> 
-				</tr> 
-				<tr> 
-					<td> 
-						<%=domainInstance.getPropertyCnName("record_time") %>: 
-					</td> 
-					<td> 
-						<input name="record_time" type="text" id="record_time" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_time(),"")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" > 
-					</td> 
-				</tr> 
-			</table> 
-			 
-			<!-- 工具栏 --> 
-			<jsp:include page="../ToolBar/addOrModify_toolbar.jsp" /> 
-		</form> 
-	</body> 
-</html> 
+			</table>
+
+			<!-- 详细信息 -->
+			<table width="800" align="center" class="detail_table detail_table-bordered">
+				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>">
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("opportunity_name")%>:
+					</td>
+					<td colspan="5">
+						<input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name(), "")%>" size="50">
+						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("customer_id")%>:
+					</td>
+					<td colspan="5"><%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), 50)%>
+						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("management_account")%>:
+					</td>
+					<td><%=DictionaryUtil.getInputHtmlReadOnly("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), user.getAccount()),20)%>
+						<font color="red">*</font>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("management_type_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getSelectHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%>
+						<font color="red">*</font>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("sale_stage_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getSelectHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%>
+						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("target_price")%>:
+					</td>
+					<td>
+						<input name="target_price" type="text" id="target_price" value="<%=StringUtil.formatDouble(domainInstance.getTarget_price(), 2)%>" size="20">
+						<font color="red">*</font>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%>:
+					</td>
+					<td colspan="3">
+						<input name="estimate_sign_time" type="text" id="estimate_sign_time" value="<%=TimeUtil.date2str(domainInstance.getEstimate_sign_time(), "yyyy-MM-dd")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("customer_request")%>:
+					</td>
+					<td colspan="5">
+						<textarea name="customer_request" cols="52" rows="3" id="customer_request"><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(), "")%></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("next_step")%>:
+					</td>
+					<td colspan="5">
+						<textarea name="next_step" cols="52" rows="3" id="next_step"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(), "")%></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("record_account")%>:
+					</td>
+					<td>
+						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="20">
+						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">
+					</td>
+					<td>
+						<%=domainInstance.getPropertyCnName("record_time")%>:
+					</td>
+					<td colspan="3">
+						<input name="record_time" type="text" readOnly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20">
+					</td>
+				</tr>
+			</table>
+
+			<!-- 工具栏 -->
+			<jsp:include page="../ToolBar/addOrModify_toolbar.jsp" />
+		</form>
+	</body>
+</html>

@@ -34,5 +34,5 @@ public interface IDictionaryService
 	 *            目的字典中与源字典关联的字段名
 	 * @return
 	 */
-	public List<DictItem> getDictItemsFromTo(String fromDictName, String toDictName, String fromDictKey, boolean addItemForAll);
+	public List<DictItem> getDictItemsFromTo(String fromDictName, String toDictName, String fromDictKey, String dbFilter, boolean addItemForAll);
 }

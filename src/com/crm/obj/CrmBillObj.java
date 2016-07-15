@@ -8,9 +8,10 @@ import com.alibaba.fastjson.JSON;
 public class CrmBillObj extends BaseDbObj
 {
 private Long id;
-private Long customer_id;
-private Long commerical_opportunity_id;
-private Long contract_id;
+private String customer_id;
+private String commerical_opportunity_id;
+private String contract_id;
+private String comment;
 private Double bill_money;
 private Double gather_money;
 private String record_account;
@@ -59,6 +60,7 @@ public LinkedHashMap<String, String> findProperties()
 		pros.put("customer_id", "客户");
 		pros.put("commerical_opportunity_id", "商机");
 		pros.put("contract_id", "合同");
+		pros.put("comment", "备注");
 		pros.put("bill_money", "本次开票金额");
 		pros.put("gather_money", "本次收款金额");
 		pros.put("record_account", "录入人");
@@ -73,27 +75,36 @@ public void setId(Long id)
 {
 	this.id = id;
 }
-public Long getCustomer_id()
+public String getCustomer_id()
 {
 	return customer_id;
 }
-public void setCustomer_id(Long customer_id)
+public void setCustomer_id(String customer_id)
 {
 	this.customer_id = customer_id;
 }
-public Long getCommerical_opportunity_id()
+public String getCommerical_opportunity_id()
 {
 	return commerical_opportunity_id;
 }
-public void setCommerical_opportunity_id(Long commerical_opportunity_id)
+
+public String getComment()
+{
+	return comment;
+}
+public void setComment(String comment)
+{
+	this.comment = comment;
+}
+public void setCommerical_opportunity_id(String commerical_opportunity_id)
 {
 	this.commerical_opportunity_id = commerical_opportunity_id;
 }
-public Long getContract_id()
+public String getContract_id()
 {
 	return contract_id;
 }
-public void setContract_id(Long contract_id)
+public void setContract_id(String contract_id)
 {
 	this.contract_id = contract_id;
 }

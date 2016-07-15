@@ -38,56 +38,137 @@ public class DictionaryUtil
 	 * @param selectedItemKey
 	 * @return
 	 */
-	public static String getSelectHtml(String dictName, String selectName, String selectedItemKey)
+	public static String getSelectHtml(String dictName, String selectName, String selectedItemKey, boolean isMultiple)
 	{
 		List<DictItem> items = new DictionaryService().getDictItemsByDictName(dictName, false);
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("<select name='" + selectName + "' size='1' id='" + selectName + "' >");
+		if (isMultiple)
+		{
+			items.remove(0);// 多选时，去掉'--请选择--'的提示
+		}
+
+		sb.append("<select name='" + selectName + "' " + (isMultiple ? "multiple='multiple'" : "") + "size='" + (isMultiple ? items.size() : 1) + "' id='" + selectName + "' >");
+
 		for (int i = 0; i < items.size(); i++)
 		{
 			DictItem item = items.get(i);
 
-			sb.append("<option value='" + item.getK() + "' " + (item.getK().equals(selectedItemKey) ? "selected='selected'" : "") + ">" + item.getV() + "</option>");
+			boolean selected = false;
+			if (isMultiple)
+			{
+				selected = selectedItemKey.contains("," + item.getK() + ",");
+			} else
+			{
+				selected = item.getK().equals(selectedItemKey);
+			}
+
+			sb.append("<option value='" + item.getK() + "' " + (selected ? "selected='selected'" : "") + ">" + item.getV() + "</option>");
 		}
 		sb.append("</select>");
 
 		return sb.toString();
 	}
 
-	/**
-	 * 获取输入及显示内容html
-	 * 
-	 * @param dictName
-	 * @param inputName
-	 * @param inputValue
-	 * @return
-	 */
+	public static String getSelectHtml(String dictName, String selectName, String selectedItemKey, String dbFilter, boolean isMultiple)
+	{
+		List<DictItem> items = new DictionaryService().getDictItemsByDictName(dictName, dbFilter, false);
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("<select name='" + selectName + "' " + (isMultiple ? "multiple='multiple'" : "") + "size='" + (isMultiple ? items.size() : 1) + "' id='" + selectName + "' >");
+		for (int i = 0; i < items.size(); i++)
+		{
+			DictItem item = items.get(i);
+
+			boolean selected = false;
+			if (isMultiple)
+			{
+				selected = selectedItemKey.contains("," + item.getK() + ",");
+			} else
+			{
+				selected = item.getK().equals(selectedItemKey);
+			}
+
+			sb.append("<option value='" + item.getK() + "' " + (selected ? "selected='selected'" : "") + ">" + item.getV() + "</option>");
+		}
+		sb.append("</select>");
+
+		return sb.toString();
+	}
+
+	public static String getSelectHtml(String dictName, String selectName, String selectedItemKey)
+	{
+		return getSelectHtml(dictName, selectName, selectedItemKey, false);
+	}
+
+	public static String getInputHtml(String dictName, String inputName, String inputValue, int size)
+	{
+		return getInputHtml(dictName, inputName, inputValue, null, null, size);
+	}
+
 	public static String getInputHtml(String dictName, String inputName, String inputValue)
 	{
-		return getInputHtml(dictName, inputName, inputValue, null, null);
+		return getInputHtml(dictName, inputName, inputValue, null, null, 10);
+	}
+
+	public static String getInputHtml(String dictName, String inputName, String inputValue, String dbFilter)
+	{
+		return getInputHtml(dictName, inputName, inputValue, null, null, dbFilter, 10);
+	}
+
+	public static String getInputHtmlReadOnly(String dictName, String inputName, String inputValue, int size)
+	{
+		StringBuffer sb = new StringBuffer();
+
+		String inputName4show = inputName + "_4show";
+		sb.append("<input type=\"text\" id=\"" + inputName4show + "\" name=\"" + inputName4show + "\" value=\"" + getValueByKey(dictName, inputValue) + "\" readOnly size=\"" + size + "\"> \n");
+		sb.append("<input type=\"hidden\" id=\"" + inputName + "\" name=\"" + inputName + "\" value=\"" + inputValue + "\"> \n");
+
+		return sb.toString();
 	}
 
 	/**
 	 * 获取输入及显示内容html
 	 * 
 	 * @param dictName
+	 *            字典名
 	 * @param inputName
+	 *            输入input字段名
 	 * @param inputValue
+	 *            输入input字段值
+	 * @param parentDictName
+	 *            父字典名
+	 * @param parentDictInputName
+	 *            父字典的input字段名
+	 * @param dbFilter
+	 *            据库过滤条件
+	 * @param size
+	 *            input宽度
 	 * @return
 	 */
-	public static String getInputHtml(String dictName, String inputName, String inputValue, String parentDictName, String parentDictInputName)
+	public static String getInputHtml(String dictName, String inputName, String inputValue, String parentDictName, String parentDictInputName, String dbFilter, int size)
 	{
 		StringBuffer sb = new StringBuffer();
 
 		String inputName4show = inputName + "_4show";
-		sb.append("<input type=\"text\" id=\"" + inputName4show + "\" name=\"" + inputName4show + "\" value=\"" + getValueByKey(dictName, inputValue) + "\" onclick=\"selectFromDictionary('" + dictName + "','" + inputName + "','" + inputName4show + "'"
-				+ (!StringUtil.isEmpty(parentDictName) ? (",'" + parentDictName + "',$('#" + parentDictInputName) + "').val()" : "") + ")\" readOnly><input id=\"" + inputName + "_clear_btn\" type=\"button\" class=\"button button_clear\" title=\"重置\" onclick=\"$('#" + inputName + "').val('');$('#"
-				+ inputName4show + "').val('');\" > \n");
+		sb.append("<input type=\"text\" id=\"" + inputName4show + "\" name=\"" + inputName4show + "\" value=\"" + getValueByKey(dictName, inputValue) + "\" onclick=\"selectFromDictionary('" + dictName + "','" + inputName + "','" + inputName4show + "',"
+				+ (!StringUtil.isEmpty(parentDictName) ? ("'" + parentDictName + "',$('#" + parentDictInputName) + "').val()," : "'','',") + (!StringUtil.isEmpty(dbFilter) ? ("'" + dbFilter + "'") : "''") + ")\" readOnly size=\"" + size + "\"><input id=\"" + inputName
+				+ "_clear_btn\" type=\"button\" class=\"button button_clear\" title=\"重置\" onclick=\"$('#" + inputName + "').val('');$('#" + inputName4show + "').val('');\"> \n");
 		sb.append("<input type=\"hidden\" id=\"" + inputName + "\" name=\"" + inputName + "\" value=\"" + inputValue + "\"> \n");
 
 		return sb.toString();
+	}
+
+	public static String getInputHtml(String dictName, String inputName, String inputValue, String parentDictName, String parentDictInputName, int size)
+	{
+		return getInputHtml(dictName, inputName, inputValue, parentDictName, parentDictInputName, null, size);
+	}
+
+	public static String getInputHtml(String dictName, String inputName, String inputValue, String parentDictName, String parentDictInputName)
+	{
+		return getInputHtml(dictName, inputName, inputValue, parentDictName, parentDictInputName, 20);
 	}
 
 	public static String getDictValueByDictKey(String dictName, String key)
@@ -107,29 +188,45 @@ public class DictionaryUtil
 		return getDictValueByDictKey(dictName, key, showKey, dbName);
 	}
 
-	public static String getDictValueByDictKey(String dictName, String key, boolean showKey, String dbName)
+	public static String getDictValueByDictKey(String dictName, String keys, boolean showKey, String dbName)
 	{
 		try
 		{
-			if (StringUtil.isEmpty(key))
+			if (StringUtil.isEmpty(keys))
 			{
 				return "";
 			}
-			
+
 			Dictionary dictionary = new Dictionary();
-			
-			// 先从缓存中取，如果取不到再从数据库中取
-			String value = dictionary.getDictValueByDictKeyFromCache(dictName, key);
-			if (StringUtil.isEmpty(value))
+
+			String values = "";
+
+			List<String> keyList = StringUtil.getStringListByString(keys);
+
+			for (int i = 0; i < keyList.size(); i++)
 			{
-				DataSource ds = MySqlUtil.getDataSource(dbName);
-				value = dictionary.getDictValueByDictKeyFromDb(dictName, key, ds);
+				String key = keyList.get(i);
+				// 先从缓存中取，如果取不到再从数据库中取
+				String value = dictionary.getDictValueByDictKeyFromCache(dictName, key);
+				if (StringUtil.isEmpty(value))
+				{
+					DataSource ds = MySqlUtil.getDataSource(dbName);
+					value = dictionary.getDictValueByDictKeyFromDb(dictName, key, ds);
+				}
+				if (showKey && !StringUtil.isEmpty(value))
+				{
+					value += "(" + key + ")";
+				}
+
+				values += value + ",";
 			}
-			if (showKey && !StringUtil.isEmpty(value))
+
+			if (values.length() > 0)
 			{
-				value += "(" + key + ")";
+				values = values.substring(0, values.length() - 1);
 			}
-			return value;
+
+			return values;
 		} catch (Exception e)
 		{
 			logger.error(e.getMessage(), e);
@@ -137,25 +234,73 @@ public class DictionaryUtil
 		return "";
 	}
 
-	private static String getValueByKey(String dictName, String key)
+	private static String getValueByKey(String dictName, String keys)
 	{
-		if (key == null || key.length() == 0)
+		if (keys == null || keys.length() == 0)
 		{
 			return "";
 		}
 
+		List<String> keyList = StringUtil.getStringListByString(keys.replaceFirst("multi:", ""));
+
 		List<DictItem> items = new DictionaryService().getDictItemsByDictName(dictName, false);
 
-		for (int i = 0; i < items.size(); i++)
+		String values = "";
+		for (int n = 0; n < keyList.size(); n++)
 		{
-			DictItem item = items.get(i);
+			String key = keyList.get(n);
 
-			if (key.equalsIgnoreCase(item.getK()))
+			for (int i = 0; i < items.size(); i++)
 			{
-				return item.getV();
+				DictItem item = items.get(i);
+
+				if (key.equalsIgnoreCase(item.getK()))
+				{
+					values += item.getV() + ",";
+					break;
+				}
 			}
 		}
 
-		return "";
+		if (values.length() > 0)
+		{
+			values = values.substring(0, values.length() - 1);
+		}
+
+		return values;
+	}
+	
+	/**
+	 * 根据前台选择的多个key值返回一个list，如输入multi:01,02,03，输出 {01,02,03}
+	 * @param keysWithMulti
+	 * @return
+	 */
+	public static List<String> getKeyListFromMultiSelect(String keysWithMulti)
+	{
+		return StringUtil.getStringListByString(keysWithMulti.replaceFirst("multi:", ""));
+	}
+
+	/**
+	 * 清除缓存
+	 */
+	public static void clearCache()
+	{
+		new Dictionary().clearCache();
+	}
+
+	/**
+	 * 清除缓存
+	 */
+	public static void clearCache(String dictName)
+	{
+		new Dictionary().clearCache(dictName);
+	}
+
+	/**
+	 * 清除缓存
+	 */
+	public static void clearCacheByTablename(String tableName)
+	{
+		new Dictionary().clearCacheByTablename(tableName);
 	}
 }

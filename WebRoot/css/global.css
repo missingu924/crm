@@ -22,16 +22,22 @@ body {
   font-size: 12px;
 }
 /*-----------------------------------*\
+A
+\*-----------------------------------*/
+A.noline:link{text-decoration:none;}
+A.noline::visited{text-decoration:none;}
+A.noline::active{text-decoration:none;}
+/*-----------------------------------*\
   button
 \*-----------------------------------*/
 .button {
-  color: #666666;
+  color: #555555;
   background: transparent;
   border: 0px;
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: left;
-  padding-left: 18px;
+  padding: 0 6px 0 18px;
   font-size: 12px;
   height:20px;
 }
@@ -44,11 +50,18 @@ body {
 .button_add:hover {
   background-image: url(../images/svg/light/orange/16/plus_circle.png);
 }
+
 .button_add_square {
   background-image: url(../images/svg/light/gray/16/plus_square.png);
 }
 .button_add_square:hover {
   background-image: url(../images/svg/light/orange/16/plus_square.png);
+}
+.button_detail {
+  background-image: url(../images/svg/light/gray/16/note_text.png);
+}
+.button_detail:hover {
+  background-image: url(../images/svg/light/orange/16/note_text.png);
 }
 .button_modify {
   background-image: url(../images/svg/light/gray/16/new.png);
@@ -124,6 +137,12 @@ body {
 }
 .button_clear:hover  {
   background-image: url(../images/svg/light/orange/12/replay.png);
+}
+.button_user {
+  background-image: url(../images/svg/light/gray/16/user.png);
+}
+.button_user:hover  {
+  background-image: url(../images/svg/light/orange/16/user.png);
 }
 .green_button {
   background: #38B162;
@@ -211,7 +230,7 @@ td.little_gray_font {
   background-color: #f0f8ff;
 }
 .menu_header_not_expand {
-  color: #666666;
+  color: #000000;
   padding: 10px 5px 5px 20px;
   background-image: url(../images/pagination_icons_down_green.png);
   background-position: left;
@@ -219,7 +238,7 @@ td.little_gray_font {
   cursor: pointer;
 }
 .menu_header_expand {
-  color: #666666;
+  color: #000000;
   padding: 10px 5px 5px 20px;
   background-image: url(../images/pagination_icons_next_green.png);
   background-position: left;
@@ -235,9 +254,14 @@ td.little_gray_font {
   background: #FFF;
   cursor: pointer;
   padding: 8px 4px 8px 10px;
+  font-weight: bold;
+  border-top:1px solid #f0f0f0;
+  border-bottom:1px solid #f0f0f0;
+  border-left:8px solid #0055a8;
+  border-right:0px;
 }
 .menu_not_selected {
-  color: #000;
+  color: #555555;
   cursor: pointer;
   padding: 8px 4px 8px 10px;
 }
@@ -250,7 +274,7 @@ textarea,
 select {
   display: inline-block;
   padding: 6px;
-  color: #555555;
+  color: #000000;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -279,7 +303,7 @@ table style
 }
 .table th,
 .table td {
-  padding: 6px 0px 6px 8px;
+  padding: 6px 8px 6px 8px;
   line-height: 18px;
   text-align: left;
   vertical-align: middle;
@@ -289,6 +313,7 @@ table style
   font-weight: bold;
   text-align: center;
   background-color: #f0f0f0;
+  cursor: pointer;
 }
 .table thead th {
   vertical-align: bottom;
@@ -303,6 +328,21 @@ table style
 }
 .table tbody + tbody {
   border-top: 2px solid #dddddd;
+}
+
+.table-sorted-none {
+	background:url(../images/sorter_none.png) no-repeat right center #f0f0f0;
+	padding:6px 10px 6px 6px;
+}
+.table-sorted-asc{
+	background:url(../images/sorter_asc.png) no-repeat right center #f0f0f0;
+	color:#FF6600;
+	padding:6px 10px 6px 6px;
+}
+.table-sorted-desc {
+	background:url(../images/sorter_desc.png) no-repeat right center #f0f0f0;
+	color:#FF6600;
+	padding:6px 10px 6px 6px;
 }
 
 .table_number {
@@ -426,6 +466,24 @@ table style
   line-height: 18px;
   vertical-align: left;
 }
+/*top tools table style*/
+.top_tools_table {
+  margin-bottom: 8px;
+  margin-top: 8px;
+  max-width: 100%;
+  /*background-color: #f0f8ff;*/
+  background-color: #cee8ff;
+  border: 0;
+}
+.top_tools_table td {
+  padding: 4px 8px 4px 8px;
+  line-height: 18px;
+  text-align: right;
+  text-decoration: none;
+}
+.top_tools_table a {
+  text-decoration: none;
+}
 /*title table style*/
 .title_table {
   margin-top: 8px;
@@ -467,6 +525,7 @@ table style
   color: #ffffff;
   background-color: #0055a8;
 }
+
 /*alert table style*/
 .alert_table {
   margin-top: 10px;
@@ -511,7 +570,7 @@ table style
   border-spacing: 0;
 }
 .detail_table td {
-  padding: 6px 6px 6px 6px;
+  padding: 8px 6px 8px 6px;
   line-height: 18px;
   vertical-align: middle;
   border-bottom: 1px solid #dddddd;

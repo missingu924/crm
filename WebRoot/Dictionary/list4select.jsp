@@ -34,8 +34,8 @@
 		<!-- 查询条件 --> 
 		<table class="search_table" align="center" width="90%"> 
 			<tr> 
-				<td align="center">
-					<input type="text" name="dict_search_input" id="dict_search_input" value="" size="40"> 
+				<td align="left">
+					检索&nbsp;&nbsp;<input type="text" name="dict_search_input" id="dict_search_input" value=""  size="40"> 
 				</td> 
 				<%if(isMultiSelect){ %>
 				<td align="right"> 
@@ -55,10 +55,7 @@
 					</th>
 				 <%} %>
 					<th>
-						编号
-					</th>
-					<th>
-						名称
+						可选项
 					</th>
 				</tr>
 			</thead>
@@ -75,20 +72,18 @@
 					DictItem item = items.get(i);
 					
 					// 没有选择过的才显示
-					if(!selectedKeys.contains(item.getK()))
-					{
+					
 			%>
 			<tr <%if(!isMultiSelect){ %>onclick="rowClick('<%=item.getK()%>','<%=item.getV()%>')"<%} %>>
 				<%if(isMultiSelect){ %>
 				<td width="40" style="text-align:center;padding:0">
-					<input type="checkbox" id="key_box" value="<%=item.getK()%>" label="<%=item.getV()%>">
+					<input type="checkbox" id="key_box" value="<%=item.getK()%>" label="<%=item.getV()%>" <%=selectedKeys.contains(item.getK())?"checked":"" %>>
 				</td>
 				 <%} %>
-				<td><%=item.getK()%></td>
 				<td><%=item.getV()%></td>
 			</tr>
 			<%
-					}
+					
 				}
 			%>
 
@@ -122,19 +117,19 @@
 		}
 		
 		// 检索框初始化
-		initDictSearchInput();	
+		//initDictSearchInput();	
 		
 		// 字典检索
 		$('#dict_search_input').bind('input propertychange',function(){dictSearch();});
 		$('#dict_search_input').click(function(){dictSearch();});
 		
 		function dictSearch(){
-			var search_value = $.trim($('#dict_search_input').val().replace(defaultValue,""));
+			var search_value = $.trim($('#dict_search_input').val());
 			
 			if(search_value!=""){
 			
 				// 替换默认以后的内容
-				setDictSearchInpuValue(search_value);
+				//setDictSearchInpuValue(search_value);
 				
 				$('#dict_table_list tr').each(function(){
 					var tr = $(this);
@@ -155,7 +150,7 @@
 			else
 			{
 				// 初始化输入框
-				initDictSearchInput();
+				//initDictSearchInput();
 				
 				$('#dict_table_list tr').each(function(){
 				
@@ -206,11 +201,14 @@
 			if(selectValue.length>0)
 			{
 				selectValue = selectValue.substring(0,selectValue.length-1);
+				window.returnValue = selectValue;
 			}
 			
-			window.returnValue = selectValue;
 			window.close();
 		}
+		
+		// 监听窗口关闭事件
+		$(window).unload(function(){confirmSelect();});
 			
 	</script>
 	</body>

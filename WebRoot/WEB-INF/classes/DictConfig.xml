@@ -6,7 +6,6 @@
 		<DictConfig isSystemDict="true" dictShowName="商机字典" dictName="商机字典" dictTable="crm_commercial_opportunity" dictKeyCol="id" dictValueCol="opportunity_name" dictOrderByCol="opportunity_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="合同字典" dictName="合同字典" dictTable="crm_contract" dictKeyCol="id" dictValueCol="contract_name" dictOrderByCol="contract_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="经营活动类型字典" dictName="经营活动类型字典" values="01=商机经营活动,02=普通经营活动"/>
-		
 		<!-- 基础档案字典，请勿修改 -->
 		<DictConfig isSystemDict="true" dictShowName="客户分类字典" dictName="客户分类字典" dictTable="dict_customer_type" dictKeyCol="customer_type_code" dictValueCol="customer_type_name" dictOrderByCol="customer_type_code" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="区域字典" dictName="区域字典" dictTable="dict_region" dictKeyCol="region_code" dictValueCol="region_name" dictOrderByCol="region_code" filter=""/>
@@ -22,6 +21,7 @@
 		<DictConfig isSystemDict="true" dictShowName="性别字典" dictName="性别字典" values="男,女"/>
 		<DictConfig isSystemDict="true" dictShowName="导入相同数据处理方式字典" dictName="导入相同数据处理方式字典" values="保持系统中数据不变,覆盖系统中相同数据"/>
 		<DictConfig isSystemDict="true" dictShowName="导入数据处理方式字典" dictName="导入数据处理方式字典" values="新增,覆盖"/>
+		<DictConfig isSystemDict="true" dictShowName="操作名字典" dictName="操作名字典" values="addOrModify4this=新增或修改,detail4this=查看详情,delete4this=删除,list4this=列表查询,preModify4this=修改前查询,export4this=数据导出"/>
 		
 		<!-- 权限字典，请勿修改 -->
 		<DictConfig isSystemDict="true" dictShowName="账号字典" dictName="账号字典" dictTable="auth_user" dictKeyCol="account" dictValueCol="name" dictOrderByCol="name" filter=""/>
@@ -35,5 +35,8 @@
 		<DictRelation fromDict="U8部门字典" toDict="U8人员字典" fromDictCol="cdepcode"/>
 		<DictRelation fromDict="U8人员字典" toDict="U8客户字典" fromDictCol="cCusPPerson"/>
 		<DictRelation fromDict="U8仓库字典" toDict="U8存货字典" fromDictCol="cDefWareHouse"/> 
+		<DictRelation fromDict="客户字典" toDict="商机字典" fromDictCol="customer_id"/> 
+		<DictRelation fromDict="客户字典" toDict="合同字典" fromDictCol="customer_id"/>
+		<DictRelation fromDict="商机字典" toDict="合同字典" fromDictCol="commerical_opportunity_id"/> 
 	</DictRelationList>
 </DictConfig>

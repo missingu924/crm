@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage=""%>
 <%@page import="com.wuyg.common.obj.PaginationObj"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%> 
 <%
 	PaginationObj pagination = null;
 
@@ -10,12 +12,17 @@
 	}
 
 	String basePath = request.getParameter("basePath");
+	
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 %>
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 		<td align="right">
+		<%if(user.hasRole("export")){ %>
 			<img src="../images/pagination_icons_save.png" title="导出全部数据" class="image_button" align="absmiddle" onClick="exportData('<%=pagination.getTotalCount()%>','<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=export4this')" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
+			<%} %>
 			<input name="pageNo" type="hidden" id="pageNo" value="<%=pagination.getPageNo()%>" size="3" />
 			<input name="pageCount" type="hidden" value="<%=pagination.getPageCount()%>" size="3" />
 			<%

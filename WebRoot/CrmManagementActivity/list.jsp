@@ -6,7 +6,11 @@
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.crm.obj.CrmManagementActivityObj"%> 
+<%@page import="com.crm.obj.CrmManagementActivityObj"%>
+<%@page import="com.wuyg.common.util.TimeUtil"%>
+<%@page import="com.crm.searchcondition.CrmManagementActivitySearchCondition"%> 
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%> 
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -14,12 +18,17 @@
  
 	// 该功能对象实例 
 	CrmManagementActivityObj domainInstance = (CrmManagementActivityObj) request.getAttribute("domainInstance"); 
+	// 该功能对象查询条件实例
+	CrmManagementActivitySearchCondition domainSearchCondition = (CrmManagementActivitySearchCondition) request.getAttribute("domainSearchCondition"); 
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
  
 	// 查询结果 
 	PaginationObj pagination = null; 
 	List list = new ArrayList(); 
+	
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
  
 	Object paginationObj = request.getAttribute("domainPagination"); 
 	if (paginationObj != null) 
@@ -46,21 +55,17 @@
 				<tr> 
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("customer_id") %> 
-						<%=DictionaryUtil.getSelectHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("activity_type") %> 
-						<%=DictionaryUtil.getSelectHtml("经营活动类型字典", "activity_type", StringUtil.getNotEmptyStr(domainInstance.getActivity_type(), ""))%> 
-						&nbsp;  
+						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""),user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%>
+						&nbsp; 
 						<%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %> 
-						<%=DictionaryUtil.getSelectHtml("商机字典", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""))%> 
+						<%=DictionaryUtil.getInputHtml("商机字典", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""),"客户字典","customer_id",user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",10)%> 
+						&nbsp; 
+						<%=domainInstance.getPropertyCnName("activity_type") %> 
+						<%=DictionaryUtil.getInputHtml("经营活动类型字典", "activity_type", StringUtil.getNotEmptyStr(domainInstance.getActivity_type(), ""))%> 
 						&nbsp;  
 						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
-					</td> 
-					<td align="right"> 
-						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
-						<%if(list.size()>0){ %> 
-						<input name="deleteAllButton" type="button" class="button button_delete" value="全删" onClick="if(confirm('您确认要删除本次查询出的 <%=list.size() %> 条数据吗?')){$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=deleteAll4this').submit();}"> 
-						<%} %> 
 					</td> 
 				</tr> 
 			</table> 
@@ -68,16 +73,18 @@
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
-						<th><%=domainInstance.getPropertyCnName("id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("customer_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("activity_type") %></th> 
-						<th><%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("record_account") %></th> 
-						<th><%=domainInstance.getPropertyCnName("participant") %></th> 
-						<th><%=domainInstance.getPropertyCnName("activity_date") %></th> 
-						<th><%=domainInstance.getPropertyCnName("activity_content") %></th> 
-						<th><%=domainInstance.getPropertyCnName("next_step") %></th> 
-						<th>操作</th> 
+						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(),"") %>">
+						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id") %>"><%=domainInstance.getPropertyCnName("customer_id") %></th> 
+						<th onClick="sortBy(this)" db_col="activity_type" class="<%=domainSearchCondition.getSortClassByDbColumn("activity_type") %>"><%=domainInstance.getPropertyCnName("activity_type") %></th> 
+						<th onClick="sortBy(this)" db_col="commercial_oppotunity_id" class="<%=domainSearchCondition.getSortClassByDbColumn("commercial_oppotunity_id") %>"><%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %></th> 
+						<th onClick="sortBy(this)" db_col="activity_date" class="<%=domainSearchCondition.getSortClassByDbColumn("activity_date") %>"><%=domainInstance.getPropertyCnName("activity_date") %></th> 
+						<th onClick="sortBy(this)" db_col="participant" class="<%=domainSearchCondition.getSortClassByDbColumn("participant") %>"><%=domainInstance.getPropertyCnName("participant") %></th> 
+						<th onClick="sortBy(this)" db_col="sale_stage_code" class="<%=domainSearchCondition.getSortClassByDbColumn("sale_stage_code") %>"><%=domainInstance.getPropertyCnName("sale_stage_code") %></th> 
+						<th onClick="sortBy(this)" db_col="activity_content" class="<%=domainSearchCondition.getSortClassByDbColumn("activity_content") %>"><%=domainInstance.getPropertyCnName("activity_content") %></th> 
+						<th onClick="sortBy(this)" db_col="next_step" class="<%=domainSearchCondition.getSortClassByDbColumn("next_step") %>"><%=domainInstance.getPropertyCnName("next_step") %></th> 
+						<th onClick="sortBy(this)" db_col="record_account" class="<%=domainSearchCondition.getSortClassByDbColumn("record_account") %>"><%=domainInstance.getPropertyCnName("record_account") %></th> 
+						<th onClick="sortBy(this)" db_col="record_time" class="<%=domainSearchCondition.getSortClassByDbColumn("record_time") %>"><%=domainInstance.getPropertyCnName("record_time") %></th> 
+						<th>详情</th>
 					</tr> 
 				</thead> 
 				<% 
@@ -86,26 +93,20 @@
 							CrmManagementActivityObj o = (CrmManagementActivityObj) list.get(i); 
 				%> 
 				<tr> 
-					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
-					</td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getCustomer_id())%></td> 
+					<td>
+						<%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("经营活动类型字典",o.getActivity_type())%></td>  
-					<td><%=DictionaryUtil.getDictValueByDictKey("商机字典",o.getCommercial_oppotunity_id()+"")%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getRecord_account())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getParticipant())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getActivity_date())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getActivity_content())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getNext_step())%></td> 
-					<td width="80" style="text-align:center"> 
-						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
-						&nbsp; 
-						<input type="button" class="button button_delete" title="删除" 
-							onClick="javascript: 
-								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
-								$('#pageForm').submit(); 
-								" /> 
-					</td> 
+					<td><%if(o.isOpportunityActivity()){ %>
+						<%=DictionaryUtil.getDictValueByDictKey("商机字典",o.getCommercial_oppotunity_id()+"")%>
+						<%} %></td>  
+					<td><%=TimeUtil.date2str(o.getActivity_date(),"yyyy-MM-dd")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",StringUtil.getNotEmptyStr(o.getParticipant()))%></td> 
+					<td><%=o.isOpportunityActivity()?DictionaryUtil.getDictValueByDictKey("销售阶段字典",o.getSale_stage_code()+""):""%></td>  
+					<td title="<%=StringUtil.getNotEmptyStr(o.getActivity_content())%>"><%=StringUtil.getNotEmptyStr(o.getActivity_content(),10)%></td> 
+					<td title="<%=StringUtil.getNotEmptyStr(o.getNext_step())%>"><%=StringUtil.getNotEmptyStr(o.getNext_step(),10)%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getRecord_account())%></td> 
+					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
+					<td style="text-align:center"><input type="button"  class="button button_detail" title="详情" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"></td>
 				</tr> 
 				<% 
 					} 

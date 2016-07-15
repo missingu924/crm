@@ -14,6 +14,7 @@ import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.obj.PaginationObj;
 import com.wuyg.common.servlet.AbstractBaseServletTemplate;
 import com.wuyg.common.util.StringUtil;
+import com.wuyg.dictionary.DictionaryUtil;
 
 public class AuthDepartmentServlet extends AbstractBaseServletTemplate
 {
@@ -75,7 +76,7 @@ public class AuthDepartmentServlet extends AbstractBaseServletTemplate
 
 	// 删除
 	public void delete4this(HttpServletRequest request, HttpServletResponse response) throws Exception
-	{
+	{	
 		super.delete(request,response);
 	}
 

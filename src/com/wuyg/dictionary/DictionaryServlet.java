@@ -63,11 +63,11 @@ public class DictionaryServlet extends AbstractBaseServletTemplate
 		if (!StringUtil.isEmpty(dictionaryObj.getParentDictName()) && !(StringUtil.isEmpty(dictionaryObj.getParentDictKey())))
 		{
 			// 根据父字典管理子字典
-			dictItems = dictionaryService.getDictItemsFromTo(dictionaryObj.getParentDictName(), dictionaryObj.getDictname(), dictionaryObj.getParentDictKey(), false);
+			dictItems = dictionaryService.getDictItemsFromTo(dictionaryObj.getParentDictName(), dictionaryObj.getDictname(), dictionaryObj.getParentDictKey(), dictionaryObj.getDbFilter(), false);
 		} else
 		{
 			// 直接查询字典数据项
-			dictItems = dictionaryService.getDictItemsByDictName(dictionaryObj.getDictname(), true);
+			dictItems = dictionaryService.getDictItemsByDictName(dictionaryObj.getDictname(), dictionaryObj.getDbFilter(), true);
 		}
 
 		request.setAttribute("dictItems", dictItems);
@@ -102,7 +102,7 @@ public class DictionaryServlet extends AbstractBaseServletTemplate
 
 		List<DictItem> items = new ArrayList<DictItem>();
 
-		items = dictionaryService.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, true);
+		items = dictionaryService.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, null, true);
 
 		request.setAttribute("items", items);
 
@@ -134,7 +134,7 @@ public class DictionaryServlet extends AbstractBaseServletTemplate
 			dictItems = dictionaryService.getDictItemsByDictName(dictName, addItemForAll);
 		} else if (!StringUtil.isEmpty(fromDictName) && !StringUtil.isEmpty(toDictName))
 		{
-			dictItems = dictionaryService.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, addItemForAll);
+			dictItems = dictionaryService.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, null, addItemForAll);
 		}
 
 		request.setAttribute("dictItems", dictItems);

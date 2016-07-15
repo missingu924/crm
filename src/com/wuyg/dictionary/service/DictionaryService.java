@@ -39,7 +39,7 @@ public class DictionaryService implements IDictionaryService
 		return new ArrayList<DictItem>();
 	}
 
-	public List<DictItem> getDictItemsByDictName(String dictName, boolean addItemForAll)
+	public List<DictItem> getDictItemsByDictName(String dictName, String dbFilter, boolean addItemForAll)
 	{
 		logger.info("字典名:" + dictName);
 
@@ -61,7 +61,7 @@ public class DictionaryService implements IDictionaryService
 			{
 				String dbName = StringUtil.getNotEmptyStr(dictionary.getDictByName(dictName).getDbName(), SystemConstant.DEFAULT_DB);
 				DataSource ds = MySqlUtil.getDataSource(dbName);
-				items = dictionary.getDictItemsByDictName(dictName, addItemForAll, ds);
+				items = dictionary.getDictItemsByDictName(dictName, addItemForAll, ds, dbFilter);
 			}
 
 			if (addItemForAll == false)
@@ -73,6 +73,11 @@ public class DictionaryService implements IDictionaryService
 			logger.error(e.getMessage(), e);
 		}
 		return items;
+	}
+
+	public List<DictItem> getDictItemsByDictName(String dictName, boolean addItemForAll)
+	{
+		return getDictItemsByDictName(dictName, null, addItemForAll);
 	}
 
 	public List<DictItem> getDictItemsByDictName(String dictName, boolean addItemForAll, String dbName)
@@ -111,13 +116,13 @@ public class DictionaryService implements IDictionaryService
 		return items;
 	}
 
-	public List<DictItem> getDictItemsFromTo(String fromDictName, String toDictName, String fromDictKey, boolean addItemForAll)
+	public List<DictItem> getDictItemsFromTo(String fromDictName, String toDictName, String fromDictKey, String dbFilter, boolean addItemForAll)
 	{
 		try
 		{
 			String dbName = StringUtil.getNotEmptyStr(dictionary.getDictByName(fromDictName).getDbName(), SystemConstant.DEFAULT_DB);
 			DataSource ds = MySqlUtil.getDataSource(dbName);
-			List<DictItem> items = dictionary.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, addItemForAll, ds);
+			List<DictItem> items = dictionary.getDictItemsFromTo(fromDictName, toDictName, fromDictKey, addItemForAll, ds, dbFilter);
 			if (addItemForAll == false)
 			{
 				items.add(0, new DictItem(0, "", pleaseSelect));

@@ -1,6 +1,7 @@
 package com.wuyg.common.obj;
 
 import com.wuyg.auth.obj.AuthUserObj;
+import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.SystemConstant;
 
 public abstract class BaseSearchCondition
@@ -10,6 +11,7 @@ public abstract class BaseSearchCondition
 	private AuthUserObj user;// 用户登录账号
 	private int pageNo = 1;
 	private int pageCount = SystemConstant.PAGE_ROWS;
+	private String orderBy;// 排序条件
 
 	public AuthUserObj getUser()
 	{
@@ -49,5 +51,36 @@ public abstract class BaseSearchCondition
 	public void setDomainObj(Object domainObj)
 	{
 		this.domainObj = domainObj;
+	}
+	
+	public String getOrderBy()
+	{
+		return orderBy;
+	}
+
+	public void setOrderBy(String orderBy)
+	{
+		this.orderBy = orderBy;
+	}
+
+	/**
+	 * 根据排序字段获取前台展示的css类
+	 * 
+	 * @param dbColumn
+	 * @return
+	 */
+	public String getSortClassByDbColumn(String dbColumn)
+	{
+		if (StringUtil.isEmpty(this.orderBy))
+		{
+			return "table-sorted-none";
+		} else if (this.orderBy.equalsIgnoreCase(dbColumn + " asc"))
+		{
+			return "table-sorted-asc";
+		} else if (this.orderBy.equalsIgnoreCase(dbColumn + " desc"))
+		{
+			return "table-sorted-desc";
+		}
+		return "table-sorted-none";
 	}
 }

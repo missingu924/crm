@@ -6,7 +6,8 @@
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.crm.obj.CrmContactObj"%> 
+<%@page import="com.crm.obj.CrmContactObj"%>
+<%@page import="com.wuyg.common.util.TimeUtil"%> 
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -46,7 +47,7 @@
 				<tr> 
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("customer_id") %> 
-						<%=DictionaryUtil.getSelectHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""))%> 
+						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""))%> 
 						&nbsp;  
 						<%=domainInstance.getPropertyCnName("contact_name") %> 
 						<input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name())%>" size="20" > 
@@ -55,10 +56,7 @@
 					</td> 
 					<td align="right"> 
 						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
-						<input name="uploadButton" type="button" class="button button_upload" value="导入" onClick="openBigModalDialog('<%=contextPath%>/ExcelParser/uploadFile.jsp?basedbobj_class=<%=domainInstance.getClass().getCanonicalName()%>')">
-						<%if(list.size()>0){ %> 
-						<input name="deleteAllButton" type="button" class="button button_delete" value="全删" onClick="if(confirm('您确认要删除本次查询出的 <%=list.size() %> 条数据吗?')){$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=deleteAll4this').submit();}"> 
-						<%} %> 
+						
 					</td> 
 				</tr> 
 			</table> 
@@ -66,9 +64,8 @@
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
-						<th><%=domainInstance.getPropertyCnName("id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("customer_id") %></th> 
 						<th><%=domainInstance.getPropertyCnName("contact_name") %></th> 
+						<th><%=domainInstance.getPropertyCnName("customer_id") %></th> 
 						<th><%=domainInstance.getPropertyCnName("contact_sex") %></th> 
 						<th><%=domainInstance.getPropertyCnName("contact_birthday") %></th> 
 						<th><%=domainInstance.getPropertyCnName("contact_telephone") %></th> 
@@ -84,25 +81,24 @@
 							CrmContactObj o = (CrmContactObj) list.get(i); 
 				%> 
 				<tr> 
+					
 					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
-					</td> 
-					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getContact_name())%></td> 
+						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getContact_name())%> </a> 
+					</td>
+					<td>
+						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCustomer/Servlet?method=detail4this&id=<%=o.getCustomer_id()%>')"> <%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%> </a>
+					</td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getContact_sex())%></td>  
-					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday())%></td> 
+					<td><%=TimeUtil.date2str(o.getContact_birthday(),"yyyy-MM-dd")%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_email())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getRecord_account())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getRecord_time())%></td> 
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getRecord_account())%></td> 
+					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 
 						<input type="button" class="button button_delete" title="删除" 
-							onClick="javascript: 
-								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
-								$('#pageForm').submit(); 
-								" /> 
+							onClick="confirmDelete('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>')" /> 
 					</td> 
 				</tr> 
 				<% 

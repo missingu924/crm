@@ -55,7 +55,7 @@ public class CrmCustomerObj extends BaseDbObj
 	@Override
 	public String findDefaultOrderBy()
 	{
-		return super.findDefaultOrderBy();
+		return "id desc";
 	}
 
 	@Override
@@ -309,6 +309,14 @@ public class CrmCustomerObj extends BaseDbObj
 	{
 		return JSON.toJSONString(this);
 	}
+	
+	// 联系人
+	public List<CrmContactObj> findContactList()
+	{
+		IBaseDAO dao = new DefaultBaseDAO(CrmContactObj.class);
+
+		return dao.searchByClause(CrmContactObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
+	}
 
 	// 商机
 	public List<CrmCommercialOpportunityObj> findCommericialOpportunityList()
@@ -319,11 +327,11 @@ public class CrmCustomerObj extends BaseDbObj
 	}
 
 	// 合同
-	public List<CrmContractObj> findContractList()
+	public List<VCrmContractObj> findContractList()
 	{
-		IBaseDAO dao = new DefaultBaseDAO(CrmContractObj.class);
+		IBaseDAO dao = new DefaultBaseDAO(VCrmContractObj.class);
 
-		return dao.searchByClause(CrmContractObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
+		return dao.searchByClause(VCrmContractObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
 	}
 	
 	// 开票收款

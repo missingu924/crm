@@ -10,7 +10,7 @@
 
 <frameset rows="72,*,20" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="header.jsp" name="topFrame" scrolling="no" noresize="noresize" id="topFrame" title="topFrame" />
-  <frameset cols="210,*" frameborder="no" border="0" framespacing="0">
+  <frameset cols="160,*" frameborder="no" border="0" framespacing="0">
     <frame src="menu.jsp" name="leftFrame" scrolling="yes" noresize="noresize" id="leftFrame" title="leftFrame" border="0" framespacing="0"/>
     <frame src="system_info.jsp" name="mainFrame" id="mainFrame" title="mainFrame"  border="0" framespacing="0"/>
   </frameset>

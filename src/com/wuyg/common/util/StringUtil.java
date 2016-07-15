@@ -335,6 +335,24 @@ public class StringUtil
 			}
 		}
 	}
+	
+	/**
+	 * 返回最长不超过maxLength的字符串
+	 * @param checkObj
+	 * @param maxLength
+	 * @return
+	 */
+	public static String getNotEmptyStr(Object checkObj, int maxLength)
+	{
+		String str = getNotEmptyStr(checkObj, "");
+		if (str.length() > maxLength)
+		{
+			return str.substring(0, maxLength) + "…";
+		} else
+		{
+			return str;
+		}
+	}
 
 	public static String getStringByList(String[] stringArray, String separator)
 	{
@@ -396,6 +414,7 @@ public class StringUtil
 
 	/**
 	 * 格式化，保留scale位小数，四舍五入
+	 * 
 	 * @param value
 	 * @param scale
 	 * @return
@@ -404,7 +423,7 @@ public class StringUtil
 	{
 		if (value == null)
 		{
-			value = 0d;
+			return "";
 		}
 		BigDecimal bg = new BigDecimal(value);
 		double f1 = bg.setScale(scale, BigDecimal.ROUND_HALF_UP).doubleValue();

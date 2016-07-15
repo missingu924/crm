@@ -49,7 +49,7 @@ public abstract class BaseDbObj
 	 */
 	public String findDefaultOrderBy()
 	{
-		return StringUtil.getNotEmptyStr(findKeyColumnName());
+		return StringUtil.getNotEmptyStr(findKeyColumnName() + " desc");
 	}
 
 	/**
@@ -157,6 +157,31 @@ public abstract class BaseDbObj
 		return "(" + clause + ")";
 	}
 
+	/**
+	 * 判断该对象的唯一索引字段是否有空值
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean uniqueIndexValueIsEmpty() throws Exception
+	{
+		List<String> uniqueIndexProperties = findUniqueIndexProperties();
+
+		for (int i = 0; i < uniqueIndexProperties.size(); i++)
+		{
+			String property = uniqueIndexProperties.get(i);
+			String value = BeanUtils.getProperty(this, property);
+
+			if (StringUtil.isEmpty(value))
+			{
+				logger.info(this.getClass() + "的唯一索引字段" + property + "值为空");
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	@Override
 	public boolean equals(Object other)
 	{
@@ -224,8 +249,8 @@ public abstract class BaseDbObj
 	 * 设置父对象ID
 	 * 
 	 * @param parentId
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
 	 */
 	public void setParentKeyValue(Long parentKeyValue) throws Exception
 	{
@@ -235,4 +260,45 @@ public abstract class BaseDbObj
 			BeanUtils.setProperty(this, parentKeyColumnName, parentKeyValue);
 		}
 	}
+
+	/**
+	 * 保存或更新
+	 * 
+	 * @return
+	 */
+	public boolean saveOrUpdate()
+	{
+		return new DefaultBaseDAO(this.getClass()).saveOrUpdate(this);
+	}
+
+	/**
+	 * 保存
+	 * 
+	 * @return
+	 */
+	public boolean save()
+	{
+		return new DefaultBaseDAO(this.getClass()).save(this);
+	}
+
+	/**
+	 * 更新
+	 * 
+	 * @return
+	 */
+	public boolean update()
+	{
+		return new DefaultBaseDAO(this.getClass()).update(this);
+	}
+
+	/**
+	 * 刪除
+	 * 
+	 * @return
+	 */
+	public int delete() throws Exception
+	{
+		return new DefaultBaseDAO(this.getClass()).deleteByKey(this.getKeyValue() + "");
+	}
+
 }

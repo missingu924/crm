@@ -19,7 +19,7 @@ public class SystemConstant
 	public static final String SMS_USERNAME = "52593";
 	public static final String SMS_PASSWORD = "Wyg2461290!";
 	
-	public static final String ROLE_ADMIN = "系统管理员";
+	public static final String ROLE_ADMIN = "admin";
 	public static final String ROLE_DISTRICT_ADMIN = "区县管理员";
 	public static final String ROLE_DEPARTMENT_ADMIN = "部门管理员";
 	public static final String ROLE_COMMON_USER = "普通员工";

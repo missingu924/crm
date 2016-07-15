@@ -17,6 +17,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 import com.wuyg.common.dao.BaseDbObj;
+import com.wuyg.dictionary.DictionaryUtil;
 
 public class MyBeanUtils
 {
@@ -149,7 +150,7 @@ public class MyBeanUtils
 		for (int i = 0; i < properties.size(); i++)
 		{
 			PropertyDescriptor property = properties.get(i);
-			
+
 			logger.debug("从Request里面抽取数据：" + instance.getClass() + "." + property.getPropertyType() + "." + property.getName());
 
 			String[] propertyValues = parameterMap.get(property.getName());
@@ -203,7 +204,7 @@ public class MyBeanUtils
 
 		return instance;
 	}
-	
+
 	/**
 	 * 从HttpServletRequest里面获取数据并构造对象列表，如果有父对象，则将子对象的父对象id填充上
 	 * 
@@ -221,12 +222,19 @@ public class MyBeanUtils
 		for (int i = 0; i < childrenObjCount; i++)
 		{
 			BaseDbObj child = (BaseDbObj) MyBeanUtils.createInstanceFromHttpRequest(request.getParameterMap(), childObjClz, isFromUrl, i);
-			child.setId(-1l);//防止父对象的主键值填充到子对象的主键中
-			if (parentObj!=null)
+			child.setId(-1l);// 防止父对象的主键值填充到子对象的主键中
+			if (parentObj != null)
 			{
 				child.setParentKeyValue(parentObj.getKeyValue());
 			}
-			childrenList.add(child);
+
+			if (child.uniqueIndexValueIsEmpty())
+			{
+				logger.info(child.getClass() + ":唯一索引字段有空值，丢弃该对象。");
+			} else
+			{
+				childrenList.add(child);
+			}
 		}
 		return childrenList;
 	}
@@ -244,12 +252,19 @@ public class MyBeanUtils
 
 			if (p.getPropertyType().equals(String.class))
 			{
-				if (useLike)
+				// 如果是多选的，则使用in条件
+				if (pValue.indexOf("multi:") == 0)
 				{
-					where.append(" and " + pName + " like '%" + pValue + "%'");
+					where.append(" and " + pName + " in( " + StringUtil.getStringByList(DictionaryUtil.getKeyListFromMultiSelect(pValue), true) + ")");
 				} else
 				{
-					where.append(" and " + pName + " = '" + pValue + "'");
+					if (useLike)
+					{
+						where.append(" and " + pName + " like '%" + pValue + "%'");
+					} else
+					{
+						where.append(" and " + pName + " = '" + pValue + "'");
+					}
 				}
 
 			} else

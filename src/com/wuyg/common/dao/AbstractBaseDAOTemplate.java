@@ -21,6 +21,7 @@ import com.wuyg.common.util.MyBeanUtils;
 import com.wuyg.common.util.MySqlUtil;
 import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.TimeUtil;
+import com.wuyg.dictionary.DictionaryUtil;
 
 public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 {
@@ -484,6 +485,9 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			logger.info("无任何需要更新的对象，直接返回。");
 			return true;
 		}
+		
+		DictionaryUtil.clearCacheByTablename(getTableName());//清除该表相关的字典缓存
+		
 		Connection conn = null;
 		try
 		{
@@ -762,6 +766,9 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			logger.info("the delete clause is null, don't delete.");
 			return 0;
 		}
+		
+		DictionaryUtil.clearCacheByTablename(getTableName());//清除该表相关的字典缓存
+		
 		Connection conn = null;
 		try
 		{

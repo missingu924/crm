@@ -4,7 +4,8 @@
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.crm.obj.CrmBillObj"%> 
+<%@page import="com.crm.obj.CrmBillObj"%>
+<%@page import="com.wuyg.common.util.TimeUtil"%> 
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  
@@ -16,6 +17,7 @@
 %> 
 <html> 
 	<head> 
+		<base target="_self">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 		<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no" />		<title><%=domainInstance.getCnName()%>详情</title> 
 		<link href="../css/global.css" rel="stylesheet" type="text/css" /> 
@@ -24,64 +26,59 @@
 		<script src="../js/utils.js"></script> 
 	</head> 
 	<body> 
+		<!-- 操作栏 -->
+		<table width="800" align="center"  class="top_tools_table">
+          <tr>
+            <td><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
+              <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改"/>
+              </a>
+              	<input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
+            </td>
+          </tr>
+        </table>
 		<!-- 表格标题 --> 
-		<table width="700" align="center" class="title_table"> 
+		<table width="800" align="center" class="title_table"> 
 			<tr> 
 				<td> 
-					<img src="../images/svg/heavy/green/list.png" width="18" height="18" align="absmiddle"> 
-					&nbsp;&nbsp;<%=domainInstance.getCnName()%>信息 
+				<%=domainInstance.getCnName()%>信息 
 				</td> 
 			</tr> 
 		</table> 
 		<!-- 详细信息 --> 
-		<table width="700" align="center" class="detail_table detail_table-bordered detail_table-striped"> 
+		<table width="800" align="center" class="detail_table detail_table-bordered "> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("id") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getId())%></td> 
+					<%=domainInstance.getPropertyCnName("customer_id") %>:				</td> 
+				<td colspan="3"><a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCustomer/Servlet?method=detail4this&id=<%=domainInstance.getCustomer_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("客户字典",domainInstance.getCustomer_id()+"")%></a></td> 
+		    </tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("commerical_opportunity_id") %>:				</td> 
+				<td colspan="3"><a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCommercialOpportunity/Servlet?method=detail4this&id=<%=domainInstance.getCommerical_opportunity_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("商机字典",domainInstance.getCommerical_opportunity_id()+"")%></a></td> 
+		    </tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("contract_id") %>:				</td> 
+				<td colspan="3"><a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmContract/Servlet?method=detail4this&id=<%=domainInstance.getContract_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("合同字典",domainInstance.getContract_id()+"")%></a></td> 
+		    </tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("bill_money") %>:				</td> 
+				<td><%=StringUtil.formatDouble(domainInstance.getBill_money(),2)%></td> 
+			    <td><%=domainInstance.getPropertyCnName("gather_money") %>: </td>
+			    <td><%=StringUtil.formatDouble(domainInstance.getGather_money(),2)%></td>
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("customer_id") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",domainInstance.getCustomer_id()+"")%></td> 
-			</tr> 
+					<%=domainInstance.getPropertyCnName("comment") %>:				</td> 
+				<td colspan="3"><%=StringUtil.getNotEmptyStr(domainInstance.getComment())%></td> 
+		    </tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("commerical_opportunity_id") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("商机字典",domainInstance.getCommerical_opportunity_id()+"")%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("contract_id") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("合同字典",domainInstance.getContract_id()+"")%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("bill_money") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getBill_money())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("gather_money") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getGather_money())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("record_account") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("record_time") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRecord_time())%></td> 
+					<%=domainInstance.getPropertyCnName("record_account") %>:				</td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",domainInstance.getRecord_account())%></td> 
+			    <td><%=domainInstance.getPropertyCnName("record_time") %>: </td>
+			    <td><%=TimeUtil.date2str(domainInstance.getRecord_time())%></td>
 			</tr> 
 		</table> 
 		 

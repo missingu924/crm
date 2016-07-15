@@ -7,7 +7,8 @@
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.wuyg.auth.obj.AuthLogLoginObj"%>
-<%@page import="com.wuyg.common.util.TimeUtil"%> 
+<%@page import="com.wuyg.common.util.TimeUtil"%>
+<%@page import="com.wuyg.auth.searchcondition.AuthLogLoginSearchCondition"%> 
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -15,6 +16,8 @@
  
 	// 该功能对象实例 
 	AuthLogLoginObj domainInstance = (AuthLogLoginObj) request.getAttribute("domainInstance"); 
+	// 该功能对象查询条件实例
+	AuthLogLoginSearchCondition domainSearchCondition = (AuthLogLoginSearchCondition) request.getAttribute("domainSearchCondition"); 
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
 %> 
@@ -69,11 +72,12 @@
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
-						<th><%=domainInstance.getPropertyCnName("id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("useraccount") %></th> 
-						<th><%=domainInstance.getPropertyCnName("username") %></th> 
-						<th><%=domainInstance.getPropertyCnName("userdepartmentcode") %></th> 
-						<th><%=domainInstance.getPropertyCnName("timestamp") %></th> 
+						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(),"") %>">
+						<th onClick="sortBy(this)" db_col="id" class="<%=domainSearchCondition.getSortClassByDbColumn("id") %>"><%=domainInstance.getPropertyCnName("id") %></th> 
+						<th onClick="sortBy(this)" db_col="useraccount" class="<%=domainSearchCondition.getSortClassByDbColumn("useraccount") %>"><%=domainInstance.getPropertyCnName("useraccount") %></th> 
+						<th onClick="sortBy(this)" db_col="username" class="<%=domainSearchCondition.getSortClassByDbColumn("username") %>"><%=domainInstance.getPropertyCnName("username") %></th> 
+						<th onClick="sortBy(this)" db_col="userdepartmentcode" class="<%=domainSearchCondition.getSortClassByDbColumn("userdepartmentcode") %>"><%=domainInstance.getPropertyCnName("userdepartmentcode") %></th> 
+						<th onClick="sortBy(this)" db_col="timestamp" class="<%=domainSearchCondition.getSortClassByDbColumn("timestamp") %>"><%=domainInstance.getPropertyCnName("timestamp") %></th> 
 					</tr> 
 				</thead> 
 				<% 

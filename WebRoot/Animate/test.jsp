@@ -144,7 +144,7 @@
         </optgroup>
       </select>
 
-      <button class="butt js--triggerAnimation">Animate it</button>
+      <input type="button"  class="butt js--triggerAnimation">Animate it</button>
     </form>
     <hr />
     <p class="meta"><a href="https://raw.github.com/daneden/animate.css/master/animate.css" download="animate.css">Download Animate.css</a> or <a href="//github.com/daneden/animate.css">View on GitHub</a></p>

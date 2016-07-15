@@ -53,7 +53,6 @@
 					</td> 
 					<td align="right"> 
 						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
-						<input name="uploadButton" type="button" class="button button_upload" value="导入" onClick="openBigModalDialog('<%=contextPath%>/ExcelParser/uploadFile.jsp?basedbobj_class=<%=domainInstance.getClass().getCanonicalName()%>')">
 					</td> 
 				</tr> 
 			</table> 
@@ -85,7 +84,6 @@
 						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
 						<th><%=domainInstance.getPropertyCnName("departmentcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("officecode") %></th> 
-						<th><%=domainInstance.getPropertyCnName("rolelevel") %></th> 
 						<th>操作</th> 
 					</tr> 
 				</thead> 
@@ -96,15 +94,13 @@
 				%> 
 				<tr> 
 					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
-					</td> 
+						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a>					</td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getAccount())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getName())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getSex())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",o.getDepartmentcode())%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",o.getOfficecode())%></td>  
-					<td><%=DictionaryUtil.getDictValueByDictKey("角色字典",o.getRolelevel())%></td>  
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 
@@ -112,8 +108,7 @@
 							onClick="javascript: 
 								$('#pageForm').attr('action','<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&account_4del=<%=o.getAccount() %>&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>'); 
 								$('#pageForm').submit(); 
-								" /> 
-					</td> 
+								" />					</td> 
 				</tr> 
 				<% 
 					} 

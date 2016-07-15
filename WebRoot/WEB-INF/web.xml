@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<!-- 权限过滤器 -->
-	<!-- 
 	<filter>
 		<filter-name>AuthFilter</filter-name>
 		<filter-class>com.wuyg.auth.AuthFilter</filter-class>
@@ -12,7 +11,6 @@
 		<filter-name>AuthFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	 -->
 	 
 	 <!-- 跨域 -->
 	 <filter>
@@ -77,11 +75,19 @@
 		<servlet-name>AuthUserRoleServlet</servlet-name>
 		<url-pattern>/AuthUserRole/Servlet</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>AuthLogLoginServlet</servlet-name>
 		<url-pattern>/AuthLogLogin/Servlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthLogOperationServlet</servlet-name>
+		<servlet-class>com.wuyg.auth.AuthLogOperationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthLogOperationServlet</servlet-name>
+		<url-pattern>/AuthLogOperation/Servlet</url-pattern>
+	</servlet-mapping>
+	
 	<!-- 字典servlet -->
 	<servlet>
 		<servlet-name>DictionaryServlet</servlet-name>
@@ -162,6 +168,15 @@
 		<servlet-name>DictProductServlet</servlet-name>
 		<url-pattern>/DictProduct/Servlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictBillTypeServlet</servlet-name>
+		<servlet-class>com.crm.DictBillTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictBillTypeServlet</servlet-name>
+		<url-pattern>/DictBillType/Servlet</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>CrmCustomerServlet</servlet-name>
 		<servlet-class>com.crm.CrmCustomerServlet</servlet-class>

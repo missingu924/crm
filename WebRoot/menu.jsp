@@ -45,7 +45,6 @@ function toggleMenuGroup(td,menuGroupId)
 	%>
 	<body class="menu_bg">
 		<table width="100%" cellpadding="0" cellspacing="0" border="0">
-
 			<tr>
 				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'01')">
 					业务管理
@@ -56,112 +55,62 @@ function toggleMenuGroup(td,menuGroupId)
 					<table id="menu_group_01" width="100%" cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCustomer/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;客户档案管理
 							</td>
 						</tr>
+						<!-- 
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContact/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;客户联系人管理
 							</td>
 						</tr>
+						 -->
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;商机管理
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContract/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同管理
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmBill/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;开票收款管理
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmManagementActivity/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;经营活动管理
 							</td>
 						</tr>
-						
 					</table>
 				</td>
 			</tr>
-
 			<tr>
-				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'05')">
-					基础档案管理
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<table id="menu_group_05" width="100%" cellpadding="0" cellspacing="0" border="0">
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictCustomerType/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;客户分类管理
-							</td>
-						</tr>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictRegion/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;区域管理
-							</td>
-						</tr>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictSaleStage/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;销售阶段管理
-							</td>
-						</tr>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictManagementType/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;经营类型管理
-							</td>
-						</tr>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictProduct/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;产品管理管理
-							</td>
-						</tr>
-						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictProductVersion/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;产品版本管理
-							</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-
-
-
-			<tr>
-				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'99')">
+				<td class="menu_header_not_expand" onclick="toggleMenuGroup(this,'99')">
 					个人管理
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<table id="menu_group_99" width="100%" cellpadding="0" cellspacing="0" border="0" class="hidden">
+					<table id="menu_group_99" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none">
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'AuthUser/Servlet?method=detail4this&id=<%=user.getId()%>')">
-								<img src="images/svg/heavy/green/user.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/user.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;我的账号
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'AuthUser/modifyPassword.jsp')">
-								<img src="images/svg/heavy/green/locked.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/locked.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;修改密码
 							</td>
 						</tr>
@@ -174,57 +123,97 @@ function toggleMenuGroup(td,menuGroupId)
 				{
 			%>
 			<tr>
-				<td class="menu_header_expand" onclick="toggleMenuGroup(this,'100')">
+				<td class="menu_header_not_expand" onclick="toggleMenuGroup(this,'05')">
+					基础档案管理
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table id="menu_group_05" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none">
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictCustomerType/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;客户分类
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictRegion/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;区域
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictSaleStage/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;销售阶段
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictManagementType/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;经营类型
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictProduct/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;产品
+							</td>
+						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictProductVersion/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;产品版本
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+
+
+			<tr>
+				<td class="menu_header_not_expand" onclick="toggleMenuGroup(this,'100')">
 					系统管理
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<table id="menu_group_100" width="100%" cellpadding="0" cellspacing="0" border="0" class="hidden">
-
+					<table id="menu_group_100" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none">
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthUser/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/user.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/user.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;账号管理
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthDepartment/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;部门管理
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthRole/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;角色管理
 							</td>
 						</tr>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthFunction/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;权限项管理
-							</td>
-						</tr>
-						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthOffice/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;职务管理
 							</td>
 						</tr>
-
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogLogin/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;登录日志
 							</td>
 						</tr>
-
-
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/Dictionary/Servlet?method=list4this')">
-								<img src="images/svg/heavy/green/list.png" width="18" height="18" align="middle" />
-								&nbsp;&nbsp;字典管理
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogOperation/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;操作日志
 							</td>
 						</tr>
 

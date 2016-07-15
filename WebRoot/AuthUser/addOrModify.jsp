@@ -25,7 +25,7 @@
 	} 
  
 	// 是否是修改 
-	boolean isModify = domainInstance.getKeyValue() > 0; 
+	boolean isModify = domainInstance.getKeyValue() >= 0; 
 	// 唯一性检查用的字段 
 	String keyCol = "account"; 
 %> 
@@ -126,7 +126,7 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("sex") %>:					</td> 
 					<td> 
-						<%=DictionaryUtil.getInputHtml("性别字典", "sex", StringUtil.getNotEmptyStr(domainInstance.getSex(), ""))%> 
+						<%=DictionaryUtil.getSelectHtml("性别字典", "sex", StringUtil.getNotEmptyStr(domainInstance.getSex(), ""))%> 
 						<font color="red">*</font>					</td> 
 			    </tr> 
 				<tr> 
@@ -135,11 +135,11 @@
 			    </tr>
 				<tr>
 				  <td><%=domainInstance.getPropertyCnName("departmentcode") %>: </td>
-				  <td><%=DictionaryUtil.getInputHtml("部门字典", "departmentcode", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> <font color="red">*</font></td>
+				  <td><%=DictionaryUtil.getSelectHtml("部门字典", "departmentcode", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> <font color="red">*</font></td>
 			  </tr>
 				<tr>
 				  <td><%=domainInstance.getPropertyCnName("officecode") %>: </td>
-				  <td><%=DictionaryUtil.getInputHtml("职务字典", "officecode", StringUtil.getNotEmptyStr(domainInstance.getOfficecode(), ""))%> </td>
+				  <td><%=DictionaryUtil.getSelectHtml("职务字典", "officecode", StringUtil.getNotEmptyStr(domainInstance.getOfficecode(), ""))%> </td>
 			  </tr> 
 			</table> 
 			

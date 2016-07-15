@@ -29,7 +29,7 @@ public String findTableName()
 @Override 
 public String findDefaultOrderBy()
 {
-	return super.findDefaultOrderBy();
+	return "id asc";
 }
 @Override
 public String getBasePath()

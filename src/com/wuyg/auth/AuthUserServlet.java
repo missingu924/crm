@@ -22,6 +22,7 @@ import com.wuyg.common.servlet.AbstractBaseServletTemplate;
 import com.wuyg.common.util.RequestUtil;
 import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.SystemConstant;
+import com.wuyg.dictionary.DictionaryUtil;
 
 public class AuthUserServlet extends AbstractBaseServletTemplate
 {
@@ -68,7 +69,7 @@ public class AuthUserServlet extends AbstractBaseServletTemplate
 
 	// 增加 or 修改
 	public void addOrModify4this(HttpServletRequest request, HttpServletResponse response) throws Exception
-	{
+	{		
 		// 保存或更新
 		if (domainInstance.getKeyValue() < 0)
 		{
@@ -152,7 +153,7 @@ public class AuthUserServlet extends AbstractBaseServletTemplate
 
 	// 删除
 	public void delete4this(HttpServletRequest request, HttpServletResponse response) throws Exception
-	{
+	{		
 		int successCount = getDomainDao().deleteByKey(domainInstanceKeyValue);
 
 		// 删除角色关联信息

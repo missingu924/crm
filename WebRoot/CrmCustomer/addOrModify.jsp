@@ -9,6 +9,8 @@
 <%@page import="com.wuyg.common.util.TimeUtil"%>
 <%@page import="com.wuyg.common.util.SystemConstant"%>
 <%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.dao.BaseDbObj"%>
+<%@page import="com.crm.obj.CrmContactObj"%>
 <!-- 基本信息 -->
 <%
 	// 用户信息
@@ -49,7 +51,7 @@
 		//  新增或修改 
 		function addOrModify() 
 		{	 
-				// 做必要的检查 
+		// 做必要的检查 
 		if(!checkNull("id","<%=domainInstance.getPropertyCnName("id")%>")) return false; 
 		if(!checkNull("customer_full_name","<%=domainInstance.getPropertyCnName("customer_full_name")%>")) return false; 
 		if(!checkNull("customer_type_code","<%=domainInstance.getPropertyCnName("customer_type_code")%>")) return false; 
@@ -147,21 +149,29 @@
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("customer_manager_account")%>:
 					</td>
-					<td><%=DictionaryUtil.getSelectHtml("账号字典", "customer_manager_account", StringUtil.getNotEmptyStr(domainInstance.getCustomer_manager_account(), ""))%>
+					<td><%=DictionaryUtil.getSelectHtml("账号字典", "customer_manager_account", StringUtil.getNotEmptyStr(domainInstance.getCustomer_manager_account(), ""),true)%>
 						<font color="red">*</font>
 					</td>
 					<td><%=domainInstance.getPropertyCnName("service_engineer_account")%>:
 					</td>
-					<td><%=DictionaryUtil.getSelectHtml("账号字典", "service_engineer_account", StringUtil.getNotEmptyStr(domainInstance.getService_engineer_account(), ""))%>
+					<td><%=DictionaryUtil.getSelectHtml("账号字典", "service_engineer_account", StringUtil.getNotEmptyStr(domainInstance.getService_engineer_account(), ""),true)%>
 						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("comment")%>:
+					</td>
+					<td colspan="3">
+						<textarea name="comment" cols="53" rows="2" id="comment"><%=StringUtil.getNotEmptyStr(domainInstance.getComment(), "")%></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("record_account")%>:
 					</td>
 					<td>
-						<input name="record_account" type="text" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">
-					</td>
+						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典",StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="12">
+						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">					 
+				    </td>
 					<td><%=domainInstance.getPropertyCnName("record_time")%>:
 					</td>
 					<td>
@@ -172,21 +182,21 @@
 
 			<table id="tab_table" width="800" align="center" class="sub_title_table">
 				<tr>
-					<td div_id="product_info_div" style="width:80px">
+					<td div_id="product_info_div" style="width: 80px">
 						产品信息
 					</td>
-					<td div_id="service_info_div" style="width:80px">
+					<td div_id="service_info_div" style="width: 80px">
 						服务信息
 					</td>
-					<td div_id="bill_info_div" style="width:80px">
+					<td div_id="bill_info_div" style="width: 80px">
 						开票信息
 					</td>
 					<td></td>
 				</tr>
 			</table>
-
+			
 			<div id="product_info_div">
-				<table width="800" align="center" class="detail_table detail_table-bordered">
+				<table width="100%" align="center" class="detail_table detail_table-bordered">
 					<tr>
 						<td><%=domainInstance.getPropertyCnName("product_code")%>:
 						</td>
@@ -220,7 +230,7 @@
 			</div>
 
 			<div id="bill_info_div">
-				<table width="800" align="center" class="detail_table detail_table-bordered">
+				<table width="100%" align="center" class="detail_table detail_table-bordered">
 					<tr>
 						<td><%=domainInstance.getPropertyCnName("bill_title")%>:
 						</td>
@@ -235,18 +245,11 @@
 							<textarea name="bill_info" cols="50" rows="2" id="bill_info"><%=StringUtil.getNotEmptyStr(domainInstance.getBill_info(), "")%></textarea>
 						</td>
 					</tr>
-					<tr>
-						<td><%=domainInstance.getPropertyCnName("comment")%>:
-						</td>
-						<td colspan="3">
-							<textarea name="comment" cols="50" rows="2" id="comment"><%=StringUtil.getNotEmptyStr(domainInstance.getComment(), "")%></textarea>
-						</td>
-					</tr>
 				</table>
 			</div>
 
 			<div id="service_info_div">
-				<table width="800" align="center" class="detail_table detail_table-bordered">
+				<table width="100%" align="center" class="detail_table detail_table-bordered">
 					<tr>
 						<td><%=domainInstance.getPropertyCnName("service_charge_peryear")%>:
 						</td>
@@ -265,9 +268,9 @@
 			<jsp:include page="../ToolBar/addOrModify_toolbar.jsp" />
 		</form>
 
-		<script type="text/javascript">
+		<script>
 		// 应用tab页
-		useAsTab("tab_table");
+		useAsTab("tab_table","800");
 		</script>
 	</body>
 </html>
