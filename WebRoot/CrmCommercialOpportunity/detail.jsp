@@ -9,6 +9,7 @@
 <%@page import="com.crm.obj.CrmManagementActivityObj"%>
 <%@page import="com.wuyg.common.dao.BaseDbObj"%>
 <%@page import="com.crm.obj.CrmContractObj"%>
+<%@page import="java.net.URLEncoder"%>
 <%
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();
@@ -36,9 +37,9 @@
 			<tr>
 				<td>
 					<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改" /> </a>
-					<input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
+					<input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
 					<input id="followOpportunityButton" type="button" class="button button_add"
-						onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&activity_type=01&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')" value="跟进商机" />
+						onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&activity_type=商机经营活动&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')" value="跟进商机" />
 					<input id="createCrontractButton" type="button" class="button button_add_square" onClick="openBigModalDialog('<%=contextPath%>/CrmContract/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')"
 						value="生成合同" />
 				</td>
@@ -87,6 +88,14 @@
 				<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%>:
 				</td>
 				<td colspan="3"><%=TimeUtil.date2str(domainInstance.getEstimate_sign_time(), "yyyy-MM-dd")%></td>
+			</tr>
+			<tr>
+				<td>
+					<%=domainInstance.getPropertyCnName("source")%>:
+				</td>
+				<td colspan="5">
+					<%=StringUtil.getNotEmptyStr(domainInstance.getSource(), "")%>
+				</td>
 			</tr>
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("customer_request")%>:
@@ -164,7 +173,12 @@
 					}
 				%>
 			</table>
-
+		  <%if(dataList.size()>0){ %>
+		  <script type="text/javascript">
+		  // 隐藏删除按钮
+		  $("#deleteButton").hide();
+		  </script>
+		  <%} %>
 		</div>
 
 		<%
@@ -214,7 +228,7 @@
 				%>
 				<script type="text/javascript">
 					$('#createCrontractButton').hide();
-					$('#followOpportunityButton').hide();
+					$('#deleteButton').hide();
 				</script>
 				<%
 					}

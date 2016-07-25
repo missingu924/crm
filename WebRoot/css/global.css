@@ -473,7 +473,7 @@ table style
   max-width: 100%;
   /*background-color: #f0f8ff;*/
   background-color: #cee8ff;
-  border: 0;
+  border:1px solid #eeeeee;
 }
 .top_tools_table td {
   padding: 4px 8px 4px 8px;

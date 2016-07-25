@@ -33,7 +33,7 @@ function initTdSelectWithAttrName(selName, attrName, inputName) {
 
 // 打开页面
 function winOpen(url) {
-	window.open(url, '_blank');
+	window.open(encodeURI(url+'&isFromUrl=true'),'_blank');
 }
 
 // 检查是否为空
@@ -147,7 +147,7 @@ function selectSubject(inputIdPre, toSubTree, district, departmentId,
 
 // 打开一个模态窗口
 function openBigModalDialog(url) {
-	window.showModalDialog(url, window,
+	window.showModalDialog(encodeURI(url+'&isFromUrl=true'), window,
 			'dialogHeight:800px;dialogWidth:820px;resizable:yes;maximize:yes');
 }
 
@@ -155,7 +155,7 @@ function openBigModalDialog(url) {
 function openWindow(url) {
 	// window.open(url,'_blank');
 	var openobj = window;
-	openobj.open(url, "_blank");
+	openobj.open(encodeURI(url+'&isFromUrl=true'), "_blank");
 }
 
 // 翻页，注意翻页form的id必须为pageForm
@@ -417,7 +417,7 @@ function confirmDelete(url) {
 	}
 }
 
-// 删除联系人
+// 删除一行记录
 function deleteIt(url) {
 	if (confirm("确定要删除吗？")) {
 		$.post(encodeURI(url), {

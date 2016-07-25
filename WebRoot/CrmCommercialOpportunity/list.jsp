@@ -106,9 +106,12 @@
 					</tr>
 				</thead>
 				<%
+					double target_price_sum = 0;
+				
 					for (int i = 0; i < list.size(); i++)
 					{
 						CrmCommercialOpportunityObj o = (CrmCommercialOpportunityObj) list.get(i);
+						target_price_sum+=o.getTarget_price()==null?0:o.getTarget_price();
 				%>
 				<tr>
 					<td><%=StringUtil.getNotEmptyStr(o.getOpportunity_name())%></td>
@@ -127,8 +130,23 @@
 					</td>
 				</tr>
 				<%
-					}
-				%>
+					}if (list.size()>0){
+						%>
+						<tr style="color:blue">
+							<td>合计</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td style="text-align: right"><%=StringUtil.formatDouble(target_price_sum, 2)%></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<%} %>
 			</table>
 
 			<!-- 翻页操作栏 -->

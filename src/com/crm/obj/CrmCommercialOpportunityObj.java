@@ -20,6 +20,7 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 	private Double target_price;
 	private Timestamp estimate_sign_time;
 	private String management_account;
+	private String source;
 	private String customer_request;
 	private String next_step;
 	private String record_account;
@@ -80,6 +81,7 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 		pros.put("target_price", "目标金额");
 		pros.put("estimate_sign_time", "预计签约日期");
 		pros.put("management_account", "经营人");
+		pros.put("source", "信息来源");
 		pros.put("customer_request", "客户需求");
 		pros.put("next_step", "下一步计划");
 		pros.put("record_account", "录入人");
@@ -110,6 +112,16 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 	public String getCustomer_id()
 	{
 		return customer_id;
+	}
+
+	public String getSource()
+	{
+		return source;
+	}
+
+	public void setSource(String source)
+	{
+		this.source = source;
 	}
 
 	public void setCustomer_id(String customer_id)

@@ -50,6 +50,7 @@
 		if(!checkNull("name","<%=domainInstance.getPropertyCnName("name")%>")) return false; 
 		if(!checkNull("sex","<%=domainInstance.getPropertyCnName("sex")%>")) return false;  
 		if(!checkNull("departmentcode","<%=domainInstance.getPropertyCnName("departmentcode")%>")) return false;  
+		if(!checkNull("enable","<%=domainInstance.getPropertyCnName("enable")%>")) return false;  
 					 
 			// 修改 
 			if("true"=="<%=isModify%>") 
@@ -137,9 +138,13 @@
 				  <td><%=domainInstance.getPropertyCnName("departmentcode") %>: </td>
 				  <td><%=DictionaryUtil.getSelectHtml("部门字典", "departmentcode", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> <font color="red">*</font></td>
 			  </tr>
-				<tr>
+			  <tr>
 				  <td><%=domainInstance.getPropertyCnName("officecode") %>: </td>
 				  <td><%=DictionaryUtil.getSelectHtml("职务字典", "officecode", StringUtil.getNotEmptyStr(domainInstance.getOfficecode(), ""))%> </td>
+			  </tr> 
+			  <tr>
+				  <td><%=domainInstance.getPropertyCnName("enable") %>: </td>
+				  <td><%=DictionaryUtil.getSelectHtml("是否字典", "enable", StringUtil.getNotEmptyStr(domainInstance.getEnable(), ""))%> <font color="red">*</font></td>
 			  </tr> 
 			</table> 
 			

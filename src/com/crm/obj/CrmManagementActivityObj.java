@@ -204,7 +204,7 @@ public class CrmManagementActivityObj extends BaseDbObj
 	// 是否商机跟进活动
 	public boolean isOpportunityActivity()
 	{
-		return "01".equalsIgnoreCase(this.activity_type);
+		return "商机经营活动".equalsIgnoreCase(this.activity_type);
 	}
 	
 	// 商机

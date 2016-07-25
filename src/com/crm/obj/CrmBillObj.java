@@ -13,7 +13,11 @@ private String commerical_opportunity_id;
 private String contract_id;
 private String comment;
 private Double bill_money;
+private Timestamp bill_date;
+private String bill_number;
+private String bill_receipt;
 private Double gather_money;
+private Timestamp gather_date;
 private String record_account;
 private Timestamp record_time;
 @Override
@@ -62,7 +66,11 @@ public LinkedHashMap<String, String> findProperties()
 		pros.put("contract_id", "合同");
 		pros.put("comment", "备注");
 		pros.put("bill_money", "本次开票金额");
+		pros.put("bill_date", "本次开票日期");
 		pros.put("gather_money", "本次收款金额");
+		pros.put("gather_date", "本次收款日期");
+		pros.put("bill_number", "发票号");
+		pros.put("bill_receipt", "发票签收已回");
 		pros.put("record_account", "录入人");
 		pros.put("record_time", "录入时间");
 		return pros;
@@ -88,6 +96,38 @@ public String getCommerical_opportunity_id()
 	return commerical_opportunity_id;
 }
 
+public Timestamp getBill_date()
+{
+	return bill_date;
+}
+public void setBill_date(Timestamp bill_date)
+{
+	this.bill_date = bill_date;
+}
+public String getBill_number()
+{
+	return bill_number;
+}
+public void setBill_number(String bill_number)
+{
+	this.bill_number = bill_number;
+}
+public String getBill_receipt()
+{
+	return bill_receipt;
+}
+public void setBill_receipt(String bill_receipt)
+{
+	this.bill_receipt = bill_receipt;
+}
+public Timestamp getGather_date()
+{
+	return gather_date;
+}
+public void setGather_date(Timestamp gather_date)
+{
+	this.gather_date = gather_date;
+}
 public String getComment()
 {
 	return comment;

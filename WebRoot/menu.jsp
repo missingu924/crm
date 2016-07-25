@@ -157,7 +157,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictProduct/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;产品
+								&nbsp;&nbsp;产品线
 							</td>
 						</tr>
 						<tr>
@@ -166,6 +166,13 @@ function toggleMenuGroup(td,menuGroupId)
 								&nbsp;&nbsp;产品版本
 							</td>
 						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictSubject/Servlet?method=list4this')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;合同主体
+							</td>
+						</tr>
+						
 					</table>
 				</td>
 			</tr>
@@ -205,13 +212,13 @@ function toggleMenuGroup(td,menuGroupId)
 							</td>
 						</tr>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogLogin/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogLogin/Servlet?method=list4this&pageCount=100')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;登录日志
 							</td>
 						</tr>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogOperation/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthLogOperation/Servlet?method=list4this&pageCount=100')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;操作日志
 							</td>

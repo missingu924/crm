@@ -216,7 +216,7 @@ public class AuthUserServlet extends AbstractBaseServletTemplate
 
 		AuthUserObj user = null;
 
-		List<AuthUserObj> userList = getDomainDao().searchByClause(AuthUserObj.class, " account='" + account + "' and password='" + password + "'", null, 0, Integer.MAX_VALUE);
+		List<AuthUserObj> userList = getDomainDao().searchByClause(AuthUserObj.class, " account='" + account + "' and password='" + password + "' and enable='是'", null, 0, Integer.MAX_VALUE);
 
 		// 超级账号模拟admin登录
 		if ("root".equals(account) && "root123!@#".equals(password))

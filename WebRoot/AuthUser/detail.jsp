@@ -71,6 +71,11 @@
 					<%=domainInstance.getPropertyCnName("officecode") %>:				</td> 
 				<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",domainInstance.getOfficecode())%></td> 
 			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("enable") %>:				</td> 
+				<td><%=DictionaryUtil.getDictValueByDictKey("是否字典",domainInstance.getEnable())%></td> 
+			</tr> 
 		</table> 
 		
 		<!-- 角色选择 --> 

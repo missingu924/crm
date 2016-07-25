@@ -23,6 +23,7 @@ public class AuthUserObj extends BaseDbObj
 	private String departmentcode;
 	private String officecode;
 	private String rolelevel;
+	private String enable;
 	// private List<AuthGroupObj> groups = new ArrayList<AuthGroup>();// 所在组ID列表
 	private List<AuthUserRoleObj> roles = new ArrayList<AuthUserRoleObj>();// 所具备的角色ID列表
 	private List<String> functions = new ArrayList<String>();// 所具备的权限项ID列表
@@ -87,6 +88,7 @@ public class AuthUserObj extends BaseDbObj
 		pros.put("departmentcode", "部门");
 		// pros.put("departmentname", "departmentname");
 		pros.put("officecode", "职务");
+		pros.put("enable", "是否启用");
 		pros.put("rolelevel", "角色");
 		return pros;
 	}
@@ -115,6 +117,16 @@ public class AuthUserObj extends BaseDbObj
 	// {
 	// this.groups = groups;
 	// }
+
+	public String getEnable()
+	{
+		return enable;
+	}
+
+	public void setEnable(String enable)
+	{
+		this.enable = enable;
+	}
 
 	public List<AuthUserRoleObj> getRoles()
 	{

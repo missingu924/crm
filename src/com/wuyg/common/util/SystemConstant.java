@@ -12,12 +12,13 @@ public class SystemConstant
 	public static final String AUTH_USER_ADMIN="admin";
 
 	// 每页数据条数
-	public static final int PAGE_ROWS = 20;
+//	public static final int PAGE_ROWS = 20;
+	public static final int PAGE_ROWS = Integer.MAX_VALUE;
 	public static final String PAGE_NUM = "PAGE_NUM";
 
 	// 短信发送
-	public static final String SMS_USERNAME = "52593";
-	public static final String SMS_PASSWORD = "Wyg2461290!";
+	public static final String SMS_USERNAME = "";
+	public static final String SMS_PASSWORD = "";
 	
 	public static final String ROLE_ADMIN = "admin";
 	public static final String ROLE_DISTRICT_ADMIN = "区县管理员";
@@ -31,6 +32,4 @@ public class SystemConstant
 	public static final String DB_MYSQL="MYSQL";
 	public static final String DB_SQLSERVER="SQLSERVER";
 	public static final String U8_DB="U8_DB";
-	
-	
 }

@@ -300,5 +300,15 @@ public abstract class BaseDbObj
 	{
 		return new DefaultBaseDAO(this.getClass()).deleteByKey(this.getKeyValue() + "");
 	}
+	
+	/**
+	 * 更新
+	 * 
+	 * @return
+	 */
+	public Object searchBykey(String keyValue)
+	{
+		return new DefaultBaseDAO(this.getClass()).searchByKey(this.getClass(), keyValue);
+	}
 
 }

@@ -27,9 +27,9 @@
 	</head> 
 	<body> 
 			<!-- 操作栏 -->
-		<table width="90%" align="center"  class="search_table" style="border:0">
+		<table width="90%" align="center"  class="top_tools_table">
           <tr>
-            <td align="right"><a class="noline" href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
+            <td><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
               <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改"/>
               </a>
               	<input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">

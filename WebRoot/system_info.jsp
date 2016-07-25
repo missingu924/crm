@@ -26,10 +26,6 @@
     <td>SqlServer2008 </td>
   </tr>
   <tr>
-    <td>适用系统:</td>
-    <td>用友U8系统</td>
-  </tr>
-  <tr>
     <td>开发厂商:</td>
     <td><%=LicenceUtil.getLicencedMachine().getSupplier() %></td>
   </tr>
@@ -39,9 +35,8 @@
   </tr>
   <tr>
     <td>系统简介:</td>
-    <td>该系统适用于<%=LicenceUtil.getLicencedMachine().getCustomerName() %>，主要用来xx
-    <br>1、通过"账套管理"设置U8的服务器和账套信息
-    <br>2、xx
+    <td>该系统适用于<%=LicenceUtil.getLicencedMachine().getCustomerName() %>，主要用来进行客户、商机、合同、开票管理
+   
     </td>
   </tr>
 </table>

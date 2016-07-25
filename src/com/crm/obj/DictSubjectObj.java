@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
 import com.alibaba.fastjson.JSON;
-public class DictProductObj extends BaseDbObj
+public class DictSubjectObj extends BaseDbObj
 {
 private Long id;
-private String product_code;
-private String product_name;
+private String subject_code;
+private String subject_name;
 @Override
 public String findKeyColumnName()
 {
@@ -24,36 +24,36 @@ public String findParentKeyColumnName()
 @Override
 public String findTableName()
 {
-	return "dict_product";
+	return "dict_subject";
 }
 @Override 
 public String findDefaultOrderBy()
 {
-	return "id asc";
+	return super.findDefaultOrderBy();
 }
 @Override
 public String getBasePath()
 {
-	return "DictProduct";
+	return "DictSubject";
 }
 @Override
 public String getCnName()
 {
-	return "产品线管理";
+	return "合同主体";
 }
 @Override
 public List<String> findUniqueIndexProperties()
 {
 	return Arrays.asList(new String[]
-	{ "product_code" });
+	{ "subject_code" });
 }
 public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 
-//		pros.put("id", "编号");
-		pros.put("product_code", "产品线编码");
-		pros.put("product_name", "产品线名称");
+		pros.put("id", "编号");
+		pros.put("subject_code", "合同主体代码");
+		pros.put("subject_name", "合同主体名称");
 		return pros;
 }
 public Long getId()
@@ -64,21 +64,21 @@ public void setId(Long id)
 {
 	this.id = id;
 }
-public String getProduct_code()
+public String getSubject_code()
 {
-	return product_code;
+	return subject_code;
 }
-public void setProduct_code(String product_code)
+public void setSubject_code(String subject_code)
 {
-	this.product_code = product_code;
+	this.subject_code = subject_code;
 }
-public String getProduct_name()
+public String getSubject_name()
 {
-	return product_name;
+	return subject_name;
 }
-public void setProduct_name(String product_name)
+public void setSubject_name(String subject_name)
 {
-	this.product_name = product_name;
+	this.subject_name = subject_name;
 }
 @Override
 public String toString()

@@ -232,17 +232,45 @@
 			<div id="bill_info_div">
 				<table width="100%" align="center" class="detail_table detail_table-bordered">
 					<tr>
-						<td><%=domainInstance.getPropertyCnName("bill_title")%>:
+						<td><%=domainInstance.getPropertyCnName("bill_company_name")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_title" type="text" id="bill_title" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_title(), "")%>" size="70">
+							<input name="bill_company_name" type="text" id="bill_company_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_company_name(), "")%>" size="70">
 						</td>
 					</tr>
 					<tr>
-						<td><%=domainInstance.getPropertyCnName("bill_info")%>:
+						<td><%=domainInstance.getPropertyCnName("bill_duty_number")%>:
 						</td>
 						<td colspan="3">
-							<textarea name="bill_info" cols="50" rows="2" id="bill_info"><%=StringUtil.getNotEmptyStr(domainInstance.getBill_info(), "")%></textarea>
+							<input name="bill_duty_number" type="text" id="bill_duty_number" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_duty_number(), "")%>" size="70">
+						</td>
+					</tr>
+					<tr>
+						<td><%=domainInstance.getPropertyCnName("bill_address")%>:
+						</td>
+						<td colspan="3">
+							<input name="bill_address" type="text" id="bill_address" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_address(), "")%>" size="70">
+						</td>
+					</tr>
+					<tr>
+						<td><%=domainInstance.getPropertyCnName("bill_telephone")%>:
+						</td>
+						<td colspan="3">
+							<input name="bill_telephone" type="text" id="bill_telephone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_telephone(), "")%>" size="70">
+						</td>
+					</tr>
+					<tr>
+						<td><%=domainInstance.getPropertyCnName("bill_bank_name")%>:
+						</td>
+						<td colspan="3">
+							<input name="bill_bank_name" type="text" id="bill_bank_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_name(), "")%>" size="70">
+						</td>
+					</tr>
+					<tr>
+						<td><%=domainInstance.getPropertyCnName("bill_bank_account")%>:
+						</td>
+						<td colspan="3">
+							<input name="bill_bank_account" type="text" id="bill_bank_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_account(), "")%>" size="70">
 						</td>
 					</tr>
 				</table>

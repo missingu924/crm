@@ -155,6 +155,14 @@
 				</tr>
 				<tr>
 					<td>
+						<%=domainInstance.getPropertyCnName("source")%>:
+					</td>
+					<td colspan="5">
+						<input type="text" name="source" id="source" size="70" value="<%=StringUtil.getNotEmptyStr(domainInstance.getSource(), "")%>">
+					</td>
+				</tr>
+				<tr>
+					<td>
 						<%=domainInstance.getPropertyCnName("customer_request")%>:
 					</td>
 					<td colspan="5">

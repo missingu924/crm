@@ -275,6 +275,11 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 			// 刪除经营活动
 			dao = new DefaultBaseDAO(CrmManagementActivityObj.class);
 			dao.deleteByClause("customer_id='" + domainInstanceKeyValue + "'");
+			
+
+			// 刪除变更记录
+			dao = new DefaultBaseDAO(CrmCustomerChangelogObj.class);
+			dao.deleteByClause("customer_id='" + domainInstanceKeyValue + "'");
 		}
 
 		// 传递needRefresh

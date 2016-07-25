@@ -91,7 +91,7 @@
 					<td> 
 						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getKeyValue())%> </a> 
 					</td> 
-					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getUseraccount())%></td>  
+					<td><%=o.getUseraccount()%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getUsername())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",o.getUserdepartmentcode())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getModule_name())%></td> 

@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.crm.obj.CrmBillObj;
 import com.crm.obj.CrmContractObj;
+import com.crm.obj.VCrmContractObj;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.obj.PaginationObj;
@@ -96,14 +97,19 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 			success = getDomainDao().update(domainInstance);
 		}
 
-		// 更新合同是否结束字段
+		// 更新合同是否结束字段，如果没有余款了则自动结束
 		CrmBillObj bill = (CrmBillObj) domainInstance;
 		if (success)
 		{
-			CrmContractObj contract = new CrmContractObj();
-			contract.setId(StringUtil.parseLong(bill.getContract_id()));
-			contract.setIs_finished(request.getParameter("is_finished"));
-			contract.update();
+			VCrmContractObj vContract = (VCrmContractObj)new DefaultBaseDAO(VCrmContractObj.class).searchByKey(VCrmContractObj.class, bill.getContract_id());
+			
+			if (vContract.getSpare_money()==0)
+			{
+				CrmContractObj contract = new CrmContractObj();
+				contract.setId(StringUtil.parseLong(bill.getContract_id()));
+				contract.setIs_finished("是");
+				contract.update();
+			}		
 		}
 
 		// 声明是新增后转到的详情页面

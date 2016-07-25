@@ -36,8 +36,12 @@ public class CrmCustomerObj extends BaseDbObj
 	private String softdog;
 	private Double service_charge_peryear;
 	private Timestamp service_due_date;
-	private String bill_title;
-	private String bill_info;
+	private String bill_company_name;
+	private String bill_duty_number;
+	private String bill_address;
+	private String bill_telephone;
+	private String bill_bank_name;
+	private String bill_bank_account;
 	private String comment;
 	private String record_account;
 	private Timestamp record_time;
@@ -98,15 +102,19 @@ public class CrmCustomerObj extends BaseDbObj
 		pros.put("customer_is_deal", "成交客户");
 		pros.put("customer_manager_account", "客户经理");
 		pros.put("service_engineer_account", "服务经理");
-		pros.put("product_code", "产品");
+		pros.put("product_code", "产品线");
 		pros.put("product_version_code", "产品版本");
 		pros.put("byproduct", "副产品");
 		pros.put("module", "模块");
 		pros.put("softdog", "加密狗号");
 		pros.put("service_charge_peryear", "年服务费金额");
-		pros.put("service_due_date", "服务到期日期");
-		pros.put("bill_title", "开票名称");
-		pros.put("bill_info", "开票信息");
+		pros.put("service_due_date", "服务到期日期");	
+		pros.put("bill_company_name","公司名称");
+		pros.put("bill_duty_number","税号");
+		pros.put("bill_address","地址");
+		pros.put("bill_telephone","电话");
+		pros.put("bill_bank_name","开户行");
+		pros.put("bill_bank_account","银行账号");
 		pros.put("comment", "备注");
 		pros.put("record_account", "录入人");
 		pros.put("record_time", "录入日期");
@@ -263,24 +271,64 @@ public class CrmCustomerObj extends BaseDbObj
 		this.service_due_date = service_due_date;
 	}
 
-	public String getBill_title()
+	public String getBill_company_name()
 	{
-		return bill_title;
+		return bill_company_name;
 	}
 
-	public void setBill_title(String bill_title)
+	public void setBill_company_name(String bill_company_name)
 	{
-		this.bill_title = bill_title;
+		this.bill_company_name = bill_company_name;
 	}
 
-	public String getBill_info()
+	public String getBill_duty_number()
 	{
-		return bill_info;
+		return bill_duty_number;
 	}
 
-	public void setBill_info(String bill_info)
+	public void setBill_duty_number(String bill_duty_number)
 	{
-		this.bill_info = bill_info;
+		this.bill_duty_number = bill_duty_number;
+	}
+
+	public String getBill_address()
+	{
+		return bill_address;
+	}
+
+	public void setBill_address(String bill_address)
+	{
+		this.bill_address = bill_address;
+	}
+
+	public String getBill_telephone()
+	{
+		return bill_telephone;
+	}
+
+	public void setBill_telephone(String bill_telephone)
+	{
+		this.bill_telephone = bill_telephone;
+	}
+
+	public String getBill_bank_name()
+	{
+		return bill_bank_name;
+	}
+
+	public void setBill_bank_name(String bill_bank_name)
+	{
+		this.bill_bank_name = bill_bank_name;
+	}
+
+	public String getBill_bank_account()
+	{
+		return bill_bank_account;
+	}
+
+	public void setBill_bank_account(String bill_bank_account)
+	{
+		this.bill_bank_account = bill_bank_account;
 	}
 
 	public String getComment()
@@ -334,7 +382,7 @@ public class CrmCustomerObj extends BaseDbObj
 
 		return dao.searchByClause(CrmCommercialOpportunityObj.class, "customer_id='" + this.id + "'", "id desc", 0, Integer.MAX_VALUE);
 	}
-	
+
 	// 变更记录
 	public List<CrmContactObj> findChangeLogList()
 	{
@@ -379,10 +427,10 @@ public class CrmCustomerObj extends BaseDbObj
 				String pname = propertyList.get(i).getName();
 				Object currentValue = PropertyUtils.getProperty(this, pname);
 				Object preValue = PropertyUtils.getProperty(preObject, pname);
-				
+
 				if (!currentValue.equals(preValue))
 				{
-					changeLog += getPropertyCnName(pname) + " : 从\"" + StringUtil.getNotEmptyStr(preValue,"空值") + "\" 变更为 \"" + currentValue + "\"\n";
+					changeLog += getPropertyCnName(pname) + " : 从\"" + StringUtil.getNotEmptyStr(preValue, "空值") + "\" 变更为 \"" + currentValue + "\"\n";
 				}
 			}
 

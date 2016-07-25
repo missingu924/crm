@@ -36,19 +36,13 @@
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("account") %> 
 						<input name="account" type="text" id="account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getAccount())%>" size="20" > 
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;
 						<%=domainInstance.getPropertyCnName("name") %> 
 						<input name="name" type="text" id="name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getName())%>" size="20" > 
-						&nbsp; <br>
+						&nbsp; 
 						<%=domainInstance.getPropertyCnName("departmentcode") %> 
 						<%=DictionaryUtil.getInputHtml("部门字典", "departmentcode", StringUtil.getNotEmptyStr(domainInstance.getDepartmentcode(), ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("officecode") %> 
-						<%=DictionaryUtil.getInputHtml("职务字典", "officecode", StringUtil.getNotEmptyStr(domainInstance.getOfficecode(), ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("rolelevel") %> 
-						<%=DictionaryUtil.getInputHtml("角色字典", "rolelevel", StringUtil.getNotEmptyStr(domainInstance.getRolelevel(), ""))%> 
-						&nbsp;  
+						&nbsp;   
 						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
 					</td> 
 					<td align="right"> 
@@ -84,6 +78,7 @@
 						<th><%=domainInstance.getPropertyCnName("telephone") %></th> 
 						<th><%=domainInstance.getPropertyCnName("departmentcode") %></th> 
 						<th><%=domainInstance.getPropertyCnName("officecode") %></th> 
+						<th><%=domainInstance.getPropertyCnName("enable") %></th> 
 						<th>操作</th> 
 					</tr> 
 				</thead> 
@@ -101,6 +96,7 @@
 					<td><%=StringUtil.getNotEmptyStr(o.getTelephone())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",o.getDepartmentcode())%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("职务字典",o.getOfficecode())%></td>  
+					<td><%=DictionaryUtil.getDictValueByDictKey("是否字典",o.getEnable())%></td> 
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 

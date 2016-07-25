@@ -176,6 +176,15 @@
 		<servlet-name>DictBillTypeServlet</servlet-name>
 		<url-pattern>/DictBillType/Servlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictSubjectServlet</servlet-name>
+		<servlet-class>com.crm.DictSubjectServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictSubjectServlet</servlet-name>
+		<url-pattern>/DictSubject/Servlet</url-pattern>
+	</servlet-mapping>
+	
 	
 	<servlet>
 		<servlet-name>CrmCustomerServlet</servlet-name>

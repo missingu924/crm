@@ -4,14 +4,13 @@
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.wuyg.auth.obj.AuthLogOperationObj"%>
-<%@page import="com.wuyg.common.util.TimeUtil"%> 
+<%@page import="com.crm.obj.DictSubjectObj"%> 
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  
   
 	// 该功能对象实例  
-	AuthLogOperationObj domainInstance = (AuthLogOperationObj) request.getAttribute("domainInstance");  
+	DictSubjectObj domainInstance = (DictSubjectObj) request.getAttribute("domainInstance");  
 	// 该功能路径  
 	String basePath = domainInstance.getBasePath();  
 %> 
@@ -44,45 +43,15 @@
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("useraccount") %>: 
+					<%=domainInstance.getPropertyCnName("subject_code") %>: 
 				</td> 
-				<td><%=domainInstance.getUseraccount()%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getSubject_code())%></td> 
 			</tr> 
 			<tr> 
 				<td> 
-					<%=domainInstance.getPropertyCnName("username") %>: 
+					<%=domainInstance.getPropertyCnName("subject_name") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getUsername())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("userdepartmentcode") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("部门字典",domainInstance.getUserdepartmentcode())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("module_name") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getModule_name())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("module_method") %>: 
-				</td> 
-				<td><%=DictionaryUtil.getDictValueByDictKey("操作名字典",domainInstance.getModule_method())%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("full_info") %>: 
-				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getFull_info().replaceAll("\n","<br>"))%></td> 
-			</tr> 
-			<tr> 
-				<td> 
-					<%=domainInstance.getPropertyCnName("timestamp") %>: 
-				</td> 
-				<td><%=TimeUtil.date2str(domainInstance.getTimestamp())%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getSubject_name())%></td> 
 			</tr> 
 		</table> 
 		 

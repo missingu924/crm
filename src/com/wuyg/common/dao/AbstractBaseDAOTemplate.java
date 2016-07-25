@@ -363,36 +363,32 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			PropertyDescriptor p = propertyDescriptors.get(i);
 			Class propertyType = p.getPropertyType();
 			String pName = p.getName();
-			Object pValue = null;
-
-			if (propertyType.equals(Integer.class))
+			Object pValue = rst.getObject(pName);
+			if (pValue!=null)
 			{
-				pValue = rst.getInt(pName);
-			} else if (propertyType.equals(Long.class))
-			{
-				pValue = rst.getLong(pName);
-			} else if (propertyType.equals(Float.class))
-			{
-				pValue = pValue = rst.getFloat(pName);
-			} else if (propertyType.equals(Double.class))
-			{
-				pValue = pValue = rst.getDouble(pName);
-			} else if (propertyType.equals(Boolean.class))
-			{
-				pValue = pValue = rst.getBoolean(pName);
-			} else if (propertyType.equals(Timestamp.class))
-			{
-				pValue = rst.getTimestamp(pName);
-			} else if (propertyType.equals(Date.class))
-			{
-				pValue = rst.getDate(pName);
-			} else
-			{
-				pValue = rst.getObject(pName);
-			}
-
-			if (pValue != null)
-			{
+				if (propertyType.equals(Integer.class))
+				{
+					pValue = rst.getInt(pName);
+				} else if (propertyType.equals(Long.class))
+				{
+					pValue = rst.getLong(pName);
+				} else if (propertyType.equals(Float.class))
+				{
+					pValue = rst.getFloat(pName);
+				} else if (propertyType.equals(Double.class))
+				{
+					pValue = rst.getDouble(pName);
+				} else if (propertyType.equals(Boolean.class))
+				{
+					pValue = rst.getBoolean(pName);
+				} else if (propertyType.equals(Timestamp.class))
+				{
+					pValue = rst.getTimestamp(pName);
+				} else if (propertyType.equals(Date.class))
+				{
+					pValue = rst.getDate(pName);
+				}
+			
 				logger.debug("set property :" + p.getName() + "=" + pValue);
 
 				logger.debug("value class = " + pValue.getClass());
