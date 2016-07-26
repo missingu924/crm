@@ -124,7 +124,7 @@ public class DictionaryUtil
 		StringBuffer sb = new StringBuffer();
 
 		String inputName4show = inputName + "_4show";
-		sb.append("<input type=\"text\" id=\"" + inputName4show + "\" name=\"" + inputName4show + "\" value=\"" + getValueByKey(dictName, inputValue) + "\" readOnly size=\"" + size + "\"> \n");
+		sb.append("<input type=\"text\" id=\"" + inputName4show + "\" name=\"" + inputName4show + "\" value=\"" + getValueByKey(dictName, inputValue) + "\" readOnly size=\"" + size + "\" style=\"background: #eeeeee;\"> \n");
 		sb.append("<input type=\"hidden\" id=\"" + inputName + "\" name=\"" + inputName + "\" value=\"" + inputValue + "\"> \n");
 
 		return sb.toString();

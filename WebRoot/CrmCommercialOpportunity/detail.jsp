@@ -10,6 +10,8 @@
 <%@page import="com.wuyg.common.dao.BaseDbObj"%>
 <%@page import="com.crm.obj.CrmContractObj"%>
 <%@page import="java.net.URLEncoder"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <%
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();
@@ -18,6 +20,8 @@
 	CrmCommercialOpportunityObj domainInstance = (CrmCommercialOpportunityObj) request.getAttribute("domainInstance");
 	// 该功能路径  
 	String basePath = domainInstance.getBasePath();
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 %>
 <html>
 
@@ -36,12 +40,13 @@
 		<table width="800" align="center" class="top_tools_table">
 			<tr>
 				<td>
-					<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改" /> </a>
-					<input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
-					<input id="followOpportunityButton" type="button" class="button button_add"
-						onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&activity_type=商机经营活动&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')" value="跟进商机" />
-					<input id="createCrontractButton" type="button" class="button button_add_square" onClick="openBigModalDialog('<%=contextPath%>/CrmContract/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')"
-						value="生成合同" />
+					<%if(user.hasFunction("商机-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改" /> </a><%} %>
+					<%if(user.hasFunction("商机-删除")){ %><input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')"><%} %>
+					<%if(user.hasFunction("商机-修改")){ %><input id="copyButton" type="button" class="button button_copy" value="复制" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=copy4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')"><%} %>
+					<%if(user.hasFunction("经营活动-增加")){ %><input id="followOpportunityButton" type="button" class="button button_add"
+						onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&activity_type=商机经营活动&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')" value="跟进商机" /><%} %>
+					<%if(user.hasFunction("合同-增加")){ %><input id="createCrontractButton" type="button" class="button button_add_square" onClick="openBigModalDialog('<%=contextPath%>/CrmContract/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commercial_oppotunity_id=<%=domainInstance.getKeyValue()%>')"
+						value="生成合同" /><%} %>
 				</td>
 			</tr>
 		</table>
@@ -100,13 +105,13 @@
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("customer_request")%>:
 				</td>
-				<td colspan="5"><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(), "")%>
+				<td colspan="5"><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(), "").replaceAll("\n","<br>")%>
 				</td>
 			</tr>
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("next_step")%>:
 				</td>
-				<td colspan="5"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(), "")%>
+				<td colspan="5"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(), "").replaceAll("\n","<br>")%>
 				</td>
 			</tr>
 			<tr>

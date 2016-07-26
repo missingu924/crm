@@ -23,6 +23,7 @@ public class CrmContractObj extends BaseDbObj
 	private Double bill_money_total;
 	private Double gather_money_total;
 	private Double spare_money;
+	private Double bill_spare_money;
 	private String contract_subject;
 	private String is_finished;
 	private String draw_bill;
@@ -104,7 +105,8 @@ public class CrmContractObj extends BaseDbObj
 		pros.put("f", "F");
 		pros.put("bill_money_total", "累计开票");
 		pros.put("gather_money_total", "累计收款");
-		pros.put("spare_money", "余款");
+		pros.put("spare_money", "合同应收");
+		pros.put("bill_spare_money", "发票应收");
 		pros.put("record_account", "录入人");
 		pros.put("record_time", "录入时间");
 		pros.put("comment", "合同关键点");
@@ -119,6 +121,16 @@ public class CrmContractObj extends BaseDbObj
 	public void setDraw_bill(String draw_bill)
 	{
 		this.draw_bill = draw_bill;
+	}
+
+	public Double getBill_spare_money()
+	{
+		return bill_spare_money;
+	}
+
+	public void setBill_spare_money(Double bill_spare_money)
+	{
+		this.bill_spare_money = bill_spare_money;
 	}
 
 	public String getBill_type()
@@ -381,6 +393,22 @@ public class CrmContractObj extends BaseDbObj
 		}
 		
 		return customer;
+	}
+	
+	// 客户信息
+	public CrmCommercialOpportunityObj findCommercialOpportunity()
+	{
+		CrmCommercialOpportunityObj commercialOpportunity = new CrmCommercialOpportunityObj();
+		
+		IBaseDAO dao = new DefaultBaseDAO(CrmCommercialOpportunityObj.class);
+		
+		Object commercialOpportunityObj = dao.searchByKey(CrmCommercialOpportunityObj.class, this.commercial_oppotunity_id);
+		if (commercialOpportunityObj!=null)
+		{
+			commercialOpportunity = (CrmCommercialOpportunityObj)commercialOpportunityObj; 
+		}
+		
+		return commercialOpportunity;
 	}
 	
 }

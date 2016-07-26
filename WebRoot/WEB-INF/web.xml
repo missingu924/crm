@@ -242,6 +242,30 @@
 		<servlet-name>CrmCustomerChangelogServlet</servlet-name>
 		<url-pattern>/CrmCustomerChangelog/Servlet</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>VContractBillStatServlet</servlet-name>
+		<servlet-class>com.crm.VContractBillStatServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VContractBillStatServlet</servlet-name>
+		<url-pattern>/VContractBillStat/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>VContractBillDetailServlet</servlet-name>
+		<servlet-class>com.crm.VContractBillDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VContractBillDetailServlet</servlet-name>
+		<url-pattern>/VContractBillDetail/Servlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>VBillDetailServlet</servlet-name>
+		<servlet-class>com.crm.VBillDetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VBillDetailServlet</servlet-name>
+		<url-pattern>/VBillDetail/Servlet</url-pattern>
+	</servlet-mapping>
 	
 	
 	

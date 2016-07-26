@@ -114,7 +114,7 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 			where += " and service_charge_peryear<='" + condition.getService_charge_peryear_max() + "' ";
 		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
 		{
 			where += " and (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%')";
 		}
@@ -304,7 +304,7 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.export(request, response);
+		super.exportFromHtml(request, response);
 	}
 
 }

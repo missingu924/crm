@@ -2,6 +2,9 @@ package com.crm.obj;
 
 import java.sql.Timestamp;
 import com.wuyg.common.dao.BaseDbObj;
+import com.wuyg.common.util.StringUtil;
+import com.wuyg.dictionary.DictionaryUtil;
+
 import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +16,9 @@ public class CrmContactObj extends BaseDbObj
 	private Long customer_id;
 	private String contact_name;
 	private String contact_sex;
-	private Timestamp contact_birthday;
+	private String contact_birthday_type;
+	private Long contact_birthday_month;
+	private Long contact_birthday_day;
 	private String contact_telephone;
 	private String contact_email;
 	private String contact_qq;
@@ -154,14 +159,34 @@ public class CrmContactObj extends BaseDbObj
 		this.contact_sex = contact_sex;
 	}
 
-	public Timestamp getContact_birthday()
+	public String getContact_birthday_type()
 	{
-		return contact_birthday;
+		return contact_birthday_type;
 	}
 
-	public void setContact_birthday(Timestamp contact_birthday)
+	public void setContact_birthday_type(String contact_birthday_type)
 	{
-		this.contact_birthday = contact_birthday;
+		this.contact_birthday_type = contact_birthday_type;
+	}
+
+	public Long getContact_birthday_month()
+	{
+		return contact_birthday_month;
+	}
+
+	public void setContact_birthday_month(Long contact_birthday_month)
+	{
+		this.contact_birthday_month = contact_birthday_month;
+	}
+
+	public Long getContact_birthday_day()
+	{
+		return contact_birthday_day;
+	}
+
+	public void setContact_birthday_day(Long contact_birthday_day)
+	{
+		this.contact_birthday_day = contact_birthday_day;
 	}
 
 	public String getContact_telephone()
@@ -202,6 +227,15 @@ public class CrmContactObj extends BaseDbObj
 	public void setRecord_time(Timestamp record_time)
 	{
 		this.record_time = record_time;
+	}
+
+	public String getContact_birthday()
+	{
+		if (StringUtil.isEmpty(this.contact_birthday_type))
+		{
+			return "";
+		}
+		return this.contact_birthday_type + this.contact_birthday_month + "月" + this.contact_birthday_day + "日";
 	}
 
 	@Override

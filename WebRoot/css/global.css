@@ -94,10 +94,16 @@ A.noline::active{text-decoration:none;}
   background-image: url(../images/svg/light/orange/16/arrow_left.png);
 }
 .button_save {
-  background-image: url(../images/svg/light/gray/16/checkmark_circle.png);
+  background-image: url(../images/svg/light/gray/16/save_floppy.png);
 }
 .button_save:hover {
-  background-image: url(../images/svg/light/orange/16/checkmark_circle.png);
+  background-image: url(../images/svg/light/orange/16/save_floppy.png);
+}
+.button_copy {
+  background-image: url(../images/svg/light/gray/16/multiple_documents_files.png);
+}
+.button_copy:hover {
+  background-image: url(../images/svg/light/orange/16/multiple_documents_files.png);
 }
 .button_close {
   background-image: url(../images/svg/light/gray/16/cross_circle.png);
@@ -167,6 +173,9 @@ A.noline::active{text-decoration:none;}
 }
 .image_button {
   cursor: pointer;
+}
+.input_read_only{
+  background: #999999;
 }
 .input_box_id_card {
   font-size: 20px;

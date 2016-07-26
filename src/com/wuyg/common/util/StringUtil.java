@@ -381,9 +381,9 @@ public class StringUtil
 		return isEmpty(longStr) ? 0 : Long.parseLong(longStr);
 	}
 
-	public static double parseDouble(String doubleStr) throws Exception
+	public static double parseDouble(Object doubleStr) throws Exception
 	{
-		return isEmpty(doubleStr) ? 0 : Double.parseDouble(doubleStr);
+		return isEmpty(doubleStr+"") ? 0 : Double.parseDouble(doubleStr+"");
 	}
 
 	// 首字母大写

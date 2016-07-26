@@ -1,6 +1,7 @@
 package com.wuyg.common.servlet;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.registry.infomodel.User;
+
+import me.chyxion.xls.TableToXls;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
@@ -187,7 +190,8 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	// 以下模块不记录日志
 	private boolean exceptModule(String basePath)
 	{
-		String[] exceptModules=new String[]{"AuthLogOperation","Dictionary"};
+		String[] exceptModules = new String[]
+		{ "AuthLogOperation", "Dictionary" };
 		return Arrays.asList(exceptModules).contains(basePath);
 	}
 
@@ -197,7 +201,7 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		try
 		{
 			String domainInstanceJson = JSON.toJSONString(domainInstance, true);
-//			String domainSearchConditionJson = JSON.toJSONString(domainSearchCondition, true);
+			// String domainSearchConditionJson = JSON.toJSONString(domainSearchCondition, true);
 
 			AuthLogOperationObj operation = new AuthLogOperationObj();
 			operation.setUseraccount(currentUser.getAccount());
@@ -380,6 +384,27 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), 1, Integer.MAX_VALUE);
 
 		RequestUtil.downloadFile(this, response, domainPagination.getDataList(), getDomainInstanceClz());
+	}
+
+	// 导出
+	public void exportFromHtml(HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		// 生成excel文件
+		String filePath = this.getServletContext().getRealPath("/download/") + "/" + "报表" + "_" + TimeUtil.nowTime2str("yyyyMMddHHmmss") + ".xls";
+		File xlsFile = new File(filePath);
+
+		log.info("导出文件,生成开始 " + filePath);
+
+		// 转换为excel
+		String table_html = request.getParameter("table_html");
+		FileOutputStream fout = new FileOutputStream(filePath);
+		TableToXls.process(table_html, fout);
+		fout.close();
+
+		log.info("导出文件,生成完成 " + filePath + ",文件大小；" + (xlsFile.length() / 1024) + "K");
+
+		// 下载
+		RequestUtil.downloadFile(response, filePath);
 	}
 
 	// 上传文件

@@ -121,7 +121,10 @@
 					<td> 
 						<%=DictionaryUtil.getSelectHtml("性别字典", "contact_sex", StringUtil.getNotEmptyStr(domainInstance.getContact_sex(), ""))%>					</td> 
 				    <td><%=domainInstance.getPropertyCnName("contact_birthday") %>: </td>
-				    <td><input name="contact_birthday" type="text" id="contact_birthday" value="<%=TimeUtil.date2str(domainInstance.getContact_birthday(),"yyyy-MM-dd")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" ></td>
+				    <td>
+				    <%=DictionaryUtil.getSelectHtml("阴阳历字典", "contact_birthday_type", StringUtil.getNotEmptyStr(domainInstance.getContact_birthday_type(), ""))%>
+				    <%=DictionaryUtil.getSelectHtml("月字典", "contact_birthday_month", StringUtil.getNotEmptyStr(domainInstance.getContact_birthday_month(), ""))%>月
+				    <%=DictionaryUtil.getSelectHtml("日字典", "contact_birthday_day", StringUtil.getNotEmptyStr(domainInstance.getContact_birthday_day(), ""))%>日</td>
 				</tr> 
 				<tr> 
 					<td> 
@@ -152,10 +155,10 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("record_account") %>:					</td> 
 					<td> 
-						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典",StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="20">
+						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典",StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="20" style="background: #eeeeee;">
 						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">					</td> 
 				    <td><%=domainInstance.getPropertyCnName("record_time") %>: </td>
-				    <td><input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20"></td>
+				    <td><input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20" style="background: #eeeeee;"></td>
 				</tr> 
 			</table> 
 			 

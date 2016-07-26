@@ -1,11 +1,13 @@
 package com.wuyg.auth.obj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.wuyg.common.dao.BaseDbObj;
+import com.wuyg.common.dao.DefaultBaseDAO;
 
 public class AuthRoleObj extends BaseDbObj
 {
@@ -13,6 +15,7 @@ public class AuthRoleObj extends BaseDbObj
 	private String rolecode;
 	private String rolename;
 	private String rolediscription;
+	private List<AuthRoleFunctionObj> functions = null;
 
 	@Override
 	public String findKeyColumnName()
@@ -23,8 +26,7 @@ public class AuthRoleObj extends BaseDbObj
 	@Override
 	public String findParentKeyColumnName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "rolecode";
 	}
 
 	@Override
@@ -107,6 +109,40 @@ public class AuthRoleObj extends BaseDbObj
 	public void setRolediscription(String rolediscription)
 	{
 		this.rolediscription = rolediscription;
+	}
+
+	public List<AuthRoleFunctionObj> getFunctions()
+	{
+		return functions;
+	}
+
+	public void setFunctions(List<AuthRoleFunctionObj> functions)
+	{
+		this.functions = functions;
+	}
+
+	/**
+	 * 判断该角色是否具备某项权限
+	 * 
+	 * @param functioncode
+	 * @return
+	 */
+	public boolean hasFunction(String functioncode)
+	{
+		if (functions == null)
+		{
+			functions = new DefaultBaseDAO(AuthRoleFunctionObj.class).searchByParentKey(AuthRoleFunctionObj.class, rolecode, null);
+		}
+
+		for (int i = 0; i < functions.size(); i++)
+		{
+			if (functioncode.equalsIgnoreCase(functions.get(i).getFunctioncode()))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Override

@@ -6,6 +6,8 @@
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.crm.obj.CrmManagementActivityObj"%>
 <%@page import="com.wuyg.common.util.TimeUtil"%> 
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  
@@ -16,6 +18,8 @@
 	String basePath = domainInstance.getBasePath();  
 	// 是否商机跟进活动
 	boolean isOpportunityActivity = domainInstance.isOpportunityActivity();
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 %> 
 <html> 
 	<head> 
@@ -31,10 +35,11 @@
 		<!-- 操作栏 --> 
 		<table width="800" align="center" class="top_tools_table">
           <tr>
-            <td><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
-              <input name="button" type="button" class="button button_modify" value="修改"/>
+            <td>
+              <%if(user.hasFunction("经营活动-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
+              <input name="button" type="button" class="button button_modify" value="修改"/><%} %>
               </a>
-              	<input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
+              <%if(user.hasFunction("经营活动-删除")){ %><input name="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')"><%} %>
            	</td>
           </tr>
         </table>

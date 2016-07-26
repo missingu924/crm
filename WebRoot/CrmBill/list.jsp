@@ -67,13 +67,15 @@
 				</tr>
 			</table>
 
-			<table class="table table-bordered table-striped" align="center" width="98%">
+			<table id="main_table" class="table table-bordered table-striped" align="center" width="98%">
 				<thead>
 					<tr>
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="contract_id" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_id")%>"><%=domainInstance.getPropertyCnName("contract_id")%></th>
 						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id")%></th>
+						<th onClick="sortBy(this)" db_col="bill_date" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_date")%>"><%=domainInstance.getPropertyCnName("bill_date")%></th>
 						<th onClick="sortBy(this)" db_col="bill_money" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_money")%>"><%=domainInstance.getPropertyCnName("bill_money")%></th>
+						<th onClick="sortBy(this)" db_col="gather_date" class="<%=domainSearchCondition.getSortClassByDbColumn("gather_date")%>"><%=domainInstance.getPropertyCnName("gather_date")%></th>
 						<th onClick="sortBy(this)" db_col="gather_money" class="<%=domainSearchCondition.getSortClassByDbColumn("gather_money")%>"><%=domainInstance.getPropertyCnName("gather_money")%></th>
 						<th onClick="sortBy(this)" db_col="comment" class="<%=domainSearchCondition.getSortClassByDbColumn("comment")%>"><%=domainInstance.getPropertyCnName("comment")%></th>
 						<th onClick="sortBy(this)" db_col="record_account" class="<%=domainSearchCondition.getSortClassByDbColumn("record_account")%>"><%=domainInstance.getPropertyCnName("record_account")%></th>
@@ -94,7 +96,9 @@
 				<tr>
 					<td><%=DictionaryUtil.getDictValueByDictKey("合同字典", o.getContract_id() + "")%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典", o.getCustomer_id() + "")%></td>
+					<td><%=TimeUtil.date2str(o.getBill_date(),"yyyy-MM-dd")%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getBill_money(), 2)%></td>
+					<td><%=TimeUtil.date2str(o.getGather_date(),"yyyy-MM-dd")%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getGather_money(), 2)%></td>
 					<td title="<%=StringUtil.getNotEmptyStr(o.getComment())%>"><%=StringUtil.getNotEmptyStr(o.getComment(), 10)%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典", o.getRecord_account())%></td>
@@ -113,7 +117,9 @@
 						合计
 					</td>
 					<td></td>
+					<td></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(bill_money_sum, 2)%></td>
+					<td></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(gather_money_sum, 2)%></td>
 					<td></td>
 					<td></td>

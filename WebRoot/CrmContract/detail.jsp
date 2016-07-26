@@ -9,6 +9,8 @@
 <%@page import="com.wuyg.common.dao.BaseDbObj"%>
 <%@page import="com.crm.obj.CrmManagementActivityObj"%>
 <%@page import="com.crm.obj.CrmBillObj"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <%
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();
@@ -17,6 +19,9 @@
 	CrmContractObj domainInstance = (CrmContractObj) request.getAttribute("domainInstance");
 	// 该功能路径  
 	String basePath = domainInstance.getBasePath();
+	// 用户信息
+	AuthUserObj user= (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+	boolean cf=user.hasFunction("合同-CF字段管理");
 %>
 <html>
 	<head>
@@ -35,9 +40,11 @@
 		<table width="800" align="center" class="top_tools_table">
 			<tr>
 				<td>
-					<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="button" type="button" class="button button_modify" value="修改" /> </a>
-					<input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
+					<%if(user.hasFunction("合同-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="button" type="button" class="button button_modify" value="修改" /> </a><%} %>
+					<%if(user.hasFunction("合同-删除")){ %><input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')"><%} %>
+					
 					<%
+					if(user.hasFunction("开票收款-增加")){ 
 						if ("否".equals(domainInstance.getIs_finished()))
 						{
 					%>
@@ -45,6 +52,7 @@
 						onClick="openBigModalDialog('<%=contextPath%>/CrmBill/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commerical_opportunity_id=<%=domainInstance.getCommercial_oppotunity_id()%>&contract_id=<%=domainInstance.getKeyValue()%>')" value="开票收款" />
 					<%
 						}
+					}
 					%>
 				</td>
 			</tr>
@@ -98,6 +106,7 @@
 				</td>
 				<td><%=StringUtil.formatDouble(domainInstance.getContract_price(), 2)%></td>
 			</tr>
+			<%if(cf){ %>
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("c")%>:
@@ -107,22 +116,25 @@
 				</td>
 				<td><%=StringUtil.formatDouble(domainInstance.getF(), 2)%></td>
 			</tr>
+			<%} %>
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("gather_money_total")%>:
 				</td>
 				<td><%=StringUtil.formatDouble(domainInstance.getGather_money_total(), 2)%>&nbsp;
-					<font color="green">(余款<%=StringUtil.formatDouble(domainInstance.getSpare_money(), 2)%>)</font>
+					<font color="green">(<%=domainInstance.getPropertyCnName("spare_money")%>:<%=StringUtil.formatDouble(domainInstance.getSpare_money(), 2)%>)</font>
 				</td>
 				<td><%=domainInstance.getPropertyCnName("bill_money_total")%>:
 				</td>
-				<td><%=StringUtil.formatDouble(domainInstance.getBill_money_total(), 2)%></td>
+				<td><%=StringUtil.formatDouble(domainInstance.getBill_money_total(), 2)%>&nbsp;
+				<font color="green">(<%=domainInstance.getPropertyCnName("bill_spare_money")%>:<%=StringUtil.formatDouble(domainInstance.getBill_spare_money(), 2)%>)</font>
+				</td>
 			</tr>
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("comment")%>:
 				</td>
 				<td colspan="3">
-					<%=StringUtil.getNotEmptyStr(domainInstance.getComment(), "")%>
+					<%=StringUtil.getNotEmptyStr(domainInstance.getComment(), "").replaceAll("\n","<br>")%>
 				</td>
 			</tr>
 			<tr>

@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.wuyg.common.dao.BaseDbObj;
+import com.wuyg.common.dao.DefaultBaseDAO;
+import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.util.StringUtil;
 
 public class AuthUserObj extends BaseDbObj
@@ -24,9 +26,7 @@ public class AuthUserObj extends BaseDbObj
 	private String officecode;
 	private String rolelevel;
 	private String enable;
-	// private List<AuthGroupObj> groups = new ArrayList<AuthGroup>();// 所在组ID列表
 	private List<AuthUserRoleObj> roles = new ArrayList<AuthUserRoleObj>();// 所具备的角色ID列表
-	private List<String> functions = new ArrayList<String>();// 所具备的权限项ID列表
 
 	@Override
 	public String findKeyColumnName()
@@ -84,7 +84,7 @@ public class AuthUserObj extends BaseDbObj
 		pros.put("telephone", "电话");
 		// pros.put("province", "province");
 		// pros.put("city", "city");
-		 pros.put("district", "对应U8职员");
+		pros.put("district", "对应U8职员");
 		pros.put("departmentcode", "部门");
 		// pros.put("departmentname", "departmentname");
 		pros.put("officecode", "职务");
@@ -108,16 +108,6 @@ public class AuthUserObj extends BaseDbObj
 		return account;
 	}
 
-	// public List<AuthGroup> getGroups()
-	// {
-	// return groups;
-	// }
-	//
-	// public void setGroups(List<AuthGroup> groups)
-	// {
-	// this.groups = groups;
-	// }
-
 	public String getEnable()
 	{
 		return enable;
@@ -136,16 +126,6 @@ public class AuthUserObj extends BaseDbObj
 	public void setRoles(List<AuthUserRoleObj> roles)
 	{
 		this.roles = roles;
-	}
-
-	public List<String> getFunctions()
-	{
-		return functions;
-	}
-
-	public void setFunctions(List<String> functions)
-	{
-		this.functions = functions;
 	}
 
 	public void setAccount(String account)
@@ -253,15 +233,15 @@ public class AuthUserObj extends BaseDbObj
 		this.rolelevel = rolelevel;
 	}
 
-	public boolean hasRole(String roleName)
+	public boolean hasRole(String rolecode)
 	{
-		if (StringUtil.isEmpty(roleName))
+		if (StringUtil.isEmpty(rolecode))
 		{
 			return true;
 		}
 		for (int i = 0; i < roles.size(); i++)
 		{
-			if (roleName.equals(roles.get(i).getRolecode()))
+			if (rolecode.equals(roles.get(i).getRolecode()))
 			{
 				return true;
 			}
@@ -269,37 +249,29 @@ public class AuthUserObj extends BaseDbObj
 		return false;
 	}
 
-	public boolean hasGroup(String functionName)
+	public boolean hasFunction(String functioncode)
 	{
-		if (StringUtil.isEmpty(functionName))
+		if (StringUtil.isEmpty(functioncode))
 		{
 			return true;
 		}
-		for (int i = 0; i < functions.size(); i++)
+
+		for (int i = 0; i < roles.size(); i++)
 		{
-			if (functionName.equals(functions.get(i)))
+			List<AuthRoleFunctionObj> functions = new DefaultBaseDAO(AuthRoleFunctionObj.class).searchByParentKey(AuthRoleFunctionObj.class, roles.get(i).getRolecode(), null);
+
+			for (int j = 0; j < functions.size(); j++)
 			{
-				return true;
+				if (functioncode.equalsIgnoreCase(functions.get(j).getFunctioncode()))
+				{
+					return true;
+				}
 			}
 		}
-		return false;
-	}
 
-	// public boolean hasFunction(String groupName)
-	// {
-	// if (StringUtil.isEmpty(groupName))
-	// {
-	// return true;
-	// }
-	// for (int i = 0; i < groups.size(); i++)
-	// {
-	// if (groupName.equals(groups.get(i)))
-	// {
-	// return true;
-	// }
-	// }
-	// return false;
-	// }
+		return false;
+
+	}
 
 	@Override
 	public String toString()

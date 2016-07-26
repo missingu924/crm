@@ -66,7 +66,7 @@
 					<td> 
 						<%=DictionaryUtil.getDictValueByDictKey("性别字典", StringUtil.getNotEmptyStr(domainInstance.getContact_sex(), ""))%>					</td> 
 				    <td><%=domainInstance.getPropertyCnName("contact_birthday") %>: </td>
-				    <td><%=TimeUtil.date2str(domainInstance.getContact_birthday(),"yyyy-MM-dd")%></td>
+				    <td><%=StringUtil.getNotEmptyStr(domainInstance.getContact_birthday(),"")%></td>
 				</tr> 
 				<tr> 
 					<td> 

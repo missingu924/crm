@@ -88,7 +88,7 @@ public class CrmContactServlet extends AbstractBaseServletTemplate
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.export(request,response);
+		super.exportFromHtml(request, response);
 	}
 
 }

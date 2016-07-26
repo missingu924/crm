@@ -98,7 +98,7 @@
 				</tr>
 			</table>
 
-			<table class="table table-bordered table-striped table-sorted" align="center" width="98%">
+			<table id="main_table" class="table table-bordered table-striped table-sorted" align="center" width="98%">
 				<thead>
 					<tr>
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">

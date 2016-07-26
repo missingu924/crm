@@ -59,7 +59,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 		// 先把domainInstance中非空的基本条件设置上
 		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置其他条件
-		CrmContractSearchCondition condition = (CrmContractSearchCondition)domainSearchCondition;
+		CrmContractSearchCondition condition = (CrmContractSearchCondition) domainSearchCondition;
 		if (!StringUtil.isEmpty(condition.getContract_sign_time_start()))
 		{
 			where += " and contract_sign_time>='" + condition.getContract_sign_time_start() + "' ";
@@ -77,7 +77,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 			where += " and contract_price<='" + condition.getContract_price_max() + "' ";
 		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}
@@ -153,7 +153,29 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 	// 修改前查询领域对象信息
 	public void preModify4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.preModify(request, response);
+		// super.preModify(request, response);
+
+		// 查询
+		Object domainObj = getDomainDao().searchByKey(getDomainInstanceClz(), domainInstance.getKeyValue() + "");
+
+		if (domainObj != null)
+		{
+			request.setAttribute(DOMAIN_INSTANCE, domainObj);
+		} else
+		{
+			CrmContractObj contract = (CrmContractObj) domainInstance;
+			CrmCommercialOpportunityObj commercialOpportunity = contract.findCommercialOpportunity();
+
+			// 增加合同时，合同名称（商机名称）、合同金额、合同关键点（客户需求）带过来
+			contract.setContract_name(commercialOpportunity.getOpportunity_name());
+			contract.setContract_price(commercialOpportunity.getTarget_price());
+			contract.setComment(commercialOpportunity.getCustomer_request());
+
+			request.setAttribute(DOMAIN_INSTANCE, domainInstance);
+		}
+
+		// 转向
+		request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_ADD_OR_MODIFY + ".jsp").forward(request, response);
 	}
 
 	// 详情
@@ -222,11 +244,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-//		super.export(request, response);
-		// 导出时不限条数，放到最大值
-		PaginationObj domainPagination = new DefaultBaseDAO(VCrmContractObj.class).searchPaginationByDomainInstance(domainInstance, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), 1, Integer.MAX_VALUE);
-
-		RequestUtil.downloadFile(this, response, domainPagination.getDataList(), getDomainInstanceClz());
+		super.exportFromHtml(request, response);
 	}
 
 }

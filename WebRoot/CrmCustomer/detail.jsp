@@ -13,6 +13,8 @@
 <%@page import="com.crm.obj.CrmManagementActivityObj"%>
 <%@page import="com.crm.obj.CrmContactObj"%>
 <%@page import="com.crm.obj.CrmCustomerChangelogObj"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
 <%
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();
@@ -21,6 +23,8 @@
 	CrmCustomerObj domainInstance = (CrmCustomerObj) request.getAttribute("domainInstance");
 	// 该功能路径  
 	String basePath = domainInstance.getBasePath();
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 %>
 <html>
 	<head>
@@ -37,11 +41,11 @@
 		<table width="800" align="center" class="top_tools_table">
 			<tr>
 				<td>
-					<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyCustomerButton" type="button" class="button button_modify" value="修改" /> </a>
-					<input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')">
-					<input name="addContactButton" type="button" class="button button_user" onClick="openBigModalDialog('<%=contextPath%>/CrmContact/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>')" value="新增联系人" />
-					<input name="addOpportunityButton" type="button" class="button button_add_square" onClick="openBigModalDialog('<%=contextPath%>/CrmCommercialOpportunity/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>')" value="新增商机" />
-					<input name="addNomalActivityButton" type="button" class="button button_add" onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>&activity_type=普通经营活动')" value="普通拜访" />
+					<%if(user.hasFunction("客户档案-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyCustomerButton" type="button" class="button button_modify" value="修改" /> </a><%} %>
+					<%if(user.hasFunction("客户档案-删除")){ %><input id="deleteButton" type="button" class="button button_delete" value="删除" onClick="deleteIt('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>')"><%} %>
+					<%if(user.hasFunction("联系人-增加")){ %><input name="addContactButton" type="button" class="button button_user" onClick="openBigModalDialog('<%=contextPath%>/CrmContact/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>')" value="新增联系人" /><%} %>
+					<%if(user.hasFunction("商机-增加")){ %><input name="addOpportunityButton" type="button" class="button button_add_square" onClick="openBigModalDialog('<%=contextPath%>/CrmCommercialOpportunity/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>')" value="新增商机" /><%} %>
+					<%if(user.hasFunction("经营活动-增加")){ %><input name="addNomalActivityButton" type="button" class="button button_add" onClick="openBigModalDialog('<%=contextPath%>/CrmManagementActivity/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getKeyValue()%>&activity_type=普通经营活动')" value="普通拜访" /><%} %>
 				</td>
 			</tr>
 		</table>
@@ -167,7 +171,7 @@
 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_name())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典", o.getContact_sex())%></td>
-					<td><%=TimeUtil.date2str(o.getContact_birthday(), "yyyy-MM-dd")%></td>
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday(), "")%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_email())%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_qq())%></td>
@@ -314,6 +318,8 @@
 				%>
 			</table>
 		</div>
+		
+		<div id="other_info_div">
 
 		<table id="releated_info_tab_table" width="800" align="center" class="sub_title_table">
 			<tr>
@@ -655,6 +661,8 @@
 				}
 			%>
 		</div>
+		
+		</div>
 
 
 		<!-- 工具栏 -->
@@ -672,5 +680,10 @@
 				$("body").append("<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'><span id='refresh_href'></span></a>");
 				$("#refresh_href").click();
 			}
+			
+			// 财务角色隐藏掉其他信息
+			<%if(user.hasRole(SystemConstant.ROLE_CAIWU)){ %>
+			$("#other_info_div").hide();
+			<%}%>
 		</script>
 </html>

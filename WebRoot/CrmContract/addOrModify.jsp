@@ -34,10 +34,12 @@
 
 	// 用户信息
 	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
+	boolean cf=user.hasFunction("合同-CF字段管理");
+	boolean otherColums=user.hasFunction("合同-除CF之外的其他字段管理");
 
 	// 开票信息
 	CrmCustomerObj customer = new CrmCustomerObj();
-	if (!isModify)
+	//if (!isModify)
 	{
 		// 新增时默认取当前客户的开票信息
 		customer = domainInstance.findCustomer();
@@ -170,6 +172,7 @@
 						<input name="contract_price" type="text" id="contract_price" value="<%=StringUtil.formatDouble(domainInstance.getContract_price(), 2)%>" size="18"> <font color="red">*</font>
 					</td>
 				</tr>
+				<%if(cf){ %>
 				<tr>
 					<td>
 						<%=domainInstance.getPropertyCnName("c")%>:
@@ -183,6 +186,7 @@
 						<input name="f" type="text" id="f" value="<%=StringUtil.formatDouble(domainInstance.getF(), 2)%>" size="18"> 
 					</td>
 				</tr>
+				<%} %>
 				<tr>
 					<td>
 						<%=domainInstance.getPropertyCnName("comment")%>:
@@ -195,13 +199,13 @@
 					<td><%=domainInstance.getPropertyCnName("record_account")%>:
 					</td>
 					<td>
-						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="12">
+						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="12" style="background: #eeeeee;">
 						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">
 					</td>
 					<td><%=domainInstance.getPropertyCnName("record_time")%>:
 					</td>
 					<td>
-						<input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="18">
+						<input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="18" style="background: #eeeeee;">
 					</td>
 				</tr>
 			</table>
@@ -234,42 +238,42 @@
 						<td><%=domainInstance.getPropertyCnName("bill_company_name")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_company_name" type="text" id="bill_company_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_company_name(), customer.getBill_company_name())%>" size="70">
+							<input name="bill_company_name" type="text" id="bill_company_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_company_name(), StringUtil.getNotEmptyStr(customer.getBill_company_name(),""))%>" size="70" readOnly  style="background: #eeeeee;">
 						</td>
 					</tr>
 					<tr label="bill_detail">
 						<td><%=domainInstance.getPropertyCnName("bill_duty_number")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_duty_number" type="text" id="bill_duty_number" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_duty_number(), customer.getBill_duty_number())%>" size="70" readOnly>
+							<input name="bill_duty_number" type="text" id="bill_duty_number" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_duty_number(), StringUtil.getNotEmptyStr(customer.getBill_duty_number(),""))%>" size="70" readOnly style="background: #eeeeee;">
 						</td>
 					</tr>
 					<tr label="bill_detail">
 						<td><%=domainInstance.getPropertyCnName("bill_address")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_address" type="text" id="bill_address" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_address(), customer.getBill_address())%>" size="70" readOnly>
+							<input name="bill_address" type="text" id="bill_address" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_address(), StringUtil.getNotEmptyStr(customer.getBill_address(),""))%>" size="70" readOnly style="background: #eeeeee;">
 						</td>
 					</tr>
 					<tr label="bill_detail">
 						<td><%=domainInstance.getPropertyCnName("bill_telephone")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_telephone" type="text" id="bill_telephone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_telephone(), customer.getBill_telephone())%>" size="70" readOnly>
+							<input name="bill_telephone" type="text" id="bill_telephone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_telephone(), StringUtil.getNotEmptyStr(customer.getBill_telephone(),""))%>" size="70" readOnly style="background: #eeeeee;">
 						</td>
 					</tr>
 					<tr label="bill_detail">
 						<td><%=domainInstance.getPropertyCnName("bill_bank_name")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_bank_name" type="text" id="bill_bank_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_name(), customer.getBill_bank_name())%>" size="70" readOnly>
+							<input name="bill_bank_name" type="text" id="bill_bank_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_name(), StringUtil.getNotEmptyStr(customer.getBill_bank_name(),""))%>" size="70" readOnly style="background: #eeeeee;">
 						</td>
 					</tr>
 					<tr label="bill_detail">
 						<td><%=domainInstance.getPropertyCnName("bill_bank_account")%>:
 						</td>
 						<td colspan="3">
-							<input name="bill_bank_account" type="text" id="bill_bank_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_account(), customer.getBill_bank_account())%>" size="70" readOnly>
+							<input name="bill_bank_account" type="text" id="bill_bank_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_bank_account(), StringUtil.getNotEmptyStr(customer.getBill_bank_account(),""))%>" size="70" readOnly style="background: #eeeeee;">
 						</td>
 					</tr>
 					
@@ -296,6 +300,23 @@
 			if($("#draw_bill").val()!='是')
 			{
 				$("[label=bill_detail]").each(function(){$(this).hide()});
+			}
+			
+			// 如果不具备其他字段的修改权限，则将其他字段置为只读
+			<%if(!otherColums){%>
+				setDisabled("contract_name");
+				setDisabled("contract_subject");
+				setDisabled("is_finished");
+				setDisabled("contract_sign_time");
+				setDisabled("contract_price");
+				setDisabled("comment");
+				setDisabled("draw_bill");
+				setDisabled("bill_type");
+			<%}%>
+			
+			function setDisabled(id){
+				$("#"+id).attr("disabled","disabled");
+				$("#"+id).css("background","#eeeeee");
 			}
 			
 			</script>

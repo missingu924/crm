@@ -22,8 +22,7 @@ public class AuthRoleFunctionObj extends BaseDbObj
 	@Override
 	public String findParentKeyColumnName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "rolecode";
 	}
 
 	@Override

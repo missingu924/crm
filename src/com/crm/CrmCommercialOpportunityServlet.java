@@ -112,6 +112,33 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 	{
 		super.preModify(request, response);
 	}
+	
+	// 复制
+	public void copy4this(HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		// 查询
+		Object domainObj4copy = getDomainDao().searchByKey(getDomainInstanceClz(), domainInstance.getKeyValue() + "");
+		
+		CrmCommercialOpportunityObj commercialOpportunity = new CrmCommercialOpportunityObj();
+
+		if (domainObj4copy != null)
+		{
+			//复制商机时，商机名称、经营类型、目标金额不用带过来
+			CrmCommercialOpportunityObj commercialOpportunity4copy = (CrmCommercialOpportunityObj)domainObj4copy;
+			commercialOpportunity.setCustomer_id(commercialOpportunity4copy.getCustomer_id());
+			commercialOpportunity.setCustomer_request(commercialOpportunity4copy.getCustomer_request());
+			commercialOpportunity.setEstimate_sign_time(commercialOpportunity4copy.getEstimate_sign_time());
+			commercialOpportunity.setManagement_account(commercialOpportunity4copy.getManagement_account());
+			commercialOpportunity.setNext_step(commercialOpportunity4copy.getNext_step());
+			commercialOpportunity.setSale_stage_code(commercialOpportunity4copy.getSale_stage_code());
+			commercialOpportunity.setSource(commercialOpportunity4copy.getSource());
+			
+		} 
+		request.setAttribute(DOMAIN_INSTANCE, commercialOpportunity);
+
+		// 转向
+		request.getRequestDispatcher("/" + getBasePath() + "/" + BASE_METHOD_ADD_OR_MODIFY + ".jsp").forward(request, response);
+	}
 
 	// 详情
 	public void detail4this(HttpServletRequest request, HttpServletResponse response) throws Exception
@@ -163,7 +190,7 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.export(request, response);
+		super.exportFromHtml(request, response);
 	}
 
 }

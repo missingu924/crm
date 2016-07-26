@@ -17,8 +17,6 @@
 	String fieldName = request.getParameter("fieldName");// 数据选择之后放到哪个字段中
 	String dictName = request.getParameter("dictName");// 字典名称
 	
-	System.out.println("----------------------"+dictName);
-	
 	// 字典信息
 	Dictionary dictionary = new Dictionary();
 	Dict dict = dictionary.getDictByName(dictName);

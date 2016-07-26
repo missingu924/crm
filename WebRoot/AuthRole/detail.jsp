@@ -4,7 +4,8 @@
 <%@page import="java.util.List"%> 
 <%@page import="com.wuyg.common.util.StringUtil"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
-<%@page import="com.wuyg.auth.obj.AuthRoleObj"%> 
+<%@page import="com.wuyg.auth.obj.AuthRoleObj"%>
+<%@page import="com.wuyg.auth.obj.AuthFunctionObj"%> 
 <% 
 	// 当前上下文路径  
 	String contextPath = request.getContextPath();  
@@ -60,6 +61,13 @@
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRolediscription())%></td> 
 			</tr> 
 		</table> 
+		
+		<!-- 角色选择 --> 
+		<jsp:include page="../Dictionary/list4parent.jsp">
+			<jsp:param name="clzFullName" value="<%=AuthFunctionObj.class.getCanonicalName() %>"/>
+			<jsp:param name="dictName" value="权限项字典"/>
+			<jsp:param name="isAddOrModify" value="false"/>
+		</jsp:include>
 		 
 		<!-- 工具栏 --> 
 		<jsp:include page="../ToolBar/detail_toolbar.jsp"/> 

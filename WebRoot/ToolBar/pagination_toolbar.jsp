@@ -70,6 +70,12 @@
 	</tr>
 </table>
 
+<!-- 从HTML页面导出excel使用 -->
+<input type="hidden" name="table_html" id="table_html" value="">
+<script>
+$("#table_html").val("<table>"+$("#main_table").html()+"</table>");
+</script>
+
 <!-- JS函数 -->
 <script>
 	// 绑定enter事件

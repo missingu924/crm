@@ -350,8 +350,14 @@ function createRowFromDictionary(dictName, tableId, keyField) {
 			trHtml += "		<input type=\"button\" class=\"button button_delete\" title=\"删除\" onClick=\"$(this).parents('tr').remove();\" /> ";
 			trHtml += "	</td>";
 			trHtml += "</tr>";
-
-			$("#" + tableId).append(trHtml);
+			
+			// 不重复添加
+			if($('input[name='+keyField+'][value='+key+']').val()){
+				 continue;
+			}
+			else{
+				$("#" + tableId).append(trHtml);
+			}
 		}
 	}
 }

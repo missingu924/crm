@@ -21,6 +21,7 @@ public class SystemConstant
 	public static final String SMS_PASSWORD = "";
 	
 	public static final String ROLE_ADMIN = "admin";
+	public static final String ROLE_CAIWU = "财务角色";
 	public static final String ROLE_DISTRICT_ADMIN = "区县管理员";
 	public static final String ROLE_DEPARTMENT_ADMIN = "部门管理员";
 	public static final String ROLE_COMMON_USER = "普通员工";

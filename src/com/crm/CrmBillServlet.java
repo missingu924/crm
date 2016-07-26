@@ -58,7 +58,7 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 		// 先把domainInstance中非空的基本条件设置上
 		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}
@@ -152,7 +152,7 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 	// 导出
 	public void export4this(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		super.export(request, response);
+		super.exportFromHtml(request, response);
 	}
 
 }
