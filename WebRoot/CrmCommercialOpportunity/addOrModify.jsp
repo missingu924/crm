@@ -95,7 +95,7 @@
 	<body>
 		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post">
 			<!-- 表格标题 -->
-			<table width="800" align="center" class="title_table">
+			<table width="720" align="center" class="title_table">
 				<tr>
 					<td>
 						<%=isModify ? "修改" : "增加"%><%=domainInstance.getCnName()%>
@@ -104,93 +104,67 @@
 			</table>
 
 			<!-- 详细信息 -->
-			<table width="800" align="center" class="detail_table detail_table-bordered">
+			<table width="720" align="center" class="detail_table detail_table-bordered">
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>">
 				<tr>
-					<td><%=domainInstance.getPropertyCnName("opportunity_name")%>:
-					</td>
-					<td colspan="5">
-						<input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name(), "")%>" size="50">
-						<font color="red">*</font>
-					</td>
+					<td><%=domainInstance.getPropertyCnName("opportunity_name")%>:					</td>
+					<td colspan="3">
+						<input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name(), "")%>" size="81">
+						<font color="red">*</font>					</td>
+			    </tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("customer_id")%>:					</td>
+					<td colspan="3"><%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), 81)%>
+						<font color="red">*</font>					</td>
+			    </tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("management_account")%>:</td>
+					<td colspan="3"><%=DictionaryUtil.getInputHtmlReadOnly("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), user.getAccount()),81)%>
+						<font color="red">*</font></td>
 				</tr>
 				<tr>
-					<td><%=domainInstance.getPropertyCnName("customer_id")%>:
-					</td>
-					<td colspan="5"><%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), 50)%>
-						<font color="red">*</font>
-					</td>
-				</tr>
-				<tr>
-					<td><%=domainInstance.getPropertyCnName("management_account")%>:
-					</td>
-					<td><%=DictionaryUtil.getInputHtmlReadOnly("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), user.getAccount()),20)%>
-						<font color="red">*</font>
-					</td>
-					<td><%=domainInstance.getPropertyCnName("management_type_code")%>:
-					</td>
-					<td><%=DictionaryUtil.getSelectHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%>
-						<font color="red">*</font>
-					</td>
-					<td><%=domainInstance.getPropertyCnName("sale_stage_code")%>:
-					</td>
+					<td><%=domainInstance.getPropertyCnName("management_type_code")%>:</td>
+					<td><%=DictionaryUtil.getSelectHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%> <font color="red">*</font></td>
+					<td><%=domainInstance.getPropertyCnName("sale_stage_code")%>:</td>
 					<td><%=DictionaryUtil.getSelectHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%>
-						<font color="red">*</font>
-					</td>
+						<font color="red">*</font></td>
 				</tr>
 				<tr>
 					<td>
-						<%=domainInstance.getPropertyCnName("target_price")%>:
-					</td>
+						<%=domainInstance.getPropertyCnName("target_price")%>:</td>
 					<td>
 						<input name="target_price" type="text" id="target_price" value="<%=StringUtil.formatDouble(domainInstance.getTarget_price(), 2)%>" size="20">
-						<font color="red">*</font>
-					</td>
-					<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%>:
-					</td>
+						<font color="red">*</font></td>
+					<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%>: </td>
+				    <td><input name="estimate_sign_time" type="text" id="estimate_sign_time" value="<%=TimeUtil.date2str(domainInstance.getEstimate_sign_time(), "yyyy-MM-dd")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+                      <font color="red">*</font></td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("source")%>:</td>
 					<td colspan="3">
-						<input name="estimate_sign_time" type="text" id="estimate_sign_time" value="<%=TimeUtil.date2str(domainInstance.getEstimate_sign_time(), "yyyy-MM-dd")%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-						<font color="red">*</font>
-					</td>
-				</tr>
+						<input type="text" name="source" id="source" value="<%=StringUtil.getNotEmptyStr(domainInstance.getSource(), "")%>" size="81">					</td>
+			    </tr>
 				<tr>
 					<td>
-						<%=domainInstance.getPropertyCnName("source")%>:
-					</td>
-					<td colspan="5">
-						<input type="text" name="source" id="source" size="70" value="<%=StringUtil.getNotEmptyStr(domainInstance.getSource(), "")%>">
-					</td>
-				</tr>
+						<%=domainInstance.getPropertyCnName("customer_request")%>:</td>
+					<td colspan="3">
+						<textarea name="customer_request" rows="3" id="customer_request" cols="61"><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(), "")%></textarea>					</td>
+			    </tr>
 				<tr>
 					<td>
-						<%=domainInstance.getPropertyCnName("customer_request")%>:
-					</td>
-					<td colspan="5">
-						<textarea name="customer_request" cols="52" rows="3" id="customer_request"><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_request(), "")%></textarea>
-					</td>
-				</tr>
+						<%=domainInstance.getPropertyCnName("next_step")%>:					</td>
+					<td colspan="3">
+						<textarea name="next_step" rows="3" id="next_step" cols="61" ><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(), "")%></textarea>					</td>
+			    </tr>
 				<tr>
 					<td>
-						<%=domainInstance.getPropertyCnName("next_step")%>:
-					</td>
-					<td colspan="5">
-						<textarea name="next_step" cols="52" rows="3" id="next_step"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(), "")%></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<%=domainInstance.getPropertyCnName("record_account")%>:
-					</td>
+						<%=domainInstance.getPropertyCnName("record_account")%>:					</td>
 					<td>
 						<input type="text" readOnly value="<%=DictionaryUtil.getDictValueByDictKey("账号字典", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount()))%>" size="20" style="background: #eeeeee;">
-						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="20">
-					</td>
-					<td>
-						<%=domainInstance.getPropertyCnName("record_time")%>:
-					</td>
-					<td colspan="3">
-						<input name="record_time" type="text" readOnly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20" style="background: #eeeeee;">
-					</td>
+						<input name="record_account" type="hidden" id="record_account" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), user.getAccount())%>" size="10">					</td>
+					<td><%=domainInstance.getPropertyCnName("record_time")%>: </td>
+				    <td><input name="record_time" type="text" readonly id="record_time" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getRecord_time()), TimeUtil.nowTime2str())%>" size="20" style="background: #eeeeee;"></td>
 				</tr>
 			</table>
 

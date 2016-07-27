@@ -46,42 +46,54 @@
 		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="../js/utils.js"></script>
 		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
-		<style type="text/css">
-		.search_table td {
-		  padding: 2px;
-		}
-		</style>
 	</head>
 	<body>
 		<form name="pageForm" id="pageForm" method="post" action="<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=list4this">
 
 			<!-- 查询条件 -->
-			<table class="search_table" align="center" width="98%"  style="td{padding:0}">
+			<table class="search_table" align="center" width="98%">
+				<tr>
+					<td align="right">
+					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
+					</td>
+				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr>
 					<td align="right">
 						<%=domainInstance.getPropertyCnName("opportunity_name")%></td>
-				    <td align="left"><input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name())%>" size="20"></td>
-				    <td align="right"><%=domainInstance.getPropertyCnName("customer_id")%></td>
-				    <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
-				    <td align="right"><%=domainInstance.getPropertyCnName("management_type_code")%></td>
-				    <td align="left"><%=DictionaryUtil.getInputHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%></td>
-				    <td align="right"><%=domainInstance.getPropertyCnName("sale_stage_code")%></td>
-				    <td align="left"><%=DictionaryUtil.getInputHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%></td>
-				    <td align="right"><%=domainInstance.getPropertyCnName("management_account")%></td>
-				    <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), ""))%></td>
-			      <td align="right"><input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+				    <td align="left"><input name="opportunity_name" type="text" id="opportunity_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOpportunity_name())%>" size="50"></td>
+			        <td align="right"></td>
 				</tr>
 				<tr>
-				  <td align="right"><%=domainInstance.getPropertyCnName("estimate_sign_time")%></td>
-			      <td colspan="3" align="left"><input name="estimate_sign_time_start" type="text" id="estimate_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getEstimate_sign_time_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-			        -
-		          <input name="estimate_sign_time_end" type="text" id="estimate_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getEstimate_sign_time_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})"></td>
-			      <td align="right"><%=domainInstance.getPropertyCnName("target_price")%></td>
-			      <td colspan="5" align="left"><input name="target_price_min" type="text" id="target_price_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getTarget_price_min(),2)%>" size="11">
-			        -
-		          <input name="target_price_max" type="text" id="target_price_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getTarget_price_max(),2)%>" size="11"></td>
+				  <td align="right"><%=domainInstance.getPropertyCnName("sale_stage_code")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%></td>
 			      <td align="left">&nbsp;</td>
+			  </tr>
+			  <tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("management_type_code")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("management_account")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "management_account", StringUtil.getNotEmptyStr(domainInstance.getManagement_account(), ""))%></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("estimate_sign_time")%></td>
+				  <td align="left"><input name="estimate_sign_time_start" type="text" id="estimate_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getEstimate_sign_time_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+-
+  <input name="estimate_sign_time_end" type="text" id="estimate_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getEstimate_sign_time_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})"></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("target_price")%></td>
+				  <td align="left"><input name="target_price_min" type="text" id="target_price_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getTarget_price_min(),2)%>" size="11">
+-
+  <input name="target_price_max" type="text" id="target_price_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getTarget_price_max(),2)%>" size="11"></td>
+			      <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
 			  </tr>
 			</table>
 

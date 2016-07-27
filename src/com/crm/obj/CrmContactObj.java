@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 public class CrmContactObj extends BaseDbObj
 {
 	private Long id;
-	private Long customer_id;
+	private String customer_id;
 	private String contact_name;
 	private String contact_sex;
 	private String contact_birthday_type;
@@ -99,12 +99,12 @@ public class CrmContactObj extends BaseDbObj
 		this.id = id;
 	}
 
-	public Long getCustomer_id()
+	public String getCustomer_id()
 	{
 		return customer_id;
 	}
 
-	public void setCustomer_id(Long customer_id)
+	public void setCustomer_id(String customer_id)
 	{
 		this.customer_id = customer_id;
 	}

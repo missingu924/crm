@@ -46,11 +46,6 @@
 		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="../js/utils.js"></script>
 		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
-		<style type="text/css">
-.search_table td {
-	padding: 2px;
-}
-</style>
 	</head>
 	<body>
 		<form name="pageForm" id="pageForm" method="post" action="<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=list4this">
@@ -59,36 +54,57 @@
 			<table class="search_table" align="center" width="98%">
 				<tr>
 					<td align="right">
-						<%=domainInstance.getPropertyCnName("contract_name")%></td>
-					<td align="left">
-						<input name="contract_name" type="text" id="contract_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContract_name())%>" size="30">
-					</td>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_id")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("is_finished")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), ""))%></td>
-					<td align="right">
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)">
+					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
 					</td>
 				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("contract_sign_time")%></td>
-					<td align="left">
-						<input name="contract_sign_time_start" type="text" id="contract_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-						-
-						<input name="contract_sign_time_end" type="text" id="contract_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-					</td>
-					<td align="right"><%=domainInstance.getPropertyCnName("contract_price")%></td>
-					<td colspan="3" align="left">
-						<input name="contract_price_min" type="text" id="contract_price_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_min(), 2)%>" size="11">
-						-
-						<input name="contract_price_max" type="text" id="contract_price_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_max(), 2)%>" size="11">
-					</td>
-					<td align="left">
-						&nbsp;
-					</td>
-				</tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_name")%></td>
+				  <td align="left"><input name="contract_name" type="text" id="contract_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContract_name())%>" size="50"></td>
+				  <td align="right"></td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_id")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+			  <tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("management_type_code")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+			  <tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_subject")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("合同主体字典", "contract_subject", StringUtil.getNotEmptyStr(domainInstance.getContract_subject(), ""))%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+			<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("is_finished")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), ""))%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+			  <tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("record_account")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "record_account", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), ""))%></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_sign_time")%></td>
+				  <td align="left"><input name="contract_sign_time_start" type="text" id="contract_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+-
+  <input name="contract_sign_time_end" type="text" id="contract_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})"></td>
+				  <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_price")%></td>
+				  <td align="left"><input name="contract_price_min" type="text" id="contract_price_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_min(), 2)%>" size="11">
+-
+  <input name="contract_price_max" type="text" id="contract_price_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_max(), 2)%>" size="11"></td>
+				  <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+			  </tr>
 			</table>
 
 			<table id="main_table" class="table table-bordered table-striped" align="center" width="98%">
@@ -97,7 +113,9 @@
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="contract_name" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_name")%>"><%=domainInstance.getPropertyCnName("contract_name")%></th>
 						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id")%></th>
+						<th onClick="sortBy(this)" db_col="management_type_code" class="<%=domainSearchCondition.getSortClassByDbColumn("management_type_code")%>"><%=domainInstance.getPropertyCnName("management_type_code")%></th>
 						<th onClick="sortBy(this)" db_col="contract_sign_time" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_sign_time")%>"><%=domainInstance.getPropertyCnName("contract_sign_time")%></th>
+						<th onClick="sortBy(this)" db_col="contract_subject" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_subject")%>"><%=domainInstance.getPropertyCnName("contract_subject")%></th>
 						<th onClick="sortBy(this)" db_col="draw_bill" class="<%=domainSearchCondition.getSortClassByDbColumn("draw_bill")%>"><%=domainInstance.getPropertyCnName("draw_bill")%></th>
 						<th onClick="sortBy(this)" db_col="contract_price" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_price")%>"><%=domainInstance.getPropertyCnName("contract_price")%></th>
 						<th onClick="sortBy(this)" db_col="bill_money_total" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_money_total")%>"><%=domainInstance.getPropertyCnName("bill_money_total")%></th>
@@ -124,7 +142,9 @@
 				<tr>
 					<td><%=StringUtil.getNotEmptyStr(o.getContract_name())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典", o.getCustomer_id() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("经营类型字典", o.getManagement_type_code())%></td>
 					<td><%=TimeUtil.date2str(o.getContract_sign_time(), "yyyy-MM-dd")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("合同主体字典", o.getContract_subject())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("是否字典", o.getDraw_bill())%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getContract_price(), 2)%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getBill_money_total(), 2)%></td>
@@ -142,6 +162,8 @@
 				%>
 				<tr style="color:blue">
 					<td>合计</td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

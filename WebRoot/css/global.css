@@ -464,15 +464,25 @@ table style
 }
 /*search table style*/
 .search_table {
-  margin-bottom: 8px;
   margin-top: 8px;
   max-width: 100%;
   background-color: #f0f8ff;
   border: 1px solid #0055a8;
 }
 .search_table td {
-  padding: 4px 8px 4px 8px;
-  line-height: 18px;
+  padding: 6px;
+  vertical-align: left;
+}
+/*search condition table style*/
+.search_condition_table {
+  max-width: 100%;
+  background-color: #fafafa;
+  border-left: 1px solid #0055a8;
+  border-right: 1px solid #0055a8;
+  border-bottom: 1px solid #0055a8;
+}
+.search_condition_table td {
+  padding: 2px;
   vertical-align: left;
 }
 /*top tools table style*/

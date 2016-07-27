@@ -12,6 +12,7 @@ public abstract class BaseSearchCondition
 	private int pageNo = 1;
 	private int pageCount = SystemConstant.PAGE_ROWS;
 	private String orderBy;// 排序条件
+	private boolean showSearchConditionTable = true;// 默认呈现查询条件设置区域
 
 	public AuthUserObj getUser()
 	{
@@ -61,6 +62,16 @@ public abstract class BaseSearchCondition
 	public void setOrderBy(String orderBy)
 	{
 		this.orderBy = orderBy;
+	}
+
+	public boolean isShowSearchConditionTable()
+	{
+		return showSearchConditionTable;
+	}
+
+	public void setShowSearchConditionTable(boolean showSearchConditionTable)
+	{
+		this.showSearchConditionTable = showSearchConditionTable;
 	}
 
 	/**

@@ -115,6 +115,14 @@
 						<font color="red">*</font> 
 					</td> 
 				</tr> 
+				<tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("comment") %>: 
+					</td> 
+					<td> 
+						<input name="comment" type="text" id="comment" value="<%=StringUtil.getNotEmptyStr(domainInstance.getComment(),"")%>" size="20"  > 
+					</td> 
+				</tr> 
 			</table> 
 			 
 			<!-- 工具栏 --> 

@@ -99,7 +99,7 @@
 	<body> 
 		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post"> 
 			<!-- 表格标题 --> 
-			<table width="800" align="center" class="title_table"> 
+			<table width="720" align="center" class="title_table"> 
 				<tr> 
 					<td><%=isModify ? "修改" : "增加"%><%=domainInstance.isOpportunityActivity()?"商机跟进记录":"普通拜访记录"%> 
 				  </td> 
@@ -107,13 +107,13 @@
 			</table> 
  
 			<!-- 详细信息 --> 
-			<table width="800" align="center" class="detail_table detail_table-bordered "> 
+			<table width="720" align="center" class="detail_table detail_table-bordered "> 
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>"> 
 				<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("customer_id") %>:					</td> 
 					<td colspan="3"> 
-						<%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""),70)%>  
+						<%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""),81)%>  
 						<font color="red">*</font>					</td> 
 			    </tr> 
 				<tr style="display:none"> 
@@ -128,7 +128,7 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %>:					</td> 
 					<td colspan="3"> 
-						<%=DictionaryUtil.getInputHtmlReadOnly("商机字典", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""),70)%> 
+						<%=DictionaryUtil.getInputHtmlReadOnly("商机字典", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""),81)%> 
 						<font color="red">*</font>					</td> 
 			    </tr> 
 			    <tr>
@@ -143,7 +143,7 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("activity_date") %>:					</td> 
 					<td colspan="3"> 
-						<input name="activity_date" type="text" id="activity_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getActivity_date(),"yyyy-MM-dd"),TimeUtil.nowTime2str("yyyy-MM-dd"))%>" size="20" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" > 
+						<input name="activity_date" type="text" id="activity_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getActivity_date(),"yyyy-MM-dd"),TimeUtil.nowTime2str("yyyy-MM-dd"))%>" size="10" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})" > 
 						<font color="red">*</font>					</td> 
 			    </tr> 
 				<tr> 
@@ -158,14 +158,14 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("activity_content") %>:					</td> 
 					<td colspan="3"> 
-						<textarea name="activity_content" cols="60" rows="3" id="activity_content"><%=StringUtil.getNotEmptyStr(domainInstance.getActivity_content(),"")%></textarea> 
+						<textarea name="activity_content" cols="61" rows="3" id="activity_content"><%=StringUtil.getNotEmptyStr(domainInstance.getActivity_content(),"")%></textarea> 
 						<font color="red">*</font>					</td> 
 			    </tr> 
 				<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("next_step") %>:					</td> 
 					<td colspan="3"> 
-						<textarea name="next_step" cols="60" rows="3" id="next_step"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(),"")%></textarea>					</td> 
+						<textarea name="next_step" cols="61" rows="3" id="next_step"><%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(),"")%></textarea>					</td> 
 			    </tr> 
 
 				<tr> 

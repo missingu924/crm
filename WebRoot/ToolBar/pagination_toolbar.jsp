@@ -19,7 +19,7 @@
 <table width="98%" border="0" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 		<td align="right">
-		<%if(user.hasRole("export")){ %>
+		<%if(user.hasFunction("数据导出")){ %>
 			<img src="../images/pagination_icons_save.png" title="导出全部数据" class="image_button" align="absmiddle" onClick="exportData('<%=pagination.getTotalCount()%>','<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=export4this')" />
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<%} %>

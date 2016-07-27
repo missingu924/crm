@@ -108,15 +108,20 @@ public class DictionaryUtil
 	{
 		return getInputHtml(dictName, inputName, inputValue, null, null, size);
 	}
+	
+	public static String getInputHtml(String dictName, String inputName, String inputValue, String dbFilter, int size)
+	{
+		return getInputHtml(dictName, inputName, inputValue, null, dbFilter, size);
+	}
 
 	public static String getInputHtml(String dictName, String inputName, String inputValue)
 	{
-		return getInputHtml(dictName, inputName, inputValue, null, null, 10);
+		return getInputHtml(dictName, inputName, inputValue, null, null, 50);
 	}
 
 	public static String getInputHtml(String dictName, String inputName, String inputValue, String dbFilter)
 	{
-		return getInputHtml(dictName, inputName, inputValue, null, null, dbFilter, 10);
+		return getInputHtml(dictName, inputName, inputValue, null, null, dbFilter, 50);
 	}
 
 	public static String getInputHtmlReadOnly(String dictName, String inputName, String inputValue, int size)

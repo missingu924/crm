@@ -51,23 +51,37 @@
 		<form name="pageForm" id="pageForm" method="post" action="<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=list4this"> 
 			 
 			<!-- 查询条件 --> 
-			<table class="search_table" align="center" width="98%"> 
-				<tr> 
-					<td align="left"> 
-						<%=domainInstance.getPropertyCnName("customer_id") %> 
-						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""),user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%>
-						&nbsp; 
-						<%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %> 
-						<%=DictionaryUtil.getInputHtml("商机字典", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""),"客户字典","customer_id",user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",10)%> 
-						&nbsp; 
-						<%=domainInstance.getPropertyCnName("activity_type") %> 
-						<%=DictionaryUtil.getInputHtml("经营活动类型字典", "activity_type", StringUtil.getNotEmptyStr(domainInstance.getActivity_type(), ""))%> 
-						&nbsp;  
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
-					</td> 
-				</tr> 
+			<table class="search_table" align="center" width="98%">
+				<tr>
+					<td align="right">
+					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
+					</td>
+				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_id") %></td>
+			      <td align="left"><%=DictionaryUtil.getInputHtml("客户字典-选择用", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""),user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("commercial_oppotunity_id") %></td>
+			      <td align="left"><%=DictionaryUtil.getInputHtml("商机字典-选择用", "commercial_oppotunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommercial_oppotunity_id(), ""),user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+								+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("activity_type") %></td>
+			      <td align="left"><%=DictionaryUtil.getInputHtml("经营活动类型字典", "activity_type", StringUtil.getNotEmptyStr(domainInstance.getActivity_type(), ""),50)%></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("record_account") %></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "record_account", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), ""))%></td>
+				  <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+			  </tr> 
 			</table> 
  
 			<table id="main_table" class="table table-bordered table-striped" align="center" width="98%"> 

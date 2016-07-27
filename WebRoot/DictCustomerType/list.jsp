@@ -68,6 +68,7 @@
 					<tr> 
 						<th><%=domainInstance.getPropertyCnName("customer_type_code") %></th> 
 						<th><%=domainInstance.getPropertyCnName("customer_type_name") %></th> 
+						<th><%=domainInstance.getPropertyCnName("comment") %></th> 
 						<th>操作</th> 
 					</tr> 
 				</thead> 
@@ -79,6 +80,7 @@
 				<tr> 
 					<td><%=StringUtil.getNotEmptyStr(o.getCustomer_type_code())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getCustomer_type_name())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getComment())%></td> 
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 

@@ -47,6 +47,12 @@
 				</td> 
 				<td><%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_type_name())%></td> 
 			</tr> 
+			<tr> 
+				<td> 
+					<%=domainInstance.getPropertyCnName("comment") %>: 
+				</td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getComment())%></td> 
+			</tr> 
 		</table> 
 		 
 		<!-- 工具栏 --> 

@@ -20,6 +20,8 @@ public class VContractBillDetailObj extends BaseDbObj
 	private String contract_name;
 	private String contract_sign_time;
 	private Double contract_price;
+	private String record_account;
+	private String user_name;
 	private String bill_date;
 	private Double bill_money;
 	private String gather_date;
@@ -87,6 +89,8 @@ public class VContractBillDetailObj extends BaseDbObj
 		pros.put("contract_name", "合同");
 		pros.put("contract_sign_time", "合同日期");
 		pros.put("contract_price", "合同金额");
+		pros.put("record_account", "录合同人");
+		pros.put("user_name", "录合同人");
 		pros.put("bill_date", "本次开票日期");
 		pros.put("bill_money", "本次开票金额");
 		pros.put("gather_date", "本次回款日期");
@@ -105,6 +109,26 @@ public class VContractBillDetailObj extends BaseDbObj
 	public void setId(Long id)
 	{
 		this.id = id;
+	}
+
+	public String getRecord_account()
+	{
+		return record_account;
+	}
+
+	public void setRecord_account(String record_account)
+	{
+		this.record_account = record_account;
+	}
+
+	public String getUser_name()
+	{
+		return user_name;
+	}
+
+	public void setUser_name(String user_name)
+	{
+		this.user_name = user_name;
 	}
 
 	public String getManagement_type_code()

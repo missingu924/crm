@@ -53,18 +53,31 @@
 			<!-- 查询条件 -->
 			<table class="search_table" align="center" width="98%">
 				<tr>
-					<td align="left">
-						<%=domainInstance.getPropertyCnName("customer_id")%>
-						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%>
-						&nbsp;
-						<%=domainInstance.getPropertyCnName("contract_id")%>
-						<%=DictionaryUtil.getInputHtml("合同字典", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), "客户字典", "customer_id", user.hasRole(SystemConstant.ROLE_ADMIN) ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%,"
-							+ user.getAccount() + ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))", 10)%>
-						&nbsp;
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)">
+					<td align="right">
+					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
 					</td>
 				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
+				<tr>
+					<td align="right">
+						<%=domainInstance.getPropertyCnName("customer_id")%></td>
+				    <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
+				    <td align="left">&nbsp;</td>
+				</tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_id")%></td>
+			      <td align="left"><%=DictionaryUtil.getInputHtml("合同字典-选择用", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%,"
+							+ user.getAccount() + ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
+			      <td align="left">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contract_user_account")%></td>
+			      <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "contract_user_account", StringUtil.getNotEmptyStr(domainInstance.getContract_user_account(), ""))%></td>
+			      <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+			  </tr>
 			</table>
 
 			<table id="main_table" class="table table-bordered table-striped" align="center" width="98%">
@@ -72,6 +85,7 @@
 					<tr>
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="contract_id" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_id")%>"><%=domainInstance.getPropertyCnName("contract_id")%></th>
+						<th onClick="sortBy(this)" db_col="contract_user_account" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_user_account")%>"><%=domainInstance.getPropertyCnName("contract_user_account")%></th>
 						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id")%></th>
 						<th onClick="sortBy(this)" db_col="bill_date" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_date")%>"><%=domainInstance.getPropertyCnName("bill_date")%></th>
 						<th onClick="sortBy(this)" db_col="bill_money" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_money")%>"><%=domainInstance.getPropertyCnName("bill_money")%></th>
@@ -94,7 +108,8 @@
 						gather_money_sum += o.getGather_money()==null?0:o.getGather_money();
 				%>
 				<tr>
-					<td><%=DictionaryUtil.getDictValueByDictKey("合同字典", o.getContract_id() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("合同字典", o.getContract_id())%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典", o.getContract_user_account())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典", o.getCustomer_id() + "")%></td>
 					<td><%=TimeUtil.date2str(o.getBill_date(),"yyyy-MM-dd")%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getBill_money(), 2)%></td>
@@ -116,6 +131,7 @@
 					<td>
 						合计
 					</td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(bill_money_sum, 2)%></td>

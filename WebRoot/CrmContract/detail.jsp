@@ -37,7 +37,7 @@
 	<body>
 
 		<!-- 操作栏 -->
-		<table width="800" align="center" class="top_tools_table">
+		<table width="720" align="center" class="top_tools_table">
 			<tr>
 				<td>
 					<%if(user.hasFunction("合同-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="button" type="button" class="button button_modify" value="修改" /> </a><%} %>
@@ -49,7 +49,7 @@
 						{
 					%>
 					<input name="billButton" type="button" class="button button_add"
-						onClick="openBigModalDialog('<%=contextPath%>/CrmBill/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commerical_opportunity_id=<%=domainInstance.getCommercial_oppotunity_id()%>&contract_id=<%=domainInstance.getKeyValue()%>')" value="开票收款" />
+						onClick="openBigModalDialog('<%=contextPath%>/CrmBill/Servlet?method=preModify4this&id=-1&customer_id=<%=domainInstance.getCustomer_id()%>&commerical_opportunity_id=<%=domainInstance.getCommercial_oppotunity_id()%>&contract_id=<%=domainInstance.getKeyValue()%>&contract_user_account=<%=domainInstance.getRecord_account()%>')" value="开票收款" />
 					<%
 						}
 					}
@@ -58,7 +58,7 @@
 			</tr>
 		</table>
 		<!-- 表格标题 -->
-		<table width="800" align="center" class="title_table">
+		<table width="720" align="center" class="title_table">
 			<tr>
 				<td>
 					<%=domainInstance.getCnName()%>信息
@@ -66,7 +66,7 @@
 			</tr>
 		</table>
 		<!-- 详细信息 -->
-		<table width="800" align="center" class="detail_table detail_table-bordered ">
+		<table width="720" align="center" class="detail_table detail_table-bordered ">
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("contract_name")%>:
@@ -78,7 +78,11 @@
 					<%=domainInstance.getPropertyCnName("customer_id")%>:
 				</td>
 				<td colspan="3">
+				<%if(user.hasFunction("客户档案-查询")){ %>
 					<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCustomer/Servlet?method=detail4this&id=<%=domainInstance.getCustomer_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("客户字典", domainInstance.getCustomer_id() + "")%></a>
+				<%} else { %>
+					<%=DictionaryUtil.getDictValueByDictKey("客户字典", domainInstance.getCustomer_id() + "")%>
+				<%} %>
 				</td>
 			</tr>
 			<tr>
@@ -86,9 +90,17 @@
 					<%=domainInstance.getPropertyCnName("commercial_oppotunity_id")%>:
 				</td>
 				<td colspan="3">
+				<%if(user.hasFunction("商机-查询")){ %>
 					<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCommercialOpportunity/Servlet?method=detail4this&id=<%=domainInstance.getCommercial_oppotunity_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("商机字典", domainInstance.getCommercial_oppotunity_id() + "")%></a>
+				<%} else { %>
+					<%=DictionaryUtil.getDictValueByDictKey("商机字典", domainInstance.getCommercial_oppotunity_id() + "")%>
+				<%} %>
 				</td>
 			</tr>
+			<tr>
+				<td><%=domainInstance.getPropertyCnName("management_type_code")%>:
+				</td>
+				<td colspan="3"><%=DictionaryUtil.getDictValueByDictKey("经营类型字典", domainInstance.getManagement_type_code())%></td>
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("contract_subject")%>:
 				</td>
@@ -147,7 +159,7 @@
 			</tr>
 		</table>
 
-		<table id="tab_table" width="800" align="center" class="sub_title_table">
+		<table id="tab_table" width="720" align="center" class="sub_title_table">
 			<tr>
 				<td div_id="bill_info_div" style="width: 80px">
 					开票信息
@@ -308,7 +320,7 @@
 
 		<script type="text/javascript">
 		// 应用tab页
-		useAsTab("tab_table","800");
+		useAsTab("tab_table","720");
 		
 		// 刷新详情页
 		function freshMe() {

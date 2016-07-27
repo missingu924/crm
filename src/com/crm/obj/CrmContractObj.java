@@ -15,6 +15,7 @@ public class CrmContractObj extends BaseDbObj
 	private Long id;
 	private String customer_id;
 	private String commercial_oppotunity_id;
+	private String management_type_code;
 	private String contract_name;
 	private Timestamp contract_sign_time;
 	private Double contract_price;
@@ -88,6 +89,7 @@ public class CrmContractObj extends BaseDbObj
 		pros.put("id", "编号");
 		pros.put("customer_id", "客户");
 		pros.put("commercial_oppotunity_id", "商机");
+		pros.put("management_type_code", "经营类型");
 		pros.put("contract_name", "合同名称");
 		pros.put("contract_sign_time", "签订日期");
 		pros.put("contract_subject","合同主体");
@@ -107,7 +109,7 @@ public class CrmContractObj extends BaseDbObj
 		pros.put("gather_money_total", "累计收款");
 		pros.put("spare_money", "合同应收");
 		pros.put("bill_spare_money", "发票应收");
-		pros.put("record_account", "录入人");
+		pros.put("record_account", "录合同人");
 		pros.put("record_time", "录入时间");
 		pros.put("comment", "合同关键点");
 		return pros;
@@ -363,6 +365,16 @@ public class CrmContractObj extends BaseDbObj
 	public void setSpare_money(Double spare_money)
 	{
 		this.spare_money = spare_money;
+	}
+
+	public String getManagement_type_code()
+	{
+		return management_type_code;
+	}
+
+	public void setManagement_type_code(String management_type_code)
+	{
+		this.management_type_code = management_type_code;
 	}
 
 	@Override

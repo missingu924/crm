@@ -121,7 +121,7 @@
 						<%=domainInstance.getPropertyCnName("rolediscription") %>: 
 					</td> 
 					<td> 
-						<input name="rolediscription" type="text" id="rolediscription" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRolediscription(),"")%>" size="20"  > 
+						<textarea name="rolediscription" cols="50" rows="5" id="rolediscription"><%=StringUtil.getNotEmptyStr(domainInstance.getRolediscription(),"")%></textarea>
 					</td> 
 				</tr> 
 			</table> 

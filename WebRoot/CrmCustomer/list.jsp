@@ -41,11 +41,6 @@
 		<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="../js/utils.js"></script>
 		<script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
-		<style type="text/css">
-.search_table td {
-	padding: 2px;
-}
-</style>
 	</head>
 	<body>
 		<form name="pageForm" id="pageForm" method="post" action="<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=list4this">
@@ -54,48 +49,69 @@
 			<table class="search_table" align="center" width="98%">
 				<tr>
 					<td align="right">
-						<%=domainInstance.getPropertyCnName("customer_full_name")%>&nbsp;
-					</td>
-					<td colspan="8" align="left">
-						<input name="customer_full_name" type="text" id="customer_full_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_full_name())%>" size="50">
-					</td>
-					<td align="right">
-						<input name="addButton" type="button" class="button button_add" value="新增客户" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')">
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)">
+					<input name="addButton" type="button" class="button button_add" value="新增客户" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')">
+						<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
 					</td>
 				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_type_code")%>&nbsp;&nbsp;
-						<br>
-					</td>
+					<td align="right">
+						<%=domainInstance.getPropertyCnName("customer_full_name")%></td>
+					<td align="left">
+						<input name="customer_full_name" type="text" id="customer_full_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_full_name())%>" size="50">					</td>
+			        <td align="right"></td>
+				</tr>
+				<tr>
+					<td align="right"><%=domainInstance.getPropertyCnName("customer_type_code")%></td>
 					<td align="left"><%=DictionaryUtil.getInputHtml("客户分类字典", "customer_type_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_type_code(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_region_code")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("区域字典", "customer_region_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_region_code(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_manager_account")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "customer_manager_account_list", StringUtil.getNotEmptyStr(domainSearchCondition.getCustomer_manager_account_list(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("service_engineer_account")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "service_engineer_account_list", StringUtil.getNotEmptyStr(domainSearchCondition.getService_engineer_account_list(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_is_deal")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "customer_is_deal", StringUtil.getNotEmptyStr(domainInstance.getCustomer_is_deal(), ""))%></td>
+			        <td align="right">&nbsp;</td>
 				</tr>
 				<tr>
 					<td align="right"><%=domainInstance.getPropertyCnName("product_code")%></td>
 					<td align="left"><%=DictionaryUtil.getInputHtml("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("product_version_code")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%></td>
-					<td align="right"><%=domainInstance.getPropertyCnName("service_due_date")%></td>
-					<td colspan="3" align="left">
-						<input name="service_due_date_start" type="text" id="service_due_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getService_due_date_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-						-
-						<input name="service_due_date_end" type="text" id="service_due_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getService_due_date_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-					</td>
-					<td align="right"><%=domainInstance.getPropertyCnName("service_charge_peryear")%></td>
-					<td align="left">
-						<input name="service_charge_peryear_min" type="text" id="service_charge_peryear_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getService_charge_peryear_min(), 2)%>" size="11">
-						-
-						<input name="service_charge_peryear_max" type="text" id="service_charge_peryear_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getService_charge_peryear_max(), 2)%>" size="11">
-					</td>
+			        <td align="right">&nbsp;</td>
 				</tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_region_code")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("区域字典", "customer_region_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_region_code(), ""))%></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_manager_account")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "customer_manager_account_list", StringUtil.getNotEmptyStr(domainSearchCondition.getCustomer_manager_account_list(), ""))%></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("service_engineer_account")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "service_engineer_account_list", StringUtil.getNotEmptyStr(domainSearchCondition.getService_engineer_account_list(), ""))%></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_is_deal")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "customer_is_deal", StringUtil.getNotEmptyStr(domainInstance.getCustomer_is_deal(), ""))%></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("product_version_code")%></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("service_due_date")%></td>
+				  <td align="left"><input name="service_due_date_start" type="text" id="service_due_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getService_due_date_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+-
+  <input name="service_due_date_end" type="text" id="service_due_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getService_due_date_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})"></td>
+		          <td align="right">&nbsp;</td>
+			  </tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("service_charge_peryear")%></td>
+				  <td align="left"><input name="service_charge_peryear_min" type="text" id="service_charge_peryear_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getService_charge_peryear_min(), 2)%>" size="11">
+-
+  <input name="service_charge_peryear_max" type="text" id="service_charge_peryear_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getService_charge_peryear_max(), 2)%>" size="11"></td>
+		          <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+			  </tr>
 			</table>
 
 			<table id="main_table" class="table table-bordered table-striped table-sorted" align="center" width="98%">

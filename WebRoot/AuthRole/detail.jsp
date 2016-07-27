@@ -58,7 +58,7 @@
 				<td> 
 					<%=domainInstance.getPropertyCnName("rolediscription") %>: 
 				</td> 
-				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRolediscription())%></td> 
+				<td><%=StringUtil.getNotEmptyStr(domainInstance.getRolediscription()).replaceAll("\n","<br>")%></td> 
 			</tr> 
 		</table> 
 		

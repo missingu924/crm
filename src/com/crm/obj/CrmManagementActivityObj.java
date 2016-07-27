@@ -80,7 +80,7 @@ public class CrmManagementActivityObj extends BaseDbObj
 		pros.put("activity_date", "活动日期");
 		pros.put("activity_content", "活动内容");
 		pros.put("next_step", "下一步计划");
-		pros.put("record_account", "录入人");
+		pros.put("record_account", "经营人");
 		pros.put("record_time", "录入时间");
 		return pros;
 	}

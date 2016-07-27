@@ -4,19 +4,23 @@ create view v_contract_bill_stat as
 select
 c.id,
 c.contract_name,
+o.management_type_code,
 t.management_name,
 CONVERT(varchar(100), c.contract_sign_time, 112) contract_sign_time,
 b.bill_number,
 b.bill_date,
+c.record_account,
 u.name user_name,
+c.contract_subject,
+s.subject_name,
 c.customer_id,
 m.customer_full_name,
 c.contract_price,
 b.bill_money,
 b.gather_date,
 b.gather_money,
-b.bill_money-b.gather_money bill_receivable,
-c.contract_price-b.gather_money contract__receivable,
+b.bill_money-isnull(b.gather_money,0) bill_receivable,
+c.contract_price-isnull(b.gather_money,0) contract__receivable,
 c.c,
 c.f
 from crm_contract c
@@ -28,8 +32,8 @@ left join
 (
 	select 
 	contract_id, 
-	SUM(bill_money) bill_money,
-	SUM(gather_money) gather_money,
+	SUM(isnull(bill_money,0)) bill_money,
+	SUM(isnull(gather_money,0)) gather_money,
 	 STUFF(
      ( 
       SELECT ','+  CONVERT(varchar(100), a.gather_date, 112) FROM crm_bill a WHERE b.contract_id = a.contract_id FOR XML PATH('')
@@ -49,7 +53,9 @@ on c.id=b.contract_id
 left join dict_management_type t
 on o.management_type_code = t.management_code
 left join auth_user u
-on c.record_account = u.account;
+on c.record_account = u.account
+left join dict_subject s
+on c.contract_subject=s.subject_code;
 
 select * from v_contract_bill_stat;
 
@@ -66,12 +72,15 @@ b.contract_id,
 b.customer_id,
 CONVERT(varchar(100), b.gather_date, 112) gather_date,
 c.contract_name,
+c.record_account,
 u.name user_name,
 m.customer_full_name,
 c.contract_subject,
 s.subject_name,
 p.management_type_code,
 t.management_name,
+CONVERT(varchar(100), c.contract_sign_time, 112) contract_sign_time,
+c.contract_price,
 c.draw_bill,
 bt.bill_money_total,
 b.gather_money,
@@ -113,6 +122,8 @@ b.id,
 p.management_type_code,
 t.management_name,
 c.customer_id,
+c.record_account,
+u.name user_name,
 m.customer_full_name,
 c.contract_subject,
 s.subject_name,

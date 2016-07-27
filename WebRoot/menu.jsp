@@ -55,41 +55,49 @@ function toggleMenuGroup(td,menuGroupId)
 					<table id="menu_group_01" width="100%" cellpadding="0" cellspacing="0" border="0">
 						<%if(user.hasFunction("客户档案-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCustomer/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCustomer/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;客户档案管理
+								&nbsp;&nbsp;客户档案
 							</td>
 						</tr>
 						<%} %>
 						<%if(user.hasFunction("商机-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;商机管理
+								&nbsp;&nbsp;商机
 							</td>
 						</tr>
 						<%} %>
 						<%if(user.hasFunction("合同-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContract/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContract/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;合同管理
+								&nbsp;&nbsp;合同
 							</td>
 						</tr>
 						<%} %>
 						<%if(user.hasFunction("开票收款-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmBill/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmBill/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;开票收款管理
+								&nbsp;&nbsp;开票收款
 							</td>
 						</tr>
 						<%} %>
 						<%if(user.hasFunction("经营活动-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmManagementActivity/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmManagementActivity/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;经营活动管理
+								&nbsp;&nbsp;经营活动
+							</td>
+						</tr>
+						<%} %>
+						<%if(user.hasFunction("联系人-查询")){ %>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContact/Servlet?method=list4this&showSearchConditionTable=false')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;联系人
 							</td>
 						</tr>
 						<%} %>
@@ -106,7 +114,7 @@ function toggleMenuGroup(td,menuGroupId)
 					<table id="menu_group_02" width="100%" cellpadding="0" cellspacing="0" border="0" style="display:none">
 						<%if(user.hasFunction("合同开票收款统计表-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillStat/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillStat/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同开票收款统计表
 							</td>
@@ -114,7 +122,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%} %>
 						<%if(user.hasFunction("合同开票收款明细表-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillDetail/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillDetail/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同开票收款明细表
 							</td>
@@ -122,7 +130,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%} %>
 						<%if(user.hasFunction("收款明细表-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VBillDetail/Servlet?method=list4this')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VBillDetail/Servlet?method=list4this&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;收款明细表
 							</td>
@@ -232,31 +240,31 @@ function toggleMenuGroup(td,menuGroupId)
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthUser/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/user.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;账号管理
+								&nbsp;&nbsp;账号
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthDepartment/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;部门管理
+								&nbsp;&nbsp;部门
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthRole/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;角色管理
+								&nbsp;&nbsp;角色
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthFunction/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;权限项管理
+								&nbsp;&nbsp;权限项
 							</td>
 						</tr>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/AuthOffice/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
-								&nbsp;&nbsp;职务管理
+								&nbsp;&nbsp;职务
 							</td>
 						</tr>
 						<tr>

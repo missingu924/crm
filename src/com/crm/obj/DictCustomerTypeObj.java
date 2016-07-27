@@ -10,6 +10,7 @@ public class DictCustomerTypeObj extends BaseDbObj
 private Long id;
 private String customer_type_code;
 private String customer_type_name;
+private String comment;
 @Override
 public String findKeyColumnName()
 {
@@ -54,6 +55,7 @@ public LinkedHashMap<String, String> findProperties()
 //		pros.put("id", "编号");
 		pros.put("customer_type_code", "客户分类编码");
 		pros.put("customer_type_name", "客户分类名称");
+		pros.put("comment", "分类说明");
 		return pros;
 }
 public Long getId()
@@ -63,6 +65,14 @@ public Long getId()
 public void setId(Long id)
 {
 	this.id = id;
+}
+public String getComment()
+{
+	return comment;
+}
+public void setComment(String comment)
+{
+	this.comment = comment;
 }
 public String getCustomer_type_code()
 {

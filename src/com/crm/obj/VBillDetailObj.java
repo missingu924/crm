@@ -13,10 +13,15 @@ public class VBillDetailObj extends BaseDbObj
 	private String gather_date;
 	private String contract_id;
 	private String contract_name;
+	private String record_account;
 	private String user_name;
 	private String customer_id;
 	private String customer_full_name;
+	private String contract_subject;
+	private String contract_sign_time;
+	private Double contract_price;
 	private String subject_name;
+	private String management_type_code;
 	private String management_name;
 	private String draw_bill;
 	private Double bill_money_total;
@@ -75,10 +80,17 @@ public class VBillDetailObj extends BaseDbObj
 
 		// pros.put("id", "id");
 		pros.put("gather_date", "收款日期");
+		pros.put("contract_id", "合同");
 		pros.put("contract_name", "合同");
 		pros.put("user_name", "录合同人");
-		pros.put("customer_full_name", "客户名称");
+		pros.put("record_account", "录合同人");
+		pros.put("customer_id", "客户");
+		pros.put("customer_full_name", "客户");
+		pros.put("contract_subject", "合同主体");
 		pros.put("subject_name", "合同主体");
+		pros.put("contract_sign_time", "合同日期");
+		pros.put("contract_price", "合同金额");
+		pros.put("management_type_code", "经营类型");
 		pros.put("management_name", "经营类型");
 		pros.put("draw_bill", "是否开发票");
 		pros.put("bill_money_total", "累计开票金额");
@@ -104,9 +116,39 @@ public class VBillDetailObj extends BaseDbObj
 		return gather_date;
 	}
 
+	public String getManagement_type_code()
+	{
+		return management_type_code;
+	}
+
+	public void setManagement_type_code(String management_type_code)
+	{
+		this.management_type_code = management_type_code;
+	}
+
 	public void setGather_date(String gather_date)
 	{
 		this.gather_date = gather_date;
+	}
+
+	public String getContract_sign_time()
+	{
+		return contract_sign_time;
+	}
+
+	public void setContract_sign_time(String contract_sign_time)
+	{
+		this.contract_sign_time = contract_sign_time;
+	}
+
+	public Double getContract_price()
+	{
+		return contract_price;
+	}
+
+	public void setContract_price(Double contract_price)
+	{
+		this.contract_price = contract_price;
 	}
 
 	public String getContract_name()
@@ -194,6 +236,16 @@ public class VBillDetailObj extends BaseDbObj
 		return bill_money_total;
 	}
 
+	public String getContract_subject()
+	{
+		return contract_subject;
+	}
+
+	public void setContract_subject(String contract_subject)
+	{
+		this.contract_subject = contract_subject;
+	}
+
 	public void setBill_money_total(Double bill_money_total)
 	{
 		this.bill_money_total = bill_money_total;
@@ -207,6 +259,16 @@ public class VBillDetailObj extends BaseDbObj
 	public void setGather_money(Double gather_money)
 	{
 		this.gather_money = gather_money;
+	}
+
+	public String getRecord_account()
+	{
+		return record_account;
+	}
+
+	public void setRecord_account(String record_account)
+	{
+		this.record_account = record_account;
 	}
 
 	public Double getC()

@@ -11,10 +11,14 @@ public class VContractBillStatObj extends BaseDbObj
 {
 	private Long id;
 	private String contract_name;
+	private String management_type_code;
 	private String management_name;
 	private String contract_sign_time;
+	private String contract_subject;
+	private String subject_name;
 	private String bill_number;
 	private String bill_date;
+	private String record_account;
 	private String user_name;
 	private String customer_id;
 	private String customer_full_name;
@@ -75,14 +79,19 @@ public class VContractBillStatObj extends BaseDbObj
 	{
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 
-		// pros.put("id", "id");
+		pros.put("id", "合同");
 		pros.put("contract_name", "合同");
+		pros.put("management_type_code", "经营类型");
 		pros.put("management_name", "经营类型");
 		pros.put("contract_sign_time", "合同日期");
 		pros.put("bill_number", "发票号");
 		pros.put("bill_date", "发票日期");
+		pros.put("record_account", "录合同人");
 		pros.put("user_name", "录合同人");
-		pros.put("customer_full_name", "公司名称");
+		pros.put("customer_id", "客户");
+		pros.put("customer_full_name", "客户");
+		pros.put("contract_subject", "合同主体");
+		pros.put("subject_name", "合同主体");
 		pros.put("contract_price", "合同金额");
 		pros.put("bill_money", "累计开票金额");
 		pros.put("gather_date", "收款日期");
@@ -169,6 +178,36 @@ public class VContractBillStatObj extends BaseDbObj
 		return user_name;
 	}
 
+	public String getManagement_type_code()
+	{
+		return management_type_code;
+	}
+
+	public void setManagement_type_code(String management_type_code)
+	{
+		this.management_type_code = management_type_code;
+	}
+
+	public String getContract_subject()
+	{
+		return contract_subject;
+	}
+
+	public void setContract_subject(String contract_subject)
+	{
+		this.contract_subject = contract_subject;
+	}
+
+	public String getSubject_name()
+	{
+		return subject_name;
+	}
+
+	public void setSubject_name(String subject_name)
+	{
+		this.subject_name = subject_name;
+	}
+
 	public void setUser_name(String user_name)
 	{
 		this.user_name = user_name;
@@ -227,6 +266,16 @@ public class VContractBillStatObj extends BaseDbObj
 	public Double getBill_receivable()
 	{
 		return bill_receivable;
+	}
+
+	public String getRecord_account()
+	{
+		return record_account;
+	}
+
+	public void setRecord_account(String record_account)
+	{
+		this.record_account = record_account;
 	}
 
 	public void setBill_receivable(Double bill_receivable)

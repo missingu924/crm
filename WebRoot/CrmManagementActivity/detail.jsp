@@ -33,7 +33,7 @@
 	</head> 
 	<body> 
 		<!-- 操作栏 --> 
-		<table width="800" align="center" class="top_tools_table">
+		<table width="720" align="center" class="top_tools_table">
           <tr>
             <td>
               <%if(user.hasFunction("经营活动-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'>
@@ -44,7 +44,7 @@
           </tr>
         </table>
 		<!-- 表格标题 --> 
-		<table width="800" align="center" class="title_table"> 
+		<table width="720" align="center" class="title_table"> 
 			<tr> 
 				<td>
 					<%=domainInstance.getCnName()%>信息 
@@ -52,7 +52,7 @@
 			</tr> 
 		</table> 
 		<!-- 详细信息 --> 
-		<table width="800" align="center" class="detail_table detail_table-bordered "> 
+		<table width="720" align="center" class="detail_table detail_table-bordered "> 
 			<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("customer_id") %>:					</td> 

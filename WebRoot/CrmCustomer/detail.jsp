@@ -38,7 +38,7 @@
 	</head>
 	<body>
 		<!-- 操作栏 -->
-		<table width="800" align="center" class="top_tools_table">
+		<table width="720" align="center" class="top_tools_table">
 			<tr>
 				<td>
 					<%if(user.hasFunction("客户档案-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyCustomerButton" type="button" class="button button_modify" value="修改" /> </a><%} %>
@@ -50,7 +50,7 @@
 			</tr>
 		</table>
 		<!-- 表格标题 -->
-		<table width="800" align="center" class="title_table">
+		<table width="720" align="center" class="title_table">
 			<tr>
 				<td>
 					<%=domainInstance.getCnName()%>信息
@@ -58,7 +58,7 @@
 			</tr>
 		</table>
 		<!-- 详细信息 -->
-		<table width="800" align="center" class="detail_table detail_table-bordered">
+		<table width="720" align="center" class="detail_table detail_table-bordered">
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("customer_full_name")%>:
@@ -121,7 +121,7 @@
 			</tr>
 		</table>
 
-		<table id="tab_table" width="800" align="center" class="sub_title_table">
+		<table id="tab_table" width="720" align="center" class="sub_title_table">
 			<tr>
 				<td div_id="contact_info_div" style="width: 80px">
 					联系人
@@ -318,28 +318,32 @@
 				%>
 			</table>
 		</div>
-		
-		<div id="other_info_div">
 
-		<table id="releated_info_tab_table" width="800" align="center" class="sub_title_table">
+		<table id="releated_info_tab_table" width="720" align="center" class="sub_title_table">
 			<tr>
+				<%if(user.hasFunction("商机-查询")){ %>
 				<td div_id="opportunity_info_div" style="width: 80px">
 					商机记录
 				</td>
+				<%} if(user.hasFunction("合同-查询")){%>
 				<td div_id="contract_info_div" style="width: 80px">
 					合同记录
 				</td>
+				<%} if(user.hasFunction("开票收款-查询")){%>
 				<td div_id="bill_gather_info_div" style="width: 100px">
 					开票收款记录
 				</td>
+				<%} if(user.hasFunction("经营活动-查询")){%>
 				<td div_id="activity_info_div" style="width: 100px">
 					经营活动记录
 				</td>
+				<%} %>
 				<td></td>
 			</tr>
 		</table>
 
 		<%
+		if(user.hasFunction("商机-查询")){
 			d = new CrmCommercialOpportunityObj();
 			dataList = domainInstance.findCommericialOpportunityList();
 		%>
@@ -420,9 +424,10 @@
 					}
 				%>
 			</table>
-
 		</div>
 		<%
+		}
+		if(user.hasFunction("合同-查询")){
 			d = new CrmContractObj();
 			dataList = domainInstance.findContractList();
 		%>
@@ -509,6 +514,8 @@
 		</div>
 
 		<%
+		}
+		if(user.hasFunction("开票收款-查询")){
 			d = new CrmBillObj();
 			dataList = domainInstance.findBillList();
 		%>
@@ -532,8 +539,8 @@
 					</tr>
 				</thead>
 				<%
-					billTotal = 0;
-					gatherTotal = 0;
+					double billTotal = 0;
+					double gatherTotal = 0;
 					for (int i = 0; i < dataList.size(); i++)
 					{
 						CrmBillObj o = (CrmBillObj) dataList.get(i);
@@ -594,6 +601,8 @@
 		</div>
 
 		<%
+		}
+		if(user.hasFunction("经营活动-查询")){
 			d = new CrmManagementActivityObj();
 			dataList = domainInstance.findActivityList();
 		%>
@@ -661,9 +670,7 @@
 				}
 			%>
 		</div>
-		
-		</div>
-
+		<%} %>
 
 		<!-- 工具栏 -->
 		<jsp:include page="../ToolBar/detail_toolbar.jsp" />
@@ -671,19 +678,14 @@
 
 		<script type="text/javascript">
 			// 应用tab页
-			useAsTab("tab_table","800","230");
+			useAsTab("tab_table","720","230");
 			
-			useAsTab("releated_info_tab_table","800");
+			useAsTab("releated_info_tab_table","720");
 		
 			// 刷新当前页
 			function freshMe() {
 				$("body").append("<a href='<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'><span id='refresh_href'></span></a>");
 				$("#refresh_href").click();
 			}
-			
-			// 财务角色隐藏掉其他信息
-			<%if(user.hasRole(SystemConstant.ROLE_CAIWU)){ %>
-			$("#other_info_div").hide();
-			<%}%>
 		</script>
 </html>

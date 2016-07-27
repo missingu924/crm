@@ -170,6 +170,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 			contract.setContract_name(commercialOpportunity.getOpportunity_name());
 			contract.setContract_price(commercialOpportunity.getTarget_price());
 			contract.setComment(commercialOpportunity.getCustomer_request());
+			contract.setManagement_type_code(commercialOpportunity.getManagement_type_code());
 
 			request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 		}

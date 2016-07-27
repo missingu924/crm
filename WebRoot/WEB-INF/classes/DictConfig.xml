@@ -4,7 +4,9 @@
 		<!-- 具体业务字典，根据也许需要添加或修改 -->
 		<DictConfig isSystemDict="true" dictShowName="客户字典" dictName="客户字典" dictTable="crm_customer" dictKeyCol="id" dictValueCol="customer_full_name" dictOrderByCol="customer_full_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="商机字典" dictName="商机字典" dictTable="crm_commercial_opportunity" dictKeyCol="id" dictValueCol="opportunity_name" dictOrderByCol="opportunity_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="商机字典-选择用" dictName="商机字典-选择用" dictTable="crm_commercial_opportunity" dictKeyCol="id" dictValueCol="opportunity_name+' / '+CONVERT(varchar(100), record_time, 112)+' / '+(select u.customer_full_name from crm_customer u where u.id=customer_id) " dictOrderByCol="opportunity_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="合同字典" dictName="合同字典" dictTable="crm_contract" dictKeyCol="id" dictValueCol="contract_name" dictOrderByCol="contract_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="合同字典-选择用" dictName="合同字典-选择用" dictTable="crm_contract" dictKeyCol="id" dictValueCol="contract_name+' / '+CONVERT(varchar(100), contract_sign_time, 112)+' / '+(select u.customer_full_name from crm_customer u where u.id=customer_id) " dictOrderByCol="contract_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="经营活动类型字典" dictName="经营活动类型字典" values="商机经营活动,普通经营活动"/>
 		<DictConfig isSystemDict="true" dictShowName="发票类型字典" dictName="发票类型字典" values="普票,专票"/>
 		
@@ -25,6 +27,7 @@
 		<DictConfig isSystemDict="true" dictShowName="阴阳历字典" dictName="阴阳历字典" values="阳历,阴历"/>
 		<DictConfig isSystemDict="true" dictShowName="月字典" dictName="月字典" values="1,2,3,4,5,6,7,8,9,10,11,12"/>
 		<DictConfig isSystemDict="true" dictShowName="日字典" dictName="日字典" values="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31"/>
+		<DictConfig isSystemDict="true" dictShowName="近几天字典" dictName="近几天字典" values="5=近5天过生日,10=近10天过生日,30=近30天过生日"/>
 		<DictConfig isSystemDict="true" dictShowName="导入相同数据处理方式字典" dictName="导入相同数据处理方式字典" values="保持系统中数据不变,覆盖系统中相同数据"/>
 		<DictConfig isSystemDict="true" dictShowName="导入数据处理方式字典" dictName="导入数据处理方式字典" values="新增,覆盖"/>
 		<DictConfig isSystemDict="true" dictShowName="操作名字典" dictName="操作名字典" values="addOrModify4this=新增或修改,detail4this=查看详情,delete4this=删除,list4this=列表查询,preModify4this=修改前查询,export4this=数据导出,checkId4this=检查唯一性,logout=退出系统"/>

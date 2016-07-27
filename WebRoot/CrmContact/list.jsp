@@ -7,7 +7,12 @@
 <%@page import="com.wuyg.common.obj.PaginationObj"%> 
 <%@page import="com.wuyg.dictionary.DictionaryUtil"%> 
 <%@page import="com.crm.obj.CrmContactObj"%>
-<%@page import="com.wuyg.common.util.TimeUtil"%> 
+<%@page import="com.wuyg.common.util.TimeUtil"%>
+<%@page import="com.crm.searchcondition.CrmContactSearchCondition"%> 
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%>
+<%@page import="com.wuyg.common.util.LunarCalendar"%>
+<%@page import="java.util.Date"%>
 <!-- 基本信息 --> 
 <% 
 	// 当前上下文路径 
@@ -15,6 +20,8 @@
  
 	// 该功能对象实例 
 	CrmContactObj domainInstance = (CrmContactObj) request.getAttribute("domainInstance"); 
+	// 该功能对象查询条件实例
+	CrmContactSearchCondition domainSearchCondition = (CrmContactSearchCondition) request.getAttribute("domainSearchCondition");
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath(); 
  
@@ -28,6 +35,8 @@
 		pagination = (PaginationObj) paginationObj; 
 		list = (List) pagination.getDataList(); 
 	} 
+	// 用户信息
+	AuthUserObj user= (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 %> 
 <html> 
 	<head> 
@@ -43,36 +52,49 @@
 		<form name="pageForm" id="pageForm" method="post" action="<%=request.getContextPath()%>/<%=basePath%>/Servlet?method=list4this"> 
 			 
 			<!-- 查询条件 --> 
-			<table class="search_table" align="center" width="98%"> 
+			<table class="search_table" align="center" width="98%">
+				<tr>
+					<td align="right">
+					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
+					</td>
+				</tr>
+			</table>
+			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr> 
-					<td align="left"> 
-						<%=domainInstance.getPropertyCnName("customer_id") %> 
-						<%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""))%> 
-						&nbsp;  
-						<%=domainInstance.getPropertyCnName("contact_name") %> 
-						<input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name())%>" size="20" > 
-						&nbsp;  
-						<input name="searchButton" type="button" class="button button_search" value="查询" onClick="toPage(1)"> 
-					</td> 
-					<td align="right"> 
-						<input name="addButton" type="button" class="button button_add" value="增加" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"> 
-						
-					</td> 
-				</tr> 
+				  <td align="right"> 
+						<%=domainInstance.getPropertyCnName("contact_name") %></td> 
+					<td align="left"><input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name())%>" size="50" ></td> 
+				    <td align="right">&nbsp;</td>
+				</tr>
+				<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("customer_id") %></td>
+				  <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""),user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
+				  <td align="right">&nbsp;</td>
+			 	</tr>
+			 	<tr>
+				  <td align="right"><%=domainInstance.getPropertyCnName("contact_birthday") %></td>
+				  <td align="left"><%=DictionaryUtil.getSelectHtml("近几天字典", "contact_birthday", StringUtil.getNotEmptyStr(domainSearchCondition.getContact_birthday()+"", ""))%>&nbsp;&nbsp;<font color="#999999">今天是：阳历<%=TimeUtil.nowTime2str("yyyy年M月d日") %>，阴历<%=LunarCalendar.solarToLunar(new Date()) %></font></td>
+				  <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
+			  </tr> 
 			</table> 
  
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
 					<tr> 
-						<th><%=domainInstance.getPropertyCnName("contact_name") %></th> 
-						<th><%=domainInstance.getPropertyCnName("customer_id") %></th> 
-						<th><%=domainInstance.getPropertyCnName("contact_sex") %></th> 
-						<th><%=domainInstance.getPropertyCnName("contact_birthday") %></th> 
-						<th><%=domainInstance.getPropertyCnName("contact_telephone") %></th> 
-						<th><%=domainInstance.getPropertyCnName("contact_email") %></th> 
-						<th><%=domainInstance.getPropertyCnName("record_account") %></th> 
-						<th><%=domainInstance.getPropertyCnName("record_time") %></th> 
-						<th>操作</th> 
+						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
+						<th onClick="sortBy(this)" db_col="contact_name" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_name")%>"><%=domainInstance.getPropertyCnName("contact_name") %></th> 
+						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_sex" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_sex")%>"><%=domainInstance.getPropertyCnName("contact_sex") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))")%>"><%=domainInstance.getPropertyCnName("contact_birthday") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_telephone" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_telephone")%>"><%=domainInstance.getPropertyCnName("contact_telephone") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_email" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_email")%>"><%=domainInstance.getPropertyCnName("contact_email") %></th> 
+						<th onClick="sortBy(this)" db_col="record_account" class="<%=domainSearchCondition.getSortClassByDbColumn("record_account")%>"><%=domainInstance.getPropertyCnName("record_account") %></th> 
+						<th onClick="sortBy(this)" db_col="record_time" class="<%=domainSearchCondition.getSortClassByDbColumn("record_time")%>"><%=domainInstance.getPropertyCnName("record_time")%></th>
+						<th>
+							详情
+						</th>
 					</tr> 
 				</thead> 
 				<% 
@@ -82,24 +104,17 @@
 				%> 
 				<tr> 
 					
-					<td> 
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')"> <%=StringUtil.getNotEmptyStr(o.getContact_name())%> </a> 
-					</td>
-					<td>
-						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCustomer/Servlet?method=detail4this&id=<%=o.getCustomer_id()%>')"> <%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%> </a>
-					</td>  
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_name())%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td>  
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getContact_sex())%></td>  
-					<td><%=TimeUtil.date2str(o.getContact_birthday(),"yyyy-MM-dd")%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday(),"")%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_email())%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getRecord_account())%></td> 
 					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
-					<td width="80" style="text-align:center"> 
-						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
-						&nbsp; 
-						<input type="button" class="button button_delete" title="删除" 
-							onClick="confirmDelete('<%=contextPath%>/<%=basePath%>/Servlet?method=delete4this&<%=o.findKeyColumnName()%>_4del=<%=o.getKeyValue()%>')" /> 
-					</td> 
+					<td style="text-align: center">
+						<input type="button" class="button button_detail" title="详情" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=detail4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')">
+					</td>
 				</tr> 
 				<% 
 					} 

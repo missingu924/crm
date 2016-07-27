@@ -80,7 +80,7 @@
 					</td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getRolecode())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getRolename())%></td> 
-					<td><%=StringUtil.getNotEmptyStr(o.getRolediscription())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getRolediscription()).replaceAll("\n","<br>")%></td> 
 					<td width="80" style="text-align:center"> 
 						<input type="button" class="button button_modify" title="修改" onClick="openBigModalDialog('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=o.findKeyColumnName()%>=<%=o.getKeyValue()%>')" /> 
 						&nbsp; 

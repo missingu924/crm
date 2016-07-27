@@ -32,7 +32,7 @@
 	</head>
 	<body>
 		<!-- 操作栏 -->
-		<table width="800" align="center" class="top_tools_table">
+		<table width="720" align="center" class="top_tools_table">
 			<tr>
 				<td>
 					<%if(user.hasFunction("开票收款-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyOpportunityButton" type="button" class="button button_modify" value="修改" /> </a><%} %>
@@ -41,7 +41,7 @@
 			</tr>
 		</table>
 		<!-- 表格标题 -->
-		<table width="800" align="center" class="title_table">
+		<table width="720" align="center" class="title_table">
 			<tr>
 				<td>
 					<%=domainInstance.getCnName()%>信息
@@ -49,13 +49,17 @@
 			</tr>
 		</table>
 		<!-- 详细信息 -->
-		<table width="800" align="center" class="detail_table detail_table-bordered ">
+		<table width="720" align="center" class="detail_table detail_table-bordered ">
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("customer_id")%>:
 				</td>
 				<td colspan="3">
+				<%if(user.hasFunction("客户档案-查询")){ %>
 					<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCustomer/Servlet?method=detail4this&id=<%=domainInstance.getCustomer_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("客户字典", domainInstance.getCustomer_id() + "")%></a>
+				<%} else { %>
+					<%=DictionaryUtil.getDictValueByDictKey("客户字典", domainInstance.getCustomer_id() + "")%>
+				<%} %>
 				</td>
 			</tr>
 			<tr>
@@ -63,7 +67,11 @@
 					<%=domainInstance.getPropertyCnName("commerical_opportunity_id")%>:
 				</td>
 				<td colspan="3">
+				<%if(user.hasFunction("商机-查询")){ %>
 					<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmCommercialOpportunity/Servlet?method=detail4this&id=<%=domainInstance.getCommerical_opportunity_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("商机字典", domainInstance.getCommerical_opportunity_id() + "")%></a>
+				<%} else { %>
+					<%=DictionaryUtil.getDictValueByDictKey("商机字典", domainInstance.getCommerical_opportunity_id() + "")%>
+				<%} %>
 				</td>
 			</tr>
 			<tr>
@@ -71,7 +79,19 @@
 					<%=domainInstance.getPropertyCnName("contract_id")%>:
 				</td>
 				<td colspan="3">
+				<%if(user.hasFunction("合同-查询")){ %>
 					<a href="#" onClick="openBigModalDialog('<%=contextPath%>/CrmContract/Servlet?method=detail4this&id=<%=domainInstance.getContract_id()%>')"><%=DictionaryUtil.getDictValueByDictKey("合同字典", domainInstance.getContract_id() + "")%></a>
+				<%} else { %>
+					<%=DictionaryUtil.getDictValueByDictKey("合同字典", domainInstance.getContract_id() + "")%>
+				<%} %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%=domainInstance.getPropertyCnName("contract_user_account")%>:
+				</td>
+				<td colspan="3">
+					<%=DictionaryUtil.getDictValueByDictKey("账号字典", domainInstance.getContract_user_account() + "")%>
 				</td>
 			</tr>
 			<tr>

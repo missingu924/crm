@@ -101,7 +101,7 @@
 	<body>
 		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post">
 			<!-- 表格标题 -->
-			<table width="800" align="center" class="title_table">
+			<table width="720" align="center" class="title_table">
 				<tr>
 					<td>
 						<%=isModify ? "修改" : "增加"%><%=domainInstance.getCnName()%>
@@ -110,14 +110,14 @@
 			</table>
 
 			<!-- 详细信息 -->
-			<table width="800" align="center" class="detail_table detail_table-bordered ">
+			<table width="720" align="center" class="detail_table detail_table-bordered ">
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>">
 				<tr>
 					<td>
 						<%=domainInstance.getPropertyCnName("customer_id")%>:
 					</td>
 					<td colspan="3">
-						<%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), 70)%>
+						<%=DictionaryUtil.getInputHtmlReadOnly("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), 81)%>
 						<font color="red">*</font>
 					</td>
 				</tr>
@@ -126,7 +126,7 @@
 						<%=domainInstance.getPropertyCnName("commerical_opportunity_id")%>:
 					</td>
 					<td colspan="3">
-						<%=DictionaryUtil.getInputHtmlReadOnly("商机字典", "commerical_opportunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommerical_opportunity_id(), ""), 70)%>
+						<%=DictionaryUtil.getInputHtmlReadOnly("商机字典", "commerical_opportunity_id", StringUtil.getNotEmptyStr(domainInstance.getCommerical_opportunity_id(), ""), 81)%>
 						<font color="red">*</font>
 					</td>
 				</tr>
@@ -135,7 +135,16 @@
 						<%=domainInstance.getPropertyCnName("contract_id")%>:
 					</td>
 					<td colspan="3">
-						<%=DictionaryUtil.getInputHtmlReadOnly("合同字典", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), 70)%>
+						<%=DictionaryUtil.getInputHtmlReadOnly("合同字典", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), 81)%>
+						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("contract_user_account")%>:
+					</td>
+					<td colspan="3">
+						<%=DictionaryUtil.getInputHtmlReadOnly("账号字典", "contract_user_account", StringUtil.getNotEmptyStr(domainInstance.getContract_user_account(), ""), 81)%>
 						<font color="red">*</font>
 					</td>
 				</tr>
@@ -149,7 +158,7 @@
 					<td><%=domainInstance.getPropertyCnName("bill_date")%>:
 					</td>
 					<td>
-						<input name="bill_date" type="text" id="bill_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getBill_date(), "yyyy-MM-dd"), "")%>" size="12"
+						<input name="bill_date" type="text" id="bill_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getBill_date(), "yyyy-MM-dd"), "")%>" size="20"
 							onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
 					</td>
 				</tr>
@@ -163,7 +172,7 @@
 					<td><%=domainInstance.getPropertyCnName("gather_date")%>:
 					</td>
 					<td>
-						<input name="gather_date" type="text" id="gather_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd"), "")%>" size="12"
+						<input name="gather_date" type="text" id="gather_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd"), "")%>" size="20"
 							onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
 					</td>
 				</tr>
@@ -172,7 +181,7 @@
 						<%=domainInstance.getPropertyCnName("bill_number")%>:
 					</td>
 					<td>
-						<input size="50" name="bill_number" type="text" id="bill_number" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_number(), "")%>" size="20">
+						<input name="bill_number" type="text" id="bill_number" value="<%=StringUtil.getNotEmptyStr(domainInstance.getBill_number(), "")%>" size="20">
 					</td>
 					<td><%=domainInstance.getPropertyCnName("bill_receipt")%>:
 					</td>
@@ -185,7 +194,7 @@
 						<%=domainInstance.getPropertyCnName("comment")%>:
 					</td>
 					<td colspan="3">
-						<input name="comment" type="text" id="comment" value="<%=StringUtil.getNotEmptyStr(domainInstance.getComment())%>" size="70">
+						<input name="comment" type="text" id="comment" value="<%=StringUtil.getNotEmptyStr(domainInstance.getComment())%>" size="81">
 					</td>
 				</tr>
 				<tr>
