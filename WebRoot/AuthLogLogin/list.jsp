@@ -37,6 +37,7 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+				<td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("useraccount") %> 
 						<input name="useraccount" type="text" id="useraccount" value="<%=StringUtil.getNotEmptyStr(domainInstance.getUseraccount())%>" size="20" > 

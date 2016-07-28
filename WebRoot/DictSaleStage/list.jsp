@@ -44,6 +44,7 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+				<td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("sale_stage_code") %> 
 						<input name="sale_stage_code" type="text" id="sale_stage_code" value="<%=StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code())%>" size="20" > 

@@ -44,6 +44,7 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+				<td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("region_code") %> 
 						<input name="region_code" type="text" id="region_code" value="<%=StringUtil.getNotEmptyStr(domainInstance.getRegion_code())%>" size="20" > 

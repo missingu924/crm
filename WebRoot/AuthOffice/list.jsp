@@ -43,6 +43,7 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+				<td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("officecode") %> 
 						<input name="officecode" type="text" id="officecode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getOfficecode())%>" size="20" > 

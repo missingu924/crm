@@ -43,7 +43,7 @@
 			 
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
-				<tr> 
+				<tr> <td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("product_code") %> 
 						<input name="product_code" type="text" id="product_code" value="<%=StringUtil.getNotEmptyStr(domainInstance.getProduct_code())%>" size="20" > 

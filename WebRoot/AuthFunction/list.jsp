@@ -44,6 +44,7 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+				<td style="width:0"></td>
 					<td align="left"> 
 						<%=domainInstance.getPropertyCnName("functioncode") %> 
 						<input name="functioncode" type="text" id="functioncode" value="<%=StringUtil.getNotEmptyStr(domainInstance.getFunctioncode())%>" size="20" > 
