@@ -67,6 +67,14 @@ public class VContractBillStatServlet extends AbstractBaseServletTemplate
 		{
 			where += " and contract_sign_time<='" + condition.getContract_sign_time_end() + "' ";
 		}
+		if (condition.getContract_price_min() != null)
+		{
+			where += " and contract_price>='" + condition.getContract_price_min() + "' ";
+		}
+		if (condition.getContract_price_max() != null)
+		{
+			where += " and contract_price<='" + condition.getContract_price_max() + "' ";
+		}
 		// 设置权限条件
 		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
 		{

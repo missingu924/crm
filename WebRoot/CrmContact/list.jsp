@@ -54,31 +54,30 @@
 			<!-- 查询条件 --> 
 			<table class="search_table" align="center" width="98%">
 				<tr>
-					<td align="right">
-					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
-					</td>
+					<td align="right"><%=domainInstance.getPropertyCnName("contact_name") %></td>
+				    <td align="right"><input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name())%>" size="40" ></td>
+				    <td align="right"><%=domainInstance.getPropertyCnName("contact_birthday") %></td>
+				    <td align="right"><%=DictionaryUtil.getSelectHtml("近几天字典", "contact_birthday", StringUtil.getNotEmptyStr(domainSearchCondition.getContact_birthday()+"", ""))%>&nbsp;&nbsp;<font color="#999999">今天是：阳历<%=TimeUtil.nowTime2str("yyyy年M月d日") %>，阴历<%=LunarCalendar.solarToLunar(new Date()) %></font></td>
+				    <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询数据" onClick="toPage(1)">
+                      <input name="searchButton" type="button" class="button button_set" value="高级查询" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));"></td>
 				</tr>
 			</table>
 			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
 				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr> 
-				  <td align="right"> 
-						<%=domainInstance.getPropertyCnName("contact_name") %></td> 
-					<td align="left"><input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name())%>" size="50" ></td> 
-				    <td align="right">&nbsp;</td>
-				</tr>
-				<tr>
-				  <td align="right"><%=domainInstance.getPropertyCnName("customer_id") %></td>
-				  <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""),user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+				  <td><%=domainInstance.getPropertyCnName("customer_id") %></td> 
+					<td><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id()+"", ""),user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
 							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
-				  <td align="right">&nbsp;</td>
-			 	</tr>
-			 	<tr>
-				  <td align="right"><%=domainInstance.getPropertyCnName("contact_birthday") %></td>
-				  <td align="left"><%=DictionaryUtil.getSelectHtml("近几天字典", "contact_birthday", StringUtil.getNotEmptyStr(domainSearchCondition.getContact_birthday()+"", ""))%>&nbsp;&nbsp;<font color="#999999">今天是：阳历<%=TimeUtil.nowTime2str("yyyy年M月d日") %>，阴历<%=LunarCalendar.solarToLunar(new Date()) %></font></td>
-				  <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
-			  </tr> 
-			</table> 
+					<td><%=domainInstance.getPropertyCnName("contact_telephone") %></td>
+				    <td><input name="contact_telephone" type="text" id="contact_telephone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_telephone())%>" size="40" ></td>
+				</tr> 
+				<tr> 
+				  <td><%=domainInstance.getPropertyCnName("contact_qq") %></td>
+				    <td><input name="contact_qq" type="text" id="contact_qq" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_qq())%>" size="40" ></td>
+					<td><%=domainInstance.getPropertyCnName("contact_weixin") %></td>
+				    <td><input name="contact_weixin" type="text" id="contact_weixin" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_weixin())%>" size="40" ></td>
+				</tr> 
+		  </table> 
  
 			<table class="table table-bordered table-striped" align="center" width="98%"> 
 				<thead> 
@@ -90,6 +89,9 @@
 						<th onClick="sortBy(this)" db_col="contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))")%>"><%=domainInstance.getPropertyCnName("contact_birthday") %></th> 
 						<th onClick="sortBy(this)" db_col="contact_telephone" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_telephone")%>"><%=domainInstance.getPropertyCnName("contact_telephone") %></th> 
 						<th onClick="sortBy(this)" db_col="contact_email" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_email")%>"><%=domainInstance.getPropertyCnName("contact_email") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_qq" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_qq")%>"><%=domainInstance.getPropertyCnName("contact_qq") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_weixin" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_weixin")%>"><%=domainInstance.getPropertyCnName("contact_weixin") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_hobby" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_hobby")%>"><%=domainInstance.getPropertyCnName("contact_hobby") %></th> 
 						<th onClick="sortBy(this)" db_col="record_account" class="<%=domainSearchCondition.getSortClassByDbColumn("record_account")%>"><%=domainInstance.getPropertyCnName("record_account") %></th> 
 						<th onClick="sortBy(this)" db_col="record_time" class="<%=domainSearchCondition.getSortClassByDbColumn("record_time")%>"><%=domainInstance.getPropertyCnName("record_time")%></th>
 						<th>
@@ -110,6 +112,9 @@
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday(),"")%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_email())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_qq())%></td> 
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_weixin())%></td> 
+					<td title="<%=StringUtil.getNotEmptyStr(o.getContact_hobby())%>"><%=StringUtil.getNotEmptyStr(o.getContact_hobby(),10)%></td> 
 					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典",o.getRecord_account())%></td> 
 					<td><%=TimeUtil.date2str(o.getRecord_time())%></td> 
 					<td style="text-align: center">

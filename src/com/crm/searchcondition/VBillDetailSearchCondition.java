@@ -6,6 +6,7 @@ public class VBillDetailSearchCondition extends BaseSearchCondition
 {
 	private String gather_date_start;
 	private String gather_date_end;
+
 	
 	public String getGather_date_start()
 	{
@@ -23,4 +24,5 @@ public class VBillDetailSearchCondition extends BaseSearchCondition
 	{
 		this.gather_date_end = gather_date_end;
 	}
+	
 }

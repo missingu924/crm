@@ -5,8 +5,8 @@ import com.wuyg.common.obj.BaseSearchCondition;
 public class CrmContractSearchCondition extends BaseSearchCondition
 {
 	private Double contract_price_min;
-	private String contract_sign_time_start;
 	private Double contract_price_max;
+	private String contract_sign_time_start;
 	private String contract_sign_time_end;
 	public Double getContract_price_min()
 	{

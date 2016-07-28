@@ -102,14 +102,14 @@
 					<td> 
 						<%=domainInstance.getPropertyCnName("activity_content") %>:					</td> 
 					<td colspan="3"> 
-						<%=StringUtil.getNotEmptyStr(domainInstance.getActivity_content(),"")%> 
+						<%=StringUtil.getNotEmptyStr(domainInstance.getActivity_content(),"").replaceAll("\n","<br>")%> 
 									</td> 
 			    </tr> 
 				<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("next_step") %>:					</td> 
 					<td colspan="3"> 
-						<%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(),"")%>
+						<%=StringUtil.getNotEmptyStr(domainInstance.getNext_step(),"").replaceAll("\n","<br>")%>
 					</td> 
 			    </tr> 
 				<tr> 

@@ -66,6 +66,14 @@ public class VContractBillDetailServlet extends AbstractBaseServletTemplate
 		{
 			where += " and contract_sign_time<='" + condition.getContract_sign_time_end() + "' ";
 		}
+		if (condition.getContract_price_min() != null)
+		{
+			where += " and contract_price>='" + condition.getContract_price_min() + "' ";
+		}
+		if (condition.getContract_price_max() != null)
+		{
+			where += " and contract_price<='" + condition.getContract_price_max() + "' ";
+		}
 		if (!StringUtil.isEmpty(condition.getGather_date_start()))
 		{
 			where += " and gather_date>='" + condition.getGather_date_start() + "' ";

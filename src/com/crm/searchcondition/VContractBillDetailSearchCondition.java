@@ -10,6 +10,24 @@ public class VContractBillDetailSearchCondition extends BaseSearchCondition
 	private String bill_date_end;
 	private String contract_sign_time_start;
 	private String contract_sign_time_end;
+	private Double contract_price_min;
+	private Double contract_price_max;
+	public Double getContract_price_min()
+	{
+		return contract_price_min;
+	}
+	public void setContract_price_min(Double contract_price_min)
+	{
+		this.contract_price_min = contract_price_min;
+	}
+	public Double getContract_price_max()
+	{
+		return contract_price_max;
+	}
+	public void setContract_price_max(Double contract_price_max)
+	{
+		this.contract_price_max = contract_price_max;
+	}
 	public String getGather_date_start()
 	{
 		return gather_date_start;

@@ -56,7 +56,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("客户档案-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCustomer/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/shop.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;客户档案
 							</td>
 						</tr>
@@ -64,7 +64,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("商机-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/present.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;商机
 							</td>
 						</tr>
@@ -72,7 +72,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("合同-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContract/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/receipt.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同
 							</td>
 						</tr>
@@ -80,7 +80,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("开票收款-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmBill/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/cart.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;开票收款
 							</td>
 						</tr>
@@ -88,7 +88,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("经营活动-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmManagementActivity/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/comment.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;经营活动
 							</td>
 						</tr>
@@ -96,7 +96,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("联系人-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmContact/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/user_list.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;联系人
 							</td>
 						</tr>
@@ -115,7 +115,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("合同开票收款统计表-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillStat/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/pie_chart.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同开票收款统计表
 							</td>
 						</tr>
@@ -123,7 +123,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%if(user.hasFunction("合同开票收款明细表-查询")){ %>
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/VContractBillDetail/Servlet?method=list4this&showSearchConditionTable=false')">
-								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								<img src="images/svg/heavy/green/stats.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;合同开票收款明细表
 							</td>
 						</tr>

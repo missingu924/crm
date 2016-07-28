@@ -52,96 +52,67 @@
 			<!-- 查询条件 -->
 			<table class="search_table" align="center" width="98%">
 				<tr>
-					<td align="right">
-						<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
+					<td><%=domainInstance.getPropertyCnName("contract_id")%></td>
+					<td><%=DictionaryUtil.getInputHtml("合同字典-选择用", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
+					<td>
+						<input name="searchButton2" type="button" class="button button_search" value="查询数据" onClick="toPage(1)">
+						<input name="searchButton" type="button" class="button button_set" value="高级查询" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
 					</td>
 				</tr>
 			</table>
 			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style='display: <%=domainSearchCondition.isShowSearchConditionTable() ? "" : "none"%>'>
-				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
+				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable()%>">
 				<tr>
-					<td align="right">
+					<td>
 						<%=domainInstance.getPropertyCnName("management_type_code")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%></td>
-					<td align="left">
-						&nbsp;
+					<td><%=DictionaryUtil.getInputHtml("经营类型字典", "management_type_code", StringUtil.getNotEmptyStr(domainInstance.getManagement_type_code(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("customer_id")%>
 					</td>
-				</tr>
-				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("record_account")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "record_account", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), ""))%></td>
-					<td align="left">
-						&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("contract_id")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("合同字典-选择用", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+					<td><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
 							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
-					<td align="left">
-						&nbsp;
-					</td>
 				</tr>
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("customer_id")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
-					<td align="left">
-						&nbsp;
+					<td><%=domainInstance.getPropertyCnName("record_account")%></td>
+					<td><%=DictionaryUtil.getInputHtml("账号字典", "record_account", StringUtil.getNotEmptyStr(domainInstance.getRecord_account(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("contract_subject")%>
 					</td>
+					<td><%=DictionaryUtil.getInputHtml("合同主体字典", "contract_subject", StringUtil.getNotEmptyStr(domainInstance.getContract_subject(), ""))%></td>
 				</tr>
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("contract_subject")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("合同主体字典", "contract_subject", StringUtil.getNotEmptyStr(domainInstance.getContract_subject(), ""))%></td>
-					<td align="left">
-						&nbsp;
+					<td><%=domainInstance.getPropertyCnName("bill_receipt")%></td>
+					<td><%=DictionaryUtil.getInputHtml("是否字典", "bill_receipt", StringUtil.getNotEmptyStr(domainInstance.getBill_receipt(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("is_finished")%>
 					</td>
+					<td><%=DictionaryUtil.getInputHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), ""))%></td>
 				</tr>
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("bill_receipt")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "bill_receipt", StringUtil.getNotEmptyStr(domainInstance.getBill_receipt(), ""))%></td>
-					<td align="left">
-						&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("is_finished")%></td>
-					<td align="left"><%=DictionaryUtil.getInputHtml("是否字典", "is_finished", StringUtil.getNotEmptyStr(domainInstance.getIs_finished(), ""))%></td>
-					<td align="left">
-						&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("contract_sign_time")%></td>
-					<td align="left">
-						<input name="contract_sign_time_start" type="text" id="contract_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+					<td><%=domainInstance.getPropertyCnName("contract_sign_time")%></td>
+					<td>
+						<input name="contract_sign_time_start" type="text" id="contract_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 						-
-						<input name="contract_sign_time_end" type="text" id="contract_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+						<input name="contract_sign_time_end" type="text" id="contract_sign_time_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getContract_sign_time_end())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 					</td>
-					<td align="left">
-						&nbsp;
+					<td><%=domainInstance.getPropertyCnName("contract_price")%></td>
+					<td>
+						<input name="contract_price_min" type="text" id="contract_price_min" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_min(), 2)%>" size="15">
+						-
+						<input name="contract_price_max" type="text" id="contract_price_max" value="<%=StringUtil.formatDouble(domainSearchCondition.getContract_price_max(), 2)%>" size="15">
 					</td>
 				</tr>
 				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("bill_date")%></td>
-					<td align="left">
-						<input name="bill_date_start" type="text" id="bill_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+					<td><%=domainInstance.getPropertyCnName("bill_date")%></td>
+					<td>
+						<input name="bill_date_start" type="text" id="bill_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 						-
-						<input name="bill_date_end" type="text" id="bill_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+						<input name="bill_date_end" type="text" id="bill_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_end())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 					</td>
-					<td align="left">
-						&nbsp;
+					<td><%=domainInstance.getPropertyCnName("gather_date")%>
 					</td>
-				</tr>
-				<tr>
-					<td align="right"><%=domainInstance.getPropertyCnName("gather_date")%></td>
-					<td align="left">
-						<input name="gather_date_start" type="text" id="gather_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_start())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+					<td>
+						<input name="gather_date_start" type="text" id="gather_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 						-
-						<input name="gather_date_end" type="text" id="gather_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_end())%>" size="11" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
-					</td>
-					<td align="right">
-						<input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)">
+						<input name="gather_date_end" type="text" id="gather_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_end())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
 					</td>
 				</tr>
 			</table>

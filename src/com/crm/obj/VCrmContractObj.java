@@ -8,8 +8,8 @@ public class VCrmContractObj extends CrmContractObj
 		String str="";
 		str+=" (select  ";
 		str+=" t1.*, ";
-		str+=" t2.bill_money_total, ";
-		str+=" t2.gather_money_total, ";
+		str+=" isnull(t2.bill_money_total,0) bill_money_total, ";
+		str+=" isnull(t2.gather_money_total,0) gather_money_total, ";
 		str+=" isnull(t1.contract_price,0)-isnull(t2.bill_money_total,0) spare_money, ";
 		str+=" isnull(t2.bill_money_total,0)-isnull(t2.gather_money_total,0) bill_spare_money ";
 		str+=" from crm_contract t1 ";

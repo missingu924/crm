@@ -54,7 +54,7 @@ a {
 							<td width="20" align="right"></td>
 							<td width="1" align="right" bgcolor="#999999"></td>
 							<td width="30" align="right">
-								<img src="images/svg/light/green/16/comment.png" title="系统信息" style="cursor: pointer" onclick="openBigModalDialog('system_info.jsp')"></img>
+								<img src="images/svg/light/green/16/comment.png" title="系统信息" style="cursor: pointer" onclick="openBigModalDialog('system_info.jsp?')"></img>
 							</td>
 							<td width="30" align="right" style="display:none">
 								<form id="downloadForm" action="<%=request.getContextPath()%>/System/Servlet?method=downloadManual" method="post">

@@ -116,12 +116,12 @@ public class DictionaryUtil
 
 	public static String getInputHtml(String dictName, String inputName, String inputValue)
 	{
-		return getInputHtml(dictName, inputName, inputValue, null, null, 50);
+		return getInputHtml(dictName, inputName, inputValue, null, null, 40);
 	}
 
 	public static String getInputHtml(String dictName, String inputName, String inputValue, String dbFilter)
 	{
-		return getInputHtml(dictName, inputName, inputValue, null, null, dbFilter, 50);
+		return getInputHtml(dictName, inputName, inputValue, null, null, dbFilter, 40);
 	}
 
 	public static String getInputHtmlReadOnly(String dictName, String inputName, String inputValue, int size)

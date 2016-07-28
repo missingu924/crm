@@ -34,13 +34,11 @@
 		<!-- 查询条件 --> 
 		<table class="search_table" align="center" width="90%"> 
 			<tr> 
-				<td align="left">
-					检索&nbsp;&nbsp;<input type="text" name="dict_search_input" id="dict_search_input" value=""  size="40"> 
-				</td> 
+				<td>
+					检索&nbsp;&nbsp;</td> 
 				<%if(isMultiSelect){ %>
-				<td align="right"> 
-					<input name="addButton" type="button" class="button button_confirm" value="确认" onClick="confirmSelect()"> 
-				</td> 
+				<td><input type="text" name="dict_search_input" id="dict_search_input" value=""  size="40"></td> 
+				<td><input name="addButton" type="button" class="button button_confirm" value="确认" onClick="confirmSelect()"></td>
 				<%} %>
 			</tr> 
 		</table> 

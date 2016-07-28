@@ -1,17 +1,14 @@
 package com.crm;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.MethodUtils;
 import org.apache.log4j.Logger;
 
 import com.crm.obj.CrmBillObj;
 import com.crm.obj.CrmContractObj;
 import com.crm.obj.VCrmContractObj;
+import com.crm.searchcondition.CrmBillSearchCondition;
 import com.wuyg.common.dao.DefaultBaseDAO;
 import com.wuyg.common.dao.IBaseDAO;
 import com.wuyg.common.obj.PaginationObj;
@@ -57,8 +54,26 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
 		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		// 设置其他条件
+		CrmBillSearchCondition condition = (CrmBillSearchCondition) domainSearchCondition;
+		if (!StringUtil.isEmpty(condition.getGather_date_start()))
+		{
+			where += " and gather_date>='" + condition.getGather_date_start() + "' ";
+		}
+		if (!StringUtil.isEmpty(condition.getGather_date_end()))
+		{
+			where += " and gather_date<='" + condition.getGather_date_end() + "' ";
+		}
+		if (!StringUtil.isEmpty(condition.getBill_date_start()))
+		{
+			where += " and bill_date>='" + condition.getBill_date_start() + "' ";
+		}
+		if (!StringUtil.isEmpty(condition.getBill_date_end()))
+		{
+			where += " and bill_date<='" + condition.getBill_date_end() + "' ";
+		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
+		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN) && !currentUser.hasRole(SystemConstant.ROLE_CAIWU))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}
@@ -101,15 +116,15 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 		CrmBillObj bill = (CrmBillObj) domainInstance;
 		if (success)
 		{
-			VCrmContractObj vContract = (VCrmContractObj)new DefaultBaseDAO(VCrmContractObj.class).searchByKey(VCrmContractObj.class, bill.getContract_id());
-			
-			if (vContract.getSpare_money()==0)
+			VCrmContractObj vContract = (VCrmContractObj) new DefaultBaseDAO(VCrmContractObj.class).searchByKey(VCrmContractObj.class, bill.getContract_id());
+
+			if (vContract.getSpare_money() == 0)
 			{
 				CrmContractObj contract = new CrmContractObj();
 				contract.setId(StringUtil.parseLong(bill.getContract_id()));
 				contract.setIs_finished("是");
 				contract.update();
-			}		
+			}
 		}
 
 		// 声明是新增后转到的详情页面

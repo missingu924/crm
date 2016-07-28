@@ -53,31 +53,37 @@
 			<!-- 查询条件 -->
 			<table class="search_table" align="center" width="98%">
 				<tr>
-					<td align="right">
-					<input name="searchButton" type="button" class="button button_set" value="查询设置" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
-					</td>
+					<td><%=domainInstance.getPropertyCnName("customer_id")%></td>
+				    <td><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
+							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
+				    <td><input name="searchButton2" type="button" class="button button_search" value="查询数据" onClick="toPage(1)">
+			        <input name="searchButton" type="button" class="button button_set" value="高级查询" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));"></td>
 				</tr>
 			</table>
 			<table id="search_condition_table" class="search_condition_table" align="center" width="98%" style="display:<%=domainSearchCondition.isShowSearchConditionTable()?"":"none" %>">
 				<input type="hidden" id="showSearchConditionTable" name="showSearchConditionTable" value="<%=domainSearchCondition.isShowSearchConditionTable() %>">
 				<tr>
-					<td align="right">
-						<%=domainInstance.getPropertyCnName("customer_id")%></td>
-				    <td align="left"><%=DictionaryUtil.getInputHtml("客户字典", "customer_id", StringUtil.getNotEmptyStr(domainInstance.getCustomer_id(), ""), user.hasFunction("无限制查询") ? "" : "id in(select id from crm_customer where (customer_manager_account like \\'%," + user.getAccount()
-							+ ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
-				    <td align="left">&nbsp;</td>
+				  <td><%=domainInstance.getPropertyCnName("contract_id")%></td>
+			      <td><%=DictionaryUtil.getInputHtml("合同字典-选择用", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%,"
+							+ user.getAccount() + ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))")%></td>
+			      <td><%=domainInstance.getPropertyCnName("contract_user_account")%></td>
+			      <td><%=DictionaryUtil.getInputHtml("账号字典", "contract_user_account", StringUtil.getNotEmptyStr(domainInstance.getContract_user_account(), ""))%></td>
+			  </tr>
+			  <tr>
+					<td><%=domainInstance.getPropertyCnName("bill_date")%></td>
+					<td>
+						<input name="bill_date_start" type="text" id="bill_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+						-
+						<input name="bill_date_end" type="text" id="bill_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getBill_date_end())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+					</td>
+					<td><%=domainInstance.getPropertyCnName("gather_date")%>
+					</td>
+					<td>
+						<input name="gather_date_start" type="text" id="gather_date_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+						-
+						<input name="gather_date_end" type="text" id="gather_date_end" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getGather_date_end())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyyMMdd'})">
+					</td>
 				</tr>
-				<tr>
-				  <td align="right"><%=domainInstance.getPropertyCnName("contract_id")%></td>
-			      <td align="left"><%=DictionaryUtil.getInputHtml("合同字典-选择用", "contract_id", StringUtil.getNotEmptyStr(domainInstance.getContract_id(), ""), user.hasFunction("无限制查询") ? "" : "customer_id in(select id from crm_customer where (customer_manager_account like \\'%,"
-							+ user.getAccount() + ",%\\' or service_engineer_account like \\'%," + user.getAccount() + ",%\\'))",50)%></td>
-			      <td align="left">&nbsp;</td>
-			  </tr>
-				<tr>
-				  <td align="right"><%=domainInstance.getPropertyCnName("contract_user_account")%></td>
-			      <td align="left"><%=DictionaryUtil.getInputHtml("账号字典", "contract_user_account", StringUtil.getNotEmptyStr(domainInstance.getContract_user_account(), ""))%></td>
-			      <td align="right"><input name="searchButton2" type="button" class="button button_search" value="查询" onClick="toPage(1)"></td>
-			  </tr>
 			</table>
 
 			<table id="main_table" class="table table-bordered table-striped" align="center" width="98%">
