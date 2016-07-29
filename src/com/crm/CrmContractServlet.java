@@ -57,7 +57,7 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置其他条件
 		CrmContractSearchCondition condition = (CrmContractSearchCondition) domainSearchCondition;
 		if (!StringUtil.isEmpty(condition.getContract_sign_time_start()))
@@ -171,6 +171,8 @@ public class CrmContractServlet extends AbstractBaseServletTemplate
 			contract.setContract_price(commercialOpportunity.getTarget_price());
 			contract.setComment(commercialOpportunity.getCustomer_request());
 			contract.setManagement_type_code(commercialOpportunity.getManagement_type_code());
+			contract.setProduct_code(commercialOpportunity.getProduct_code());
+			contract.setProduct_version_code(commercialOpportunity.getProduct_version_code());
 
 			request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 		}

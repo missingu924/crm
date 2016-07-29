@@ -25,6 +25,11 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 	private String next_step;
 	private String record_account;
 	private Timestamp record_time;
+	private String product_code;
+	private String product_version_code;
+	private String customer_region_code;
+	private String customer_is_deal;
+	
 
 	@Override
 	public String findKeyColumnName()
@@ -81,12 +86,56 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 		pros.put("target_price", "目标金额");
 		pros.put("estimate_sign_time", "预计签约日期");
 		pros.put("management_account", "经营人");
+		pros.put("product_code", "产品线");
+		pros.put("product_version_code", "产品版本");
 		pros.put("source", "信息来源");
 		pros.put("customer_request", "客户需求");
 		pros.put("next_step", "下一步计划");
 		pros.put("record_account", "录入人");
 		pros.put("record_time", "录入时间");
+		pros.put("customer_region_code", "区域");
+		pros.put("customer_is_deal", "成交客户");
 		return pros;
+	}
+
+	public String getCustomer_region_code()
+	{
+		return customer_region_code;
+	}
+
+	public void setCustomer_region_code(String customer_region_code)
+	{
+		this.customer_region_code = customer_region_code;
+	}
+
+	public String getCustomer_is_deal()
+	{
+		return customer_is_deal;
+	}
+
+	public void setCustomer_is_deal(String customer_is_deal)
+	{
+		this.customer_is_deal = customer_is_deal;
+	}
+
+	public String getProduct_code()
+	{
+		return product_code;
+	}
+
+	public void setProduct_code(String product_code)
+	{
+		this.product_code = product_code;
+	}
+
+	public String getProduct_version_code()
+	{
+		return product_version_code;
+	}
+
+	public void setProduct_version_code(String product_version_code)
+	{
+		this.product_version_code = product_version_code;
 	}
 
 	public Long getId()

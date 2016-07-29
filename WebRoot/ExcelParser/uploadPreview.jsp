@@ -52,6 +52,7 @@
 			<!-- 数据处理方式 --> 
 			<table class="search_table" align="center" width="98%"> 
 				<tr> 
+					<td style="width:0"></td>
 					<td align="left"> 
 						请选择导入方式
 						<%=DictionaryUtil.getSelectHtml(new DictionaryService().getDictItemsByDictName("导入数据处理方式字典", false), "import_type", "", StringUtil.getNotEmptyStr(domainInstance.getImport_type(), ""), "notEmpty")%> 

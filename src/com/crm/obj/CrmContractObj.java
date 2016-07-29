@@ -38,6 +38,8 @@ public class CrmContractObj extends BaseDbObj
 	private String record_account;
 	private Timestamp record_time;
 	private String comment;
+	private String product_code;
+	private String product_version_code;
 
 	@Override
 	public String findKeyColumnName()
@@ -112,7 +114,29 @@ public class CrmContractObj extends BaseDbObj
 		pros.put("record_account", "录合同人");
 		pros.put("record_time", "录入时间");
 		pros.put("comment", "合同关键点");
+		pros.put("product_code", "产品线");
+		pros.put("product_version_code", "产品版本");
 		return pros;
+	}
+
+	public String getProduct_code()
+	{
+		return product_code;
+	}
+
+	public void setProduct_code(String product_code)
+	{
+		this.product_code = product_code;
+	}
+
+	public String getProduct_version_code()
+	{
+		return product_version_code;
+	}
+
+	public void setProduct_version_code(String product_version_code)
+	{
+		this.product_version_code = product_version_code;
 	}
 
 	public String getDraw_bill()

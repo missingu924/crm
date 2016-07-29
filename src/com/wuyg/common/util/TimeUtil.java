@@ -65,6 +65,20 @@ public class TimeUtil
 	}
 
 	/**
+	 * 将sql时间转换为"yyyy-MM-dd HH:mm:ss"格式的字符串
+	 * 
+	 * @return String
+	 */
+	public static String date2str(Timestamp timestamp, String format)
+	{
+		if (timestamp == null)
+		{
+			return "";
+		}
+		return date2str(timestamp.getTime(), format);
+	}
+
+	/**
 	 * 将时间转换为"yyyy-MM-dd HH:mm:ss"格式的字符串
 	 * 
 	 * @return String
@@ -102,7 +116,7 @@ public class TimeUtil
 		Date now = new Date();
 		return date2str(now, format);
 	}
-	
+
 	/**
 	 * 将当前时间转换为数据库timestamp
 	 * 
@@ -485,7 +499,7 @@ public class TimeUtil
 	public static String getThisLunarYearFirstDay2solar()
 	{
 		Calendar c = Calendar.getInstance();
-		int lunars[] = LunarCalendar.solarToLunar(c.get(c.YEAR), c.get(c.MONTH)+1, c.get(c.DAY_OF_MONTH));
+		int lunars[] = LunarCalendar.solarToLunar(c.get(c.YEAR), c.get(c.MONTH) + 1, c.get(c.DAY_OF_MONTH));
 		return LunarCalendar.lunarToSolar(lunars[0] + "-01-01");
 	}
 
@@ -497,13 +511,13 @@ public class TimeUtil
 	 */
 	public static String getLunarYearLastDay2solar(int year)
 	{
-		return LunarCalendar.solarToLunar((year+1) + "-01-01");
+		return LunarCalendar.solarToLunar((year + 1) + "-01-01");
 	}
 
 	public static String getThisLunarYearLastDay2solar()
 	{
 		Calendar c = Calendar.getInstance();
-		int lunars[] = LunarCalendar.solarToLunar(c.get(c.YEAR), c.get(c.MONTH)+1, c.get(c.DAY_OF_MONTH));
+		int lunars[] = LunarCalendar.solarToLunar(c.get(c.YEAR), c.get(c.MONTH) + 1, c.get(c.DAY_OF_MONTH));
 		return LunarCalendar.lunarToSolar(lunars[0] + "-12-30");
 	}
 
@@ -566,6 +580,5 @@ public class TimeUtil
 		System.out.println(realFilter);
 		//		
 	}
-
 
 }

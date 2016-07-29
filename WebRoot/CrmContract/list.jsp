@@ -75,6 +75,12 @@
 			      <td><%=DictionaryUtil.getInputHtml("合同主体字典", "contract_subject", StringUtil.getNotEmptyStr(domainInstance.getContract_subject(), ""))%></td>
 			  </tr>
 			  <tr>
+					<td><%=domainInstance.getPropertyCnName("product_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("product_version_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%></td>
+				</tr>
+			  <tr>
 				  <td><%=domainInstance.getPropertyCnName("draw_bill")%></td>
 			      <td><%=DictionaryUtil.getInputHtml("是否字典", "draw_bill", StringUtil.getNotEmptyStr(domainInstance.getDraw_bill(), ""))%></td>
 			  	  <td><%=domainInstance.getPropertyCnName("is_finished")%></td>
@@ -101,6 +107,8 @@
 						<th onClick="sortBy(this)" db_col="management_type_code" class="<%=domainSearchCondition.getSortClassByDbColumn("management_type_code")%>"><%=domainInstance.getPropertyCnName("management_type_code")%></th>
 						<th onClick="sortBy(this)" db_col="contract_sign_time" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_sign_time")%>"><%=domainInstance.getPropertyCnName("contract_sign_time")%></th>
 						<th onClick="sortBy(this)" db_col="contract_subject" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_subject")%>"><%=domainInstance.getPropertyCnName("contract_subject")%></th>
+						<th onClick="sortBy(this)" db_col="product_code" class="<%=domainSearchCondition.getSortClassByDbColumn("product_code")%>"><%=domainInstance.getPropertyCnName("product_code")%></th>
+						<th onClick="sortBy(this)" db_col="product_version_code" class="<%=domainSearchCondition.getSortClassByDbColumn("product_version_code")%>"><%=domainInstance.getPropertyCnName("product_version_code")%></th>
 						<th onClick="sortBy(this)" db_col="draw_bill" class="<%=domainSearchCondition.getSortClassByDbColumn("draw_bill")%>"><%=domainInstance.getPropertyCnName("draw_bill")%></th>
 						<th onClick="sortBy(this)" db_col="contract_price" class="<%=domainSearchCondition.getSortClassByDbColumn("contract_price")%>"><%=domainInstance.getPropertyCnName("contract_price")%></th>
 						<th onClick="sortBy(this)" db_col="bill_money_total" class="<%=domainSearchCondition.getSortClassByDbColumn("bill_money_total")%>"><%=domainInstance.getPropertyCnName("bill_money_total")%></th>
@@ -132,6 +140,8 @@
 					<td><%=DictionaryUtil.getDictValueByDictKey("经营类型字典", o.getManagement_type_code())%></td>
 					<td><%=TimeUtil.date2str(o.getContract_sign_time(), "yyyy-MM-dd")%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("合同主体字典", o.getContract_subject())%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品字典", o.getProduct_code() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品版本字典", o.getProduct_version_code() + "")%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("是否字典", o.getDraw_bill())%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getContract_price(), 2)%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getBill_money_total(), 2)%></td>
@@ -150,6 +160,8 @@
 				%>
 				<tr style="color:blue">
 					<td>合计</td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

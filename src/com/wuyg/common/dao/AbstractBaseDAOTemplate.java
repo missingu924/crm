@@ -16,6 +16,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
+import com.wuyg.common.obj.BaseSearchCondition;
 import com.wuyg.common.obj.PaginationObj;
 import com.wuyg.common.util.MyBeanUtils;
 import com.wuyg.common.util.MySqlUtil;
@@ -69,7 +70,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 		{
 			String where = " 1=1 ";
 			// 把非空的基本条件设置上
-			where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getTableMetaData(), useLike);
+			where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getTableMetaData(), useLike);
 			return deleteByClause(where);
 		} catch (Exception e)
 		{
@@ -364,7 +365,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			Class propertyType = p.getPropertyType();
 			String pName = p.getName();
 			Object pValue = rst.getObject(pName);
-			if (pValue!=null)
+			if (pValue != null)
 			{
 				if (propertyType.equals(Integer.class))
 				{
@@ -388,7 +389,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 				{
 					pValue = rst.getDate(pName);
 				}
-			
+
 				logger.debug("set property :" + p.getName() + "=" + pValue);
 
 				logger.debug("value class = " + pValue.getClass());
@@ -417,12 +418,17 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 	public PaginationObj searchPaginationByClause(Class clz, String where, String orderBy, int pageNo, int pageCount)
 	{
 		int totalCount = countByClause(where);
+		if (pageNo == 0)
+		{
+			pageNo = 1;// 防止默认第1页填成了第0页
+		}
 		int offset = (pageNo - 1) * pageCount;
 		if (pageCount == Integer.MAX_VALUE)
 		{
 			pageCount = Integer.MAX_VALUE - 1; // 避免查询时超过int最大值
 		}
 		int rows = pageCount;
+
 		List<Object> dataList = searchByClause(clz, where, orderBy, offset, rows);
 
 		PaginationObj paginationObj = new PaginationObj(dataList, totalCount, pageNo, pageCount);
@@ -434,33 +440,49 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 	{
 		try
 		{
-			String where = " 1=1 ";
 			// 把非空的基本条件设置上
-			where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getTableMetaData(), useLike);
+			String where = " 1=1 ";
+			where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getTableMetaData(), useLike);
 
-			int totalCount = countByClause(where);
-			if (pageNo == 0)
-			{
-				pageNo = 1;// 防止默认第1页填成了第0页
-			}
-			int offset = (pageNo - 1) * pageCount;
-			if (pageCount == Integer.MAX_VALUE)
-			{
-				pageCount = Integer.MAX_VALUE - 1; // 避免查询时超过int最大值
-			}
-			int rows = pageCount;
-
-			// 默认按照主键升序排列
+			// 如果没有排序字段则使用domainInstance的默认排序字段
 			if (StringUtil.isEmpty(orderBy))
 			{
-				orderBy = StringUtil.getNotEmptyStr(domainInstance.findKeyColumnName());
+				orderBy = StringUtil.getNotEmptyStr(domainInstance.findDefaultOrderBy());
 			}
 
-			List<Object> dataList = searchByClause(domainInstance.getClass(), where, orderBy, offset, rows);
+			return searchPaginationByClause(domainInstance.getClass(), where, orderBy, pageNo, pageCount);
+		} catch (Exception e)
+		{
+			logger.error(e.getMessage(), e);
+		}
 
-			PaginationObj paginationObj = new PaginationObj(dataList, totalCount, pageNo, pageCount);
+		return PaginationObj.NULL_PAGE;// 出错返回空页
+	}
 
-			return paginationObj;
+	/**
+	 * 根据查询条件查询数据
+	 * 
+	 * @param condition
+	 * @return
+	 */
+	public PaginationObj searchPaginationByCondition(BaseSearchCondition condition)
+	{
+		try
+		{
+			BaseDbObj domainInstance = condition.getDomainObj();
+
+			// 把condition和domainInstance非空的基本条件设置上
+			String where = " 1=1 ";
+			where += MyBeanUtils.getWhereByBaseSearchCondition(condition, getTableMetaData(), condition.isUseLike());
+
+			// 如果没有排序字段则使用domainInstance的默认排序字段
+			String orderBy = condition.getOrderBy();
+			if (StringUtil.isEmpty(orderBy))
+			{
+				orderBy = StringUtil.getNotEmptyStr(domainInstance.findDefaultOrderBy());
+			}
+
+			return searchPaginationByClause(domainInstance.getClass(), where, orderBy, condition.getPageNo(), condition.getPageCount());
 		} catch (Exception e)
 		{
 			logger.error(e.getMessage(), e);
@@ -481,9 +503,9 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			logger.info("无任何需要更新的对象，直接返回。");
 			return true;
 		}
-		
-		DictionaryUtil.clearCacheByTablename(getTableName());//清除该表相关的字典缓存
-		
+
+		DictionaryUtil.clearCacheByTablename(getTableName());// 清除该表相关的字典缓存
+
 		Connection conn = null;
 		try
 		{
@@ -506,19 +528,23 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 				sql = sql.substring(0, sql.length() - 1);
 			}
 
+			// 支持用keyColumn和uniqueIndex两种方式更新
+			sql += " where (" + getKeyColumnName() + "=?) ";
+
 			List<String> uniqueIndexColumns = getUniqueIndexColumns();
-
-			sql += " where (" + getKeyColumnName() + "=?) or ("; // 支持用keyColumn和uniqueIndex两种方式更新
-
-			for (int i = 0; i < uniqueIndexColumns.size(); i++)
+			if (uniqueIndexColumns.size() > 0)
 			{
-				sql += uniqueIndexColumns.get(i) + "=? ";
-				if (i < uniqueIndexColumns.size() - 1)
+				sql += " or (";
+				for (int i = 0; i < uniqueIndexColumns.size(); i++)
 				{
-					sql += " and ";
+					sql += uniqueIndexColumns.get(i) + "=? ";
+					if (i < uniqueIndexColumns.size() - 1)
+					{
+						sql += " and ";
+					}
 				}
+				sql += ")";
 			}
-			sql += ")";
 
 			logger.info(getTableName() + " udpate sql:" + sql);
 
@@ -660,7 +686,7 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 		try
 		{
 			conn = this.getDbConnection();
-			ResultSetMetaData metaData = conn.createStatement().executeQuery("select * from " + getTableName()).getMetaData();
+			ResultSetMetaData metaData = conn.createStatement().executeQuery("select * from " + getTableName() + " where 1=2").getMetaData();
 
 			for (int i = 1; i < metaData.getColumnCount() + 1; i++)
 			{
@@ -762,9 +788,9 @@ public abstract class AbstractBaseDAOTemplate implements IBaseDAO
 			logger.info("the delete clause is null, don't delete.");
 			return 0;
 		}
-		
-		DictionaryUtil.clearCacheByTablename(getTableName());//清除该表相关的字典缓存
-		
+
+		DictionaryUtil.clearCacheByTablename(getTableName());// 清除该表相关的字典缓存
+
 		Connection conn = null;
 		try
 		{

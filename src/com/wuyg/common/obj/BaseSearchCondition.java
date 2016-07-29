@@ -1,18 +1,21 @@
 package com.wuyg.common.obj;
 
 import com.wuyg.auth.obj.AuthUserObj;
+import com.wuyg.common.dao.BaseDbObj;
 import com.wuyg.common.util.StringUtil;
 import com.wuyg.common.util.SystemConstant;
 
 public abstract class BaseSearchCondition
 {
-	private Object domainObj;// 业务对象
+	private BaseDbObj domainObj;// 业务对象
 
 	private AuthUserObj user;// 用户登录账号
-	private int pageNo = 1;
-	private int pageCount = SystemConstant.PAGE_ROWS;
+	private int pageNo = 1; // 第几页
+	private int pageCount = SystemConstant.PAGE_ROWS;// 每页几行
 	private String orderBy;// 排序条件
 	private boolean showSearchConditionTable = true;// 默认呈现查询条件设置区域
+	private boolean useLike = true;// 针对domainObj中的字符型字段在构造查询条件时是否使用like进行模糊查找，如果不使用like则使用等号进行精确查找。默认使用like
+	private String otherWhere;// 其他where条件
 
 	public AuthUserObj getUser()
 	{
@@ -44,16 +47,16 @@ public abstract class BaseSearchCondition
 		this.pageCount = pageCount;
 	}
 
-	public Object getDomainObj()
+	public BaseDbObj getDomainObj()
 	{
 		return domainObj;
 	}
 
-	public void setDomainObj(Object domainObj)
+	public void setDomainObj(BaseDbObj domainObj)
 	{
 		this.domainObj = domainObj;
 	}
-	
+
 	public String getOrderBy()
 	{
 		return orderBy;
@@ -72,6 +75,26 @@ public abstract class BaseSearchCondition
 	public void setShowSearchConditionTable(boolean showSearchConditionTable)
 	{
 		this.showSearchConditionTable = showSearchConditionTable;
+	}
+
+	public boolean isUseLike()
+	{
+		return useLike;
+	}
+
+	public void setUseLike(boolean useLike)
+	{
+		this.useLike = useLike;
+	}
+
+	public String getOtherWhere()
+	{
+		return otherWhere;
+	}
+
+	public void setOtherWhere(String otherWhere)
+	{
+		this.otherWhere = otherWhere;
 	}
 
 	/**

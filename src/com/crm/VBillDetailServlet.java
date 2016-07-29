@@ -54,7 +54,7 @@ public class VBillDetailServlet extends AbstractBaseServletTemplate
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置其他条件
 		VBillDetailSearchCondition condition = (VBillDetailSearchCondition)domainSearchCondition;
 		if (!StringUtil.isEmpty(condition.getGather_date_start()))

@@ -155,6 +155,16 @@
 					</td>
 				</tr>
 				<tr>
+					<td><%=domainInstance.getPropertyCnName("product_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getInputHtmlReadOnly("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""),20)%>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("product_version_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getInputHtmlReadOnly("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""),20)%>
+					</td>
+				</tr>
+				<tr>
 					<td><%=domainInstance.getPropertyCnName("contract_subject")%>:
 					</td>
 					<td><%=DictionaryUtil.getSelectHtml("合同主体字典", "contract_subject", StringUtil.getNotEmptyStr(domainInstance.getContract_subject(), "否"))%>

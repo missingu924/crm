@@ -101,6 +101,7 @@ function toggleMenuGroup(td,menuGroupId)
 							</td>
 						</tr>
 						<%} %>
+						
 					</table>
 				</td>
 			</tr>

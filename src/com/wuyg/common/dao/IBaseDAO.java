@@ -2,6 +2,7 @@ package com.wuyg.common.dao;
 
 import java.util.List;
 
+import com.wuyg.common.obj.BaseSearchCondition;
 import com.wuyg.common.obj.PaginationObj;
 
 public interface IBaseDAO
@@ -256,7 +257,7 @@ public interface IBaseDAO
 	 * @param condition
 	 * @return
 	 */
-	public PaginationObj searchPaginationByCondition(Object condition);
+	public PaginationObj searchPaginationByCondition(BaseSearchCondition condition);
 	
 	/**
 	 * 根据unique index查询对象

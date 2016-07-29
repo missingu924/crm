@@ -54,6 +54,7 @@
 		if(!checkNull("opportunity_name","<%=domainInstance.getPropertyCnName("opportunity_name")%>")) return false; 
 		if(!checkNull("management_type_code","<%=domainInstance.getPropertyCnName("management_type_code")%>")) return false; 
 		if(!checkNull("sale_stage_code","<%=domainInstance.getPropertyCnName("sale_stage_code")%>")) return false; 
+		if(!checkNull("product_code","<%=domainInstance.getPropertyCnName("product_code")%>")) return false; 
 		if(!checkNull("target_price","<%=domainInstance.getPropertyCnName("target_price")%>")) return false; 
 		if(!checkNull("estimate_sign_time","<%=domainInstance.getPropertyCnName("estimate_sign_time")%>")) return false; 
 		if(!checkNull("management_account","<%=domainInstance.getPropertyCnName("management_account")%>")) return false; 
@@ -128,6 +129,16 @@
 					<td><%=domainInstance.getPropertyCnName("sale_stage_code")%>:</td>
 					<td><%=DictionaryUtil.getSelectHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%>
 						<font color="red">*</font></td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("product_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getSelectHtml("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%><font color="red">*</font>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("product_version_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getSelectHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%>
+					</td>
 				</tr>
 				<tr>
 					<td>

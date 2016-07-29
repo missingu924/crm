@@ -64,7 +64,7 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 再把其他条件设置上
 		CrmCustomerSearchCondition condition = (CrmCustomerSearchCondition) domainSearchCondition;
 		if (!StringUtil.isEmpty(condition.getCustomer_manager_account_list()))

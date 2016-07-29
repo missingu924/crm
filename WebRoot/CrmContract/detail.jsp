@@ -101,6 +101,17 @@
 				<td><%=domainInstance.getPropertyCnName("management_type_code")%>:
 				</td>
 				<td colspan="3"><%=DictionaryUtil.getDictValueByDictKey("经营类型字典", domainInstance.getManagement_type_code())%></td>
+			</tr>
+			<tr>
+				<td><%=domainInstance.getPropertyCnName("product_code")%>:
+				</td>
+				<td><%=DictionaryUtil.getDictValueByDictKey("产品字典", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%>
+				</td>
+				<td><%=domainInstance.getPropertyCnName("product_version_code")%>:
+				</td>
+				<td><%=DictionaryUtil.getDictValueByDictKey("产品版本字典", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%>
+				</td>
+			</tr>
 			<tr>
 				<td><%=domainInstance.getPropertyCnName("contract_subject")%>:
 				</td>

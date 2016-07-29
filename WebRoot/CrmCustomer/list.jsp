@@ -9,6 +9,8 @@
 <%@page import="com.crm.obj.CrmCustomerObj"%>
 <%@page import="com.wuyg.common.util.TimeUtil"%>
 <%@page import="com.crm.searchcondition.CrmCustomerSearchCondition"%>
+<%@page import="com.wuyg.auth.obj.AuthUserObj"%>
+<%@page import="com.wuyg.common.util.SystemConstant"%> 
 <!-- 基本信息 -->
 <%
 	// 当前上下文路径 
@@ -18,6 +20,8 @@
 	CrmCustomerObj domainInstance = (CrmCustomerObj) request.getAttribute("domainInstance");
 	// 该功能对象查询条件实例
 	CrmCustomerSearchCondition domainSearchCondition = (CrmCustomerSearchCondition) request.getAttribute("domainSearchCondition");
+	// 用户信息
+	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
 	// 该功能路径 
 	String basePath = domainInstance.getBasePath();
 
@@ -31,6 +35,7 @@
 		pagination = (PaginationObj) paginationObj;
 		list = (List) pagination.getDataList();
 	}
+
 %>
 <html>
 	<head>
@@ -56,7 +61,7 @@
 					<td>
 						<input name="searchButton2" type="button" class="button button_search" value="查询数据" onClick="toPage(1)">
 						<input name="searchButton" type="button" class="button button_set" value="高级查询" onClick="$('#search_condition_table').toggle();$('#showSearchConditionTable').val(!$('#search_condition_table').is(':hidden'));">
-						<input name="addButton" type="button" class="button button_add" value="新增客户" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')">
+						<%if(user.hasFunction("客户档案-增加")){%><input name="addButton" type="button" class="button button_add" value="新增客户" onClick="winOpen('<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this')"><%} %>
 					</td>
 				</tr>
 			</table>

@@ -56,7 +56,7 @@ public class CrmManagementActivityServlet extends AbstractBaseServletTemplate
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置权限条件
 		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
 		{

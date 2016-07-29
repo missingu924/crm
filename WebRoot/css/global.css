@@ -37,7 +37,7 @@ A.noline::active{text-decoration:none;}
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: left;
-  padding: 0 6px 0 18px;
+  padding: 0 2px 0 18px;
   font-size: 12px;
   height:20px;
 }

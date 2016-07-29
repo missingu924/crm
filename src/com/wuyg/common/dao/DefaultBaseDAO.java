@@ -36,12 +36,6 @@ public class DefaultBaseDAO extends AbstractBaseDAOTemplate
 			e.printStackTrace();
 		}
 	}
-	
-	public PaginationObj searchPaginationByCondition(Object condition)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String getKeyColumnName()

@@ -56,7 +56,7 @@ public class VContractBillStatServlet extends AbstractBaseServletTemplate
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置其他条件
 		VContractBillStatSearchCondition condition = (VContractBillStatSearchCondition)domainSearchCondition;
 		if (!StringUtil.isEmpty(condition.getContract_sign_time_start()))

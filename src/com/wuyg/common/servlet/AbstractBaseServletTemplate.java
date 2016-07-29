@@ -223,9 +223,11 @@ public abstract class AbstractBaseServletTemplate extends HttpServlet
 	public void list(HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// 查询
-		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, true, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), domainSearchCondition.getPageNo(),
-				domainSearchCondition.getPageCount());// 使用like构造条件
+//		PaginationObj domainPagination = getDomainDao().searchPaginationByDomainInstance(domainInstance, true, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), domainSearchCondition.getPageNo(),
+//				domainSearchCondition.getPageCount());// 使用like构造条件
 
+		PaginationObj domainPagination = getDomainDao().searchPaginationByCondition(domainSearchCondition);// 使用like构造条件
+		
 		request.setAttribute(DOMAIN_INSTANCE, domainInstance);
 		request.setAttribute(DOMAIN_SEARCH_CONDITION, domainSearchCondition);
 		request.setAttribute(DOMAIN_PAGINATION, domainPagination);

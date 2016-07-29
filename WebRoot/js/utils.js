@@ -432,12 +432,16 @@ function deleteIt(url) {
 					if (status == "success") {
 						alert("删除成功");
 						if (window.opener) {
+							try{
 							window.opener.eval("freshCurrentPage()");
 							window.opener.eval("freshMe()");
+							}catch(e){;};
 						}
 						if (window.dialogArguments) {
+							try{
 							window.dialogArguments.eval("freshCurrentPage()");
 							window.dialogArguments.eval("freshMe()");
+							}catch(e){;};
 						}
 						window.close();
 					} else {

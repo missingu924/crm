@@ -79,6 +79,18 @@
 					<td><%=DictionaryUtil.getInputHtml("销售阶段字典", "sale_stage_code", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%></td>
 				</tr>
 				<tr>
+					<td><%=domainInstance.getPropertyCnName("product_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("product_version_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%></td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("customer_region_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("区域字典", "customer_region_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_region_code(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("customer_is_deal")%></td>
+					<td><%=DictionaryUtil.getInputHtml("是否字典", "customer_is_deal", StringUtil.getNotEmptyStr(domainInstance.getCustomer_is_deal(), ""))%></td>
+				</tr>
+				<tr>
 					<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%></td>
 					<td>
 						<input name="estimate_sign_time_start" type="text" id="estimate_sign_time_start" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getEstimate_sign_time_start())%>" size="15" onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
@@ -100,8 +112,12 @@
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="opportunity_name" class="<%=domainSearchCondition.getSortClassByDbColumn("opportunity_name")%>"><%=domainInstance.getPropertyCnName("opportunity_name")%></th>
 						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id")%></th>
+						<th onClick="sortBy(this)" db_col="customer_region_code" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_region_code")%>"><%=domainInstance.getPropertyCnName("customer_region_code")%></th>
+						<th onClick="sortBy(this)" db_col="customer_is_deal" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_is_deal")%>"><%=domainInstance.getPropertyCnName("customer_is_deal")%></th>
 						<th onClick="sortBy(this)" db_col="management_type_code" class="<%=domainSearchCondition.getSortClassByDbColumn("management_type_code")%>"><%=domainInstance.getPropertyCnName("management_type_code")%></th>
 						<th onClick="sortBy(this)" db_col="sale_stage_code" class="<%=domainSearchCondition.getSortClassByDbColumn("sale_stage_code")%>"><%=domainInstance.getPropertyCnName("sale_stage_code")%></th>
+						<th onClick="sortBy(this)" db_col="product_code" class="<%=domainSearchCondition.getSortClassByDbColumn("product_code")%>"><%=domainInstance.getPropertyCnName("product_code")%></th>
+						<th onClick="sortBy(this)" db_col="product_version_code" class="<%=domainSearchCondition.getSortClassByDbColumn("product_version_code")%>"><%=domainInstance.getPropertyCnName("product_version_code")%></th>
 						<th onClick="sortBy(this)" db_col="target_price" class="<%=domainSearchCondition.getSortClassByDbColumn("target_price")%>"><%=domainInstance.getPropertyCnName("target_price")%></th>
 						<th onClick="sortBy(this)" db_col="estimate_sign_time" class="<%=domainSearchCondition.getSortClassByDbColumn("estimate_sign_time")%>"><%=domainInstance.getPropertyCnName("estimate_sign_time")%></th>
 						<th onClick="sortBy(this)" db_col="management_account" class="<%=domainSearchCondition.getSortClassByDbColumn("management_account")%>"><%=domainInstance.getPropertyCnName("management_account")%></th>
@@ -125,8 +141,12 @@
 				<tr>
 					<td><%=StringUtil.getNotEmptyStr(o.getOpportunity_name())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典", o.getCustomer_id() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("区域字典", o.getCustomer_region_code() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("是否字典", o.getCustomer_is_deal() + "")%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("经营类型字典", o.getManagement_type_code())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("销售阶段字典", o.getSale_stage_code())%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品字典", o.getProduct_code() + "")%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品版本字典", o.getProduct_version_code() + "")%></td>
 					<td style="text-align: right"><%=StringUtil.formatDouble(o.getTarget_price(), 2)%></td>
 					<td><%=TimeUtil.date2str(o.getEstimate_sign_time(), "yyyy-MM-dd")%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("账号字典", o.getManagement_account())%></td>
@@ -147,6 +167,10 @@
 					<td>
 						合计
 					</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

@@ -10,6 +10,7 @@ import com.crm.obj.CrmCommercialOpportunityObj;
 import com.crm.obj.CrmContactObj;
 import com.crm.obj.CrmContractObj;
 import com.crm.obj.CrmManagementActivityObj;
+import com.crm.obj.VCrmCommercialOpportunityObj;
 import com.crm.searchcondition.CrmCommercialOpportunitySearchCondition;
 import com.crm.searchcondition.CrmCustomerSearchCondition;
 import com.inspur.common.dictionary.Dictionary;
@@ -55,10 +56,12 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 	{
 //		super.list(request, response);
 		
+		IBaseDAO dao = new DefaultBaseDAO(VCrmCommercialOpportunityObj.class);
+		
 		// 查询
 		String where = " 1=1 ";
 		// 先把domainInstance中非空的基本条件设置上
-		where += MyBeanUtils.getWhereSqlFromBean(domainInstance, getDomainDao().getTableMetaData(), true);
+		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, dao.getTableMetaData(), true);
 		CrmCommercialOpportunitySearchCondition condition = (CrmCommercialOpportunitySearchCondition)domainSearchCondition;
 		// 设置其他条件
 		if (!StringUtil.isEmpty(condition.getEstimate_sign_time_start()))
@@ -83,7 +86,7 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}
 
-		PaginationObj domainPagination = getDomainDao().searchPaginationByClause(getDomainInstanceClz(), where, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), domainSearchCondition.getPageNo(),
+		PaginationObj domainPagination = dao.searchPaginationByClause(VCrmCommercialOpportunityObj.class, where, StringUtil.isEmpty(domainSearchCondition.getOrderBy()) ? domainInstance.findDefaultOrderBy() : domainSearchCondition.getOrderBy(), domainSearchCondition.getPageNo(),
 				domainSearchCondition.getPageCount());
 
 		// 设置数据
@@ -132,6 +135,8 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 			commercialOpportunity.setNext_step(commercialOpportunity4copy.getNext_step());
 			commercialOpportunity.setSale_stage_code(commercialOpportunity4copy.getSale_stage_code());
 			commercialOpportunity.setSource(commercialOpportunity4copy.getSource());
+			commercialOpportunity.setProduct_code(commercialOpportunity4copy.getProduct_code());
+			commercialOpportunity.setProduct_version_code(commercialOpportunity4copy.getProduct_version_code());
 			
 		} 
 		request.setAttribute(DOMAIN_INSTANCE, commercialOpportunity);

@@ -90,6 +90,16 @@
 				<td><%=DictionaryUtil.getDictValueByDictKey("销售阶段字典", StringUtil.getNotEmptyStr(domainInstance.getSale_stage_code(), ""))%> </td>
 			</tr>
 			<tr>
+					<td><%=domainInstance.getPropertyCnName("product_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品字典", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("product_version_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("产品版本字典", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%>
+					</td>
+			</tr>
+			<tr>
 				<td><%=domainInstance.getPropertyCnName("target_price")%>:				</td>
 				<td><%=StringUtil.formatDouble(domainInstance.getTarget_price(), 2)%></td>
 				<td><%=domainInstance.getPropertyCnName("estimate_sign_time")%>:				</td>

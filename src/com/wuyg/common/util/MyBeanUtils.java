@@ -17,6 +17,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Logger;
 
 import com.wuyg.common.dao.BaseDbObj;
+import com.wuyg.common.obj.BaseSearchCondition;
 import com.wuyg.dictionary.DictionaryUtil;
 
 public class MyBeanUtils
@@ -239,7 +240,16 @@ public class MyBeanUtils
 		return childrenList;
 	}
 
-	public static String getWhereSqlFromBean(BaseDbObj baseDbObj, List<String> tableColumns, boolean useLike) throws Exception
+	/**
+	 * 根据BaseDbObj对象来构造查询条件
+	 * 
+	 * @param baseDbObj
+	 * @param tableColumns
+	 * @param useLike
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getWhereByBaseDbObj(BaseDbObj baseDbObj, List<String> tableColumns, boolean useLike) throws Exception
 	{
 		StringBuffer where = new StringBuffer();
 
@@ -272,6 +282,60 @@ public class MyBeanUtils
 				where.append(" and " + pName + " = '" + pValue + "'");
 			}
 		}
+		return where.toString();
+	}
+
+	public static String getWhereByBaseSearchCondition(BaseSearchCondition condition, List<String> tableColumns, boolean useLike) throws Exception
+	{
+		StringBuffer where = new StringBuffer();
+
+		BaseDbObj baseDbObj = condition.getDomainObj();
+
+		// 把domainInstance非空的基本条件设置上
+		String baseDbObjWhere = getWhereByBaseDbObj(baseDbObj, tableColumns, useLike);
+		where.append(baseDbObjWhere);
+
+		// 把condition非空的其他与domainInstance相关的条件设置上
+		List<PropertyDescriptor> baseDbObjPropertyDescriptors = getPropertyDescriptors(baseDbObj, tableColumns);// dbobj和数据库表重合的字段
+		PropertyDescriptor[] conditionPropertyDescriptors = PropertyUtils.getPropertyDescriptors(condition);// condition中的字段
+
+		if (conditionPropertyDescriptors != null)
+		{
+			for (int i = 0; i < baseDbObjPropertyDescriptors.size(); i++)
+			{
+				PropertyDescriptor dp = baseDbObjPropertyDescriptors.get(i);
+				String pName = dp.getName();
+				String pNameMin = pName + "_min";
+				String pNameMax = pName + "_max";
+
+				for (int j = 0; j < conditionPropertyDescriptors.length; j++)
+				{
+					PropertyDescriptor cp = conditionPropertyDescriptors[j];
+					String cpName = cp.getName();
+					String cpValue = BeanUtils.getProperty(condition, cpName);
+					if (!StringUtil.isEmpty(cpValue))
+					{
+						if (pNameMin.equals(cpName))
+						{
+							where.append(" and " + pName + ">='" + cpValue + "'");
+						}
+
+						if (pNameMax.equals(cpName))
+						{
+							where.append(" and " + pName + "<='" + cpValue + "'");
+						}
+					}
+				}
+
+			}
+		}
+
+		// 加上其他where条件
+		if (!StringUtil.isEmpty(condition.getOtherWhere()))
+		{
+			where.append(" and ").append(condition.getOtherWhere());
+		}
+
 		return where.toString();
 	}
 }
