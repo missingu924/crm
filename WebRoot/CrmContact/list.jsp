@@ -85,6 +85,8 @@
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="contact_name" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_name")%>"><%=domainInstance.getPropertyCnName("contact_name") %></th> 
 						<th onClick="sortBy(this)" db_col="customer_id" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_id")%>"><%=domainInstance.getPropertyCnName("customer_id") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_position" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_position")%>"><%=domainInstance.getPropertyCnName("contact_position") %></th> 
+						<th onClick="sortBy(this)" db_col="contact_phone" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_phone")%>"><%=domainInstance.getPropertyCnName("contact_phone") %></th> 
 						<th onClick="sortBy(this)" db_col="contact_sex" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_sex")%>"><%=domainInstance.getPropertyCnName("contact_sex") %></th> 
 						<th onClick="sortBy(this)" db_col="contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_birthday_type+cast(contact_birthday_month as varchar(100))+cast(contact_birthday_day as varchar(100))")%>"><%=domainInstance.getPropertyCnName("contact_birthday") %></th> 
 						<th onClick="sortBy(this)" db_col="contact_telephone" class="<%=domainSearchCondition.getSortClassByDbColumn("contact_telephone")%>"><%=domainInstance.getPropertyCnName("contact_telephone") %></th> 
@@ -108,6 +110,8 @@
 					
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_name())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户字典",o.getCustomer_id()+"")%></td>  
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_position())%></td>
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_phone())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典",o.getContact_sex())%></td>  
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday(),"")%></td> 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td> 

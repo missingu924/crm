@@ -15,9 +15,10 @@
 		<DictConfig isSystemDict="true" dictShowName="区域字典" dictName="区域字典" dictTable="dict_region" dictKeyCol="region_code" dictValueCol="region_name" dictOrderByCol="id" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="销售阶段字典" dictName="销售阶段字典" dictTable="dict_sale_stage" dictKeyCol="sale_stage_code" dictValueCol="sale_stage_name" dictOrderByCol="id" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="经营类型字典" dictName="经营类型字典" dictTable="dict_management_type" dictKeyCol="management_code" dictValueCol="management_name" dictOrderByCol="id" filter=""/>
-		<DictConfig isSystemDict="true" dictShowName="产品字典" dictName="产品字典" dictTable="dict_product" dictKeyCol="product_code" dictValueCol="product_name" dictOrderByCol="id" filter=""/>
-		<DictConfig isSystemDict="true" dictShowName="产品版本字典" dictName="产品版本字典" dictTable="dict_product_version" dictKeyCol="version_code" dictValueCol="version_name" dictOrderByCol="id" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="产品字典" dictName="产品字典" dictTable="dict_product" dictKeyCol="product_code" dictValueCol="product_name" dictOrderByCol="product_name" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="产品版本字典" dictName="产品版本字典" dictTable="dict_product_version" dictKeyCol="version_code" dictValueCol="version_name" dictOrderByCol="version_name" filter=""/>
 		<DictConfig isSystemDict="true" dictShowName="合同主体字典" dictName="合同主体字典" dictTable="dict_subject" dictKeyCol="subject_code" dictValueCol="subject_name" dictOrderByCol="id" filter=""/>
+		<DictConfig isSystemDict="true" dictShowName="行业字典" dictName="行业字典" dictTable="dict_industry" dictKeyCol="industry_code" dictValueCol="industry_name" dictOrderByCol="industry_name" filter=""/>
 
 		<!-- 系统字典，请勿修改 -->
 		<DictConfig isSystemDict="true" dictShowName="每页行数" dictName="pageCount" values="10,15,20,25,50,100,500"/>

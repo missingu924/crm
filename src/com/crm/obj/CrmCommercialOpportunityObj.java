@@ -86,8 +86,8 @@ public class CrmCommercialOpportunityObj extends BaseDbObj
 		pros.put("target_price", "目标金额");
 		pros.put("estimate_sign_time", "预计签约日期");
 		pros.put("management_account", "经营人");
-		pros.put("product_code", "产品线");
-		pros.put("product_version_code", "产品版本");
+		pros.put("product_code", "销售产品");
+		pros.put("product_version_code", "销售产品版本");
 		pros.put("source", "信息来源");
 		pros.put("customer_request", "客户需求");
 		pros.put("next_step", "下一步计划");

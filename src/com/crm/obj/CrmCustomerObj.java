@@ -26,6 +26,8 @@ public class CrmCustomerObj extends BaseDbObj
 	private String customer_type_code;
 	private String customer_region_code;
 	private String customer_address;
+	private String customer_industry_code;
+	private String customer_source;
 	private String customer_is_deal;
 	private String customer_manager_account;
 	private String service_engineer_account;
@@ -97,6 +99,8 @@ public class CrmCustomerObj extends BaseDbObj
 		pros.put("id", "编号");
 		pros.put("customer_full_name", "客户全称");
 		pros.put("customer_type_code", "客户分类");
+		pros.put("customer_industry_code", "行业");
+		pros.put("customer_source", "来源");
 		pros.put("customer_region_code", "区域");
 		pros.put("customer_address", "地址");
 		pros.put("customer_is_deal", "成交客户");
@@ -159,6 +163,26 @@ public class CrmCustomerObj extends BaseDbObj
 	public void setCustomer_region_code(String customer_region_code)
 	{
 		this.customer_region_code = customer_region_code;
+	}
+
+	public String getCustomer_industry_code()
+	{
+		return customer_industry_code;
+	}
+
+	public void setCustomer_industry_code(String customer_industry_code)
+	{
+		this.customer_industry_code = customer_industry_code;
+	}
+
+	public String getCustomer_source()
+	{
+		return customer_source;
+	}
+
+	public void setCustomer_source(String customer_source)
+	{
+		this.customer_source = customer_source;
 	}
 
 	public String getCustomer_address()

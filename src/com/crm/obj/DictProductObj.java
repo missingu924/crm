@@ -29,7 +29,7 @@ public String findTableName()
 @Override 
 public String findDefaultOrderBy()
 {
-	return "id asc";
+	return "product_name asc";
 }
 @Override
 public String getBasePath()

@@ -51,8 +51,9 @@
 				// 做必要的检查 
 		if(!checkNull("customer_id","<%=domainInstance.getPropertyCnName("customer_id")%>")) return false; 
 		if(!checkNull("contact_name","<%=domainInstance.getPropertyCnName("contact_name")%>")) return false; 
-		if(!checkNull("contact_telephone","<%=domainInstance.getPropertyCnName("contact_telephone")%>")) return false; 
-					 
+		if(!checkNull("contact_position","<%=domainInstance.getPropertyCnName("contact_position")%>")) return false; 
+		if(!checkNull("contact_phone","<%=domainInstance.getPropertyCnName("contact_phone")%>")) return false;
+		
 			// 修改 
 			if("true"=="<%=isModify%>") 
 			{ 
@@ -115,6 +116,15 @@
 						<input name="contact_name" type="text" id="contact_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name(),"")%>" size="20"  > 
 						<font color="red">*</font>					</td> 
 			    </tr> 
+			    <tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("contact_position") %>:					</td> 
+					<td> 
+						<input name="contact_position" type="text" id="contact_position" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_position(),"")%>" size="20"  > 
+						<font color="red">*</font></td> 
+				    <td><%=domainInstance.getPropertyCnName("contact_phone") %>: </td>
+				    <td><input name="contact_phone" type="text" id="contact_phone" value="<%=StringUtil.getNotEmptyStr(domainInstance.getContact_phone(),"")%>" size="44"  ><font color="red">*</font></td>
+				</tr> 
 				<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("contact_sex") %>:					</td> 

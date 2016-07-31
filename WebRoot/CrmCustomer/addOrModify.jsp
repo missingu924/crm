@@ -55,9 +55,11 @@
 		if(!checkNull("id","<%=domainInstance.getPropertyCnName("id")%>")) return false; 
 		if(!checkNull("customer_full_name","<%=domainInstance.getPropertyCnName("customer_full_name")%>")) return false; 
 		if(!checkNull("customer_type_code","<%=domainInstance.getPropertyCnName("customer_type_code")%>")) return false; 
+		if(!checkNull("customer_is_deal","<%=domainInstance.getPropertyCnName("customer_is_deal")%>")) return false; 
 		if(!checkNull("customer_region_code","<%=domainInstance.getPropertyCnName("customer_region_code")%>")) return false; 
 		if(!checkNull("customer_address","<%=domainInstance.getPropertyCnName("customer_address")%>")) return false; 
-		if(!checkNull("customer_is_deal","<%=domainInstance.getPropertyCnName("customer_is_deal")%>")) return false; 
+		if(!checkNull("customer_industry_code","<%=domainInstance.getPropertyCnName("customer_industry_code")%>")) return false; 
+		if(!checkNull("customer_region_code","<%=domainInstance.getPropertyCnName("customer_region_code")%>")) return false; 
 		if(!checkNull("customer_manager_account","<%=domainInstance.getPropertyCnName("customer_manager_account")%>")) return false; 
 		if(!checkNull("service_engineer_account","<%=domainInstance.getPropertyCnName("service_engineer_account")%>")) return false; 
 					 
@@ -98,7 +100,7 @@
 	<body>
 		<form name="addOrModifyForm" id="addOrModifyForm" action="<%=contextPath%>/<%=basePath%>/Servlet?method=addOrModify4this" method="post">
 			<!-- 表格标题 -->
-			<table width="720" align="center" class="title_table">
+			<table width="800" align="center" class="title_table">
 				<tr>
 					<td>
 						<%=isModify ? "修改" : "增加"%><%=domainInstance.getCnName()%>
@@ -107,7 +109,7 @@
 			</table>
 
 			<!-- 详细信息 -->
-			<table width="720" align="center" class="detail_table detail_table-bordered">
+			<table width="800" align="center" class="detail_table detail_table-bordered">
 				<input type="hidden" id="<%=domainInstance.findKeyColumnName()%>" name="<%=domainInstance.findKeyColumnName()%>" value="<%=domainInstance.getKeyValue()%>">
 				<tr>
 					<td>
@@ -117,6 +119,8 @@
 						<input name="customer_full_name" type="text" id="customer_full_name" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_full_name(), "")%>" size="81" <%=isModify ? "readOnly" : ""%>>
 						<font color="red">*</font>
 						<font color="red"><%=isModify ? "(不可修改)" : "(不能重复)"%></font>
+						<br>
+						<a href="#" onClick="openBigModalDialog('<%=contextPath%>/Dictionary/Servlet?method=listItems4select&dictname=客户字典')">点击可检索已录入的客户全称</a>
 					</td>
 				</tr>
 				<tr>
@@ -142,8 +146,20 @@
 					<td><%=domainInstance.getPropertyCnName("customer_address")%>:
 					</td>
 					<td>
-						<input name="customer_address" type="text" id="customer_address" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_address(), "")%>" size="50">
+						<input name="customer_address" type="text" id="customer_address" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_address(), "")%>" size="45">
 						<font color="red">*</font>
+					</td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("customer_industry_code")%>:
+					</td>
+					<td><%=DictionaryUtil.getSelectHtml("行业字典", "customer_industry_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_industry_code(), ""))%>
+						<font color="red">*</font>
+					</td>
+					<td><%=domainInstance.getPropertyCnName("customer_source")%>:
+					</td>
+					<td>
+						<input name="customer_source" type="text" id="customer_source" value="<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_source(), "")%>" size="20">
 					</td>
 				</tr>
 				<tr>
@@ -180,7 +196,7 @@
 				</tr>
 			</table>
 
-			<table id="tab_table" width="720" align="center" class="sub_title_table">
+			<table id="tab_table" width="800" align="center" class="sub_title_table">
 				<tr>
 					<td div_id="product_info_div" style="width: 80px">
 						产品信息
@@ -298,7 +314,7 @@
 
 		<script>
 		// 应用tab页
-		useAsTab("tab_table","720");
+		useAsTab("tab_table","800");
 		// 用客户名称填写发票信息中的客户名称
 		$("#customer_full_name").blur(function(){
 			$("#bill_company_name").val($(this).val());

@@ -70,8 +70,8 @@
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("customer_type_code")%></td>
 					<td><%=DictionaryUtil.getInputHtml("客户分类字典", "customer_type_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_type_code(), ""))%></td>
-					<td><%=domainInstance.getPropertyCnName("customer_is_deal")%></td>
-					<td><%=DictionaryUtil.getInputHtml("是否字典", "customer_is_deal", StringUtil.getNotEmptyStr(domainInstance.getCustomer_is_deal(), ""))%></td>
+					<td><%=domainInstance.getPropertyCnName("customer_industry_code")%></td>
+					<td><%=DictionaryUtil.getInputHtml("行业字典", "customer_industry_code", StringUtil.getNotEmptyStr(domainInstance.getCustomer_industry_code(), ""))%></td>
 				</tr>
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("customer_region_code")%></td>
@@ -92,6 +92,12 @@
 					<td><%=DictionaryUtil.getInputHtml("产品字典", "product_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_code(), ""))%></td>
 					<td><%=domainInstance.getPropertyCnName("product_version_code")%></td>
 					<td><%=DictionaryUtil.getInputHtml("产品版本字典", "product_version_code", StringUtil.getNotEmptyStr(domainInstance.getProduct_version_code(), ""))%></td>
+				</tr>
+				<tr>
+					<td><%=domainInstance.getPropertyCnName("customer_is_deal")%></td>
+					<td><%=DictionaryUtil.getInputHtml("是否字典", "customer_is_deal", StringUtil.getNotEmptyStr(domainInstance.getCustomer_is_deal(), ""))%></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><%=domainInstance.getPropertyCnName("service_charge_peryear")%></td>
@@ -115,6 +121,7 @@
 						<input type="hidden" name="orderBy" id="orderBy" value="<%=StringUtil.getNotEmptyStr(domainSearchCondition.getOrderBy(), "")%>">
 						<th onClick="sortBy(this)" db_col="customer_full_name" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_full_name")%>"><%=domainInstance.getPropertyCnName("customer_full_name")%></th>
 						<th onClick="sortBy(this)" db_col="customer_type_code" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_type_code")%>"><%=domainInstance.getPropertyCnName("customer_type_code")%></th>
+						<th onClick="sortBy(this)" db_col="customer_industry_code" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_industry_code")%>"><%=domainInstance.getPropertyCnName("customer_industry_code")%></th>
 						<th onClick="sortBy(this)" db_col="customer_region_code" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_region_code")%>"><%=domainInstance.getPropertyCnName("customer_region_code")%></th>
 						<th onClick="sortBy(this)" db_col="customer_address" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_address")%>"><%=domainInstance.getPropertyCnName("customer_address")%></th>
 						<th onClick="sortBy(this)" db_col="customer_is_deal" class="<%=domainSearchCondition.getSortClassByDbColumn("customer_is_deal")%>"><%=domainInstance.getPropertyCnName("customer_is_deal")%></th>
@@ -140,6 +147,7 @@
 				<tr>
 					<td><%=StringUtil.getNotEmptyStr(o.getCustomer_full_name())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("客户分类字典", o.getCustomer_type_code())%></td>
+					<td><%=DictionaryUtil.getDictValueByDictKey("行业字典", o.getCustomer_industry_code())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("区域字典", o.getCustomer_region_code())%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getCustomer_address())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("是否字典", o.getCustomer_is_deal())%></td>
@@ -163,6 +171,7 @@
 					<td>
 						合计
 					</td>
+					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

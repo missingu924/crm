@@ -15,6 +15,8 @@ public class CrmContactObj extends BaseDbObj
 	private Long id;
 	private String customer_id;
 	private String contact_name;
+	private String contact_position;
+	private String contact_phone;
 	private String contact_sex;
 	private String contact_birthday_type;
 	private Long contact_birthday_month;
@@ -77,9 +79,11 @@ public class CrmContactObj extends BaseDbObj
 		pros.put("id", "编号");
 		pros.put("customer_id", "客户");
 		pros.put("contact_name", "姓名");
+		pros.put("contact_position", "职位");
+		pros.put("contact_phone", "座机");
 		pros.put("contact_sex", "性别");
 		pros.put("contact_birthday", "生日");
-		pros.put("contact_telephone", "电话");
+		pros.put("contact_telephone", "个人电话");
 		pros.put("contact_email", "E-mail");
 		pros.put("contact_qq", "QQ");
 		pros.put("contact_weixin", "微信");
@@ -97,6 +101,26 @@ public class CrmContactObj extends BaseDbObj
 	public void setId(Long id)
 	{
 		this.id = id;
+	}
+
+	public String getContact_position()
+	{
+		return contact_position;
+	}
+
+	public void setContact_position(String contact_position)
+	{
+		this.contact_position = contact_position;
+	}
+
+	public String getContact_phone()
+	{
+		return contact_phone;
+	}
+
+	public void setContact_phone(String contact_phone)
+	{
+		this.contact_phone = contact_phone;
 	}
 
 	public String getCustomer_id()

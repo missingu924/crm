@@ -184,6 +184,15 @@
 		<servlet-name>DictSubjectServlet</servlet-name>
 		<url-pattern>/DictSubject/Servlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>DictIndustryServlet</servlet-name>
+		<servlet-class>com.crm.DictIndustryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DictIndustryServlet</servlet-name>
+		<url-pattern>/DictIndustry/Servlet</url-pattern>
+	</servlet-mapping>
+	
 	
 	
 	<servlet>

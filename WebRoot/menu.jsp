@@ -18,7 +18,7 @@ function openInMainFrame(td,url)
 {	
 	$(".menu_selected").attr("class","menu_not_selected");
 	$(td).attr("class","menu_selected");
-	parent.mainFrame.location = url;
+	parent.mainFrame.location = encodeURI(url+"&isFromUrl=true");
 }
 
 function toggleMenuGroup(td,menuGroupId)
@@ -63,7 +63,7 @@ function toggleMenuGroup(td,menuGroupId)
 						<%} %>
 						<%if(user.hasFunction("商机-查询")){ %>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this&showSearchConditionTable=false')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/CrmCommercialOpportunity/Servlet?method=list4this&sale_stage_code=multi:商机,方案,报价&showSearchConditionTable=false')">
 								<img src="images/svg/heavy/green/present.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;商机
 							</td>
@@ -182,6 +182,13 @@ function toggleMenuGroup(td,menuGroupId)
 								&nbsp;&nbsp;客户分类
 							</td>
 						</tr>
+						<tr>
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictIndustry/Servlet?method=list4this&showSearchConditionTable=false')">
+								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />
+								&nbsp;&nbsp;行业
+							</td>
+						</tr>
+						
 						<tr>
 							<td class="menu_not_selected" onclick="openInMainFrame(this,'<%=request.getContextPath()%>/DictRegion/Servlet?method=list4this')">
 								<img src="images/svg/heavy/green/list.png" width="12" height="12" align="middle" />

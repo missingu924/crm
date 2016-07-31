@@ -65,6 +65,14 @@
 						<%=StringUtil.getNotEmptyStr(domainInstance.getContact_name(),"")%> 
 										</td> 
 			    </tr> 
+			    <tr> 
+					<td> 
+						<%=domainInstance.getPropertyCnName("contact_position") %>:					</td> 
+					<td> 
+						<%=StringUtil.getNotEmptyStr(domainInstance.getContact_position(),"")%>					</td> 
+				    <td><%=domainInstance.getPropertyCnName("contact_phone") %>: </td>
+				    <td><%=StringUtil.getNotEmptyStr(domainInstance.getContact_phone(),"")%></td>
+				</tr> 
 				<tr> 
 					<td> 
 						<%=domainInstance.getPropertyCnName("contact_sex") %>:					</td> 

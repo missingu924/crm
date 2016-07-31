@@ -38,7 +38,7 @@
 	</head>
 	<body>
 		<!-- 操作栏 -->
-		<table width="720" align="center" class="top_tools_table">
+		<table width="800" align="center" class="top_tools_table">
 			<tr>
 				<td>
 					<%if(user.hasFunction("客户档案-修改")){ %><a href='<%=contextPath%>/<%=basePath%>/Servlet?method=preModify4this&<%=domainInstance.findKeyColumnName()%>=<%=domainInstance.getKeyValue()%>'> <input name="modifyCustomerButton" type="button" class="button button_modify" value="修改" /> </a><%} %>
@@ -50,7 +50,7 @@
 			</tr>
 		</table>
 		<!-- 表格标题 -->
-		<table width="720" align="center" class="title_table">
+		<table width="800" align="center" class="title_table">
 			<tr>
 				<td>
 					<%=domainInstance.getCnName()%>信息
@@ -58,7 +58,7 @@
 			</tr>
 		</table>
 		<!-- 详细信息 -->
-		<table width="720" align="center" class="detail_table detail_table-bordered">
+		<table width="800" align="center" class="detail_table detail_table-bordered">
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("customer_full_name")%>:
@@ -88,6 +88,17 @@
 				</td>
 				<td>
 					<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_address(), "")%>
+				</td>
+			</tr>
+			<tr>
+				<td><%=domainInstance.getPropertyCnName("customer_industry_code")%>:
+				</td>
+				<td><%=DictionaryUtil.getDictValueByDictKey("行业字典", StringUtil.getNotEmptyStr(domainInstance.getCustomer_industry_code(), ""))%>
+				</td>
+				<td><%=domainInstance.getPropertyCnName("customer_source")%>:
+				</td>
+				<td>
+					<%=StringUtil.getNotEmptyStr(domainInstance.getCustomer_source(), "")%>
 				</td>
 			</tr>
 			<tr>
@@ -121,7 +132,7 @@
 			</tr>
 		</table>
 
-		<table id="tab_table" width="720" align="center" class="sub_title_table">
+		<table id="tab_table" width="800" align="center" class="sub_title_table">
 			<tr>
 				<td div_id="contact_info_div" style="width: 80px">
 					联系人
@@ -151,6 +162,8 @@
 				<thead>
 					<tr>
 						<th><%=d.getPropertyCnName("contact_name")%></th>
+						<th><%=d.getPropertyCnName("contact_position")%></th>
+						<th><%=d.getPropertyCnName("contact_phone")%></th>
 						<th><%=d.getPropertyCnName("contact_sex")%></th>
 						<th><%=d.getPropertyCnName("contact_birthday")%></th>
 						<th><%=d.getPropertyCnName("contact_telephone")%></th>
@@ -170,6 +183,8 @@
 				<tr>
 
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_name())%></td>
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_position())%></td>
+					<td><%=StringUtil.getNotEmptyStr(o.getContact_phone())%></td>
 					<td><%=DictionaryUtil.getDictValueByDictKey("性别字典", o.getContact_sex())%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_birthday(), "")%></td>
 					<td><%=StringUtil.getNotEmptyStr(o.getContact_telephone())%></td>
@@ -319,7 +334,7 @@
 			</table>
 		</div>
 
-		<table id="releated_info_tab_table" width="720" align="center" class="sub_title_table">
+		<table id="releated_info_tab_table" width="800" align="center" class="sub_title_table">
 			<tr>
 				<%if(user.hasFunction("商机-查询")){ %>
 				<td div_id="opportunity_info_div" style="width: 80px">
@@ -678,9 +693,9 @@
 
 		<script type="text/javascript">
 			// 应用tab页
-			useAsTab("tab_table","720","230");
+			useAsTab("tab_table","800","230");
 			
-			useAsTab("releated_info_tab_table","720");
+			useAsTab("releated_info_tab_table","800");
 		
 			// 刷新当前页
 			function freshMe() {

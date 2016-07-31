@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
 import com.alibaba.fastjson.JSON;
-public class DictProductVersionObj extends BaseDbObj
+public class DictIndustryObj extends BaseDbObj
 {
 private Long id;
-private String version_code;
-private String version_name;
+private String industry_code;
+private String industry_name;
 @Override
 public String findKeyColumnName()
 {
@@ -24,36 +24,36 @@ public String findParentKeyColumnName()
 @Override
 public String findTableName()
 {
-	return "dict_product_version";
+	return "dict_industry";
 }
 @Override 
 public String findDefaultOrderBy()
 {
-	return "version_name asc";
+	return super.findDefaultOrderBy();
 }
 @Override
 public String getBasePath()
 {
-	return "DictProductVersion";
+	return "DictIndustry";
 }
 @Override
 public String getCnName()
 {
-	return "产品版本管理";
+	return "行业";
 }
 @Override
 public List<String> findUniqueIndexProperties()
 {
 	return Arrays.asList(new String[]
-	{ "version_code" });
+	{ "industry_code" });
 }
 public LinkedHashMap<String, String> findProperties()
 {
 		LinkedHashMap<String, String> pros = new LinkedHashMap<String, String>();
 
-//		pros.put("id", "编号");
-		pros.put("version_code", "版本编码");
-		pros.put("version_name", "版本名称");
+//		pros.put("id", "id");
+		pros.put("industry_code", "行业编码");
+		pros.put("industry_name", "行业名称");
 		return pros;
 }
 public Long getId()
@@ -64,21 +64,21 @@ public void setId(Long id)
 {
 	this.id = id;
 }
-public String getVersion_code()
+public String getIndustry_code()
 {
-	return version_code;
+	return industry_code;
 }
-public void setVersion_code(String version_code)
+public void setIndustry_code(String industry_code)
 {
-	this.version_code = version_code;
+	this.industry_code = industry_code;
 }
-public String getVersion_name()
+public String getIndustry_name()
 {
-	return version_name;
+	return industry_name;
 }
-public void setVersion_name(String version_name)
+public void setIndustry_name(String industry_name)
 {
-	this.version_name = version_name;
+	this.industry_name = industry_name;
 }
 @Override
 public String toString()

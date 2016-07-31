@@ -36,8 +36,8 @@
 			<tr> 
 				<td>
 					检索&nbsp;&nbsp;</td> 
-				<%if(isMultiSelect){ %>
 				<td><input type="text" name="dict_search_input" id="dict_search_input" value=""  size="40"></td> 
+				<%if(isMultiSelect){ %>
 				<td><input name="addButton" type="button" class="button button_confirm" value="确认" onClick="confirmSelect()"></td>
 				<%} %>
 			</tr> 
