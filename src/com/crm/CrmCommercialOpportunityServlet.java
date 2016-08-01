@@ -81,7 +81,7 @@ public class CrmCommercialOpportunityServlet extends AbstractBaseServletTemplate
 			where += " and target_price<='" + condition.getTarget_price_max() + "' ";
 		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		if (!currentUser.hasFunction("无限制查询"))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}

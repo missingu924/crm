@@ -58,7 +58,7 @@ public class CrmManagementActivityServlet extends AbstractBaseServletTemplate
 		// 先把domainInstance中非空的基本条件设置上
 		where += MyBeanUtils.getWhereByBaseDbObj(domainInstance, getDomainDao().getTableMetaData(), true);
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN))
+		if (!currentUser.hasFunction("无限制查询"))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}

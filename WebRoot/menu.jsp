@@ -155,7 +155,7 @@ function toggleMenuGroup(td,menuGroupId)
 							</td>
 						</tr>
 						<tr>
-							<td class="menu_not_selected" onclick="openInMainFrame(this,'AuthUser/modifyPassword.jsp')">
+							<td class="menu_not_selected" onclick="openInMainFrame(this,'AuthUser/modifyPassword.jsp?')">
 								<img src="images/svg/heavy/green/locked.png" width="12" height="12" align="middle" />
 								&nbsp;&nbsp;修改密码
 							</td>

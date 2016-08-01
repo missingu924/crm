@@ -114,7 +114,7 @@ public class CrmCustomerServlet extends AbstractBaseServletTemplate
 			where += " and service_charge_peryear<='" + condition.getService_charge_peryear_max() + "' ";
 		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN)&&!currentUser.hasRole(SystemConstant.ROLE_CAIWU))
+		if (!currentUser.hasFunction("无限制查询"))
 		{
 			where += " and (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%')";
 		}

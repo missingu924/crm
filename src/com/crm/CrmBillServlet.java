@@ -73,7 +73,7 @@ public class CrmBillServlet extends AbstractBaseServletTemplate
 			where += " and bill_date<='" + condition.getBill_date_end() + "' ";
 		}
 		// 设置权限条件
-		if (!currentUser.hasRole(SystemConstant.ROLE_ADMIN) && !currentUser.hasRole(SystemConstant.ROLE_CAIWU))
+		if (!currentUser.hasFunction("无限制查询"))
 		{
 			where += " and customer_id in(select id from crm_customer where (customer_manager_account like '%," + currentUser.getAccount() + ",%' or service_engineer_account like '%," + currentUser.getAccount() + ",%'))";
 		}
