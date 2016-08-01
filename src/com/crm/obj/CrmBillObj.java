@@ -2,8 +2,6 @@ package com.crm.obj;
 
 import java.sql.Timestamp;
 import com.wuyg.common.dao.BaseDbObj;
-import com.wuyg.common.dao.DefaultBaseDAO;
-
 import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
@@ -229,21 +227,6 @@ public class CrmBillObj extends BaseDbObj
 	{
 		this.contract_user_account = contract_user_account;
 	}
-	
-	public CrmContractObj findContract()
-	{
-		CrmContractObj contract = new CrmContractObj();
-		
-		Object obj = new DefaultBaseDAO(CrmContractObj.class).searchByKey(CrmContractObj.class, this.contract_id);
-		
-		if (obj!=null)
-		{
-			contract = (CrmContractObj)obj;
-		}
-		
-		return contract;
-	}
-		
 
 	@Override
 	public String toString()

@@ -18,8 +18,6 @@
 	String basePath = domainInstance.getBasePath();
 	// 用户信息
 	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
-	// 是否需要开发票
-	boolean needDrawBill = "是".equals(domainInstance.findContract().getDraw_bill());
 %>
 <html>
 	<head>
@@ -98,22 +96,21 @@
 			</tr>
 			<tr>
 				<td>
-					<%=domainInstance.getPropertyCnName("gather_money")%>:
-				</td>
-				<td><%=StringUtil.formatDouble(domainInstance.getGather_money(), 2)%></td>
-				<td><%=domainInstance.getPropertyCnName("gather_date")%>:
-				</td>
-				<td><%=TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd")%></td>
-			</tr>
-			<%if(needDrawBill){ %>
-			<tr>
-				<td>
 					<%=domainInstance.getPropertyCnName("bill_money")%>:
 				</td>
 				<td><%=StringUtil.formatDouble(domainInstance.getBill_money(), 2)%></td>
 				<td><%=domainInstance.getPropertyCnName("bill_date")%>:
 				</td>
 				<td><%=TimeUtil.date2str(domainInstance.getBill_date(), "yyyy-MM-dd")%></td>
+			</tr>
+			<tr>
+				<td>
+					<%=domainInstance.getPropertyCnName("gather_money")%>:
+				</td>
+				<td><%=StringUtil.formatDouble(domainInstance.getGather_money(), 2)%></td>
+				<td><%=domainInstance.getPropertyCnName("gather_date")%>:
+				</td>
+				<td><%=TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd")%></td>
 			</tr>
 			<tr>
 				<td>
@@ -124,7 +121,6 @@
 				</td>
 				<td><%=DictionaryUtil.getDictValueByDictKey("是否字典", domainInstance.getBill_receipt())%></td>
 			</tr>
-			<%} %>
 			<tr>
 				<td>
 					<%=domainInstance.getPropertyCnName("comment")%>:

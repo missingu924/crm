@@ -33,9 +33,6 @@
 
 	// 用户信息
 	AuthUserObj user = (AuthUserObj) request.getSession().getAttribute(SystemConstant.AUTH_USER_INFO);
-	
-	// 是否需要开发票
-	boolean needDrawBill = "是".equals(domainInstance.findContract().getDraw_bill());
 %>
 <html>
 	<head>
@@ -52,26 +49,20 @@
 		//  新增或修改 
 		function addOrModify() 
 		{	 
-
 				// 做必要的检查 
 		if(!checkNull("customer_id","<%=domainInstance.getPropertyCnName("customer_id")%>")) return false; 
 		if(!checkNull("commerical_opportunity_id","<%=domainInstance.getPropertyCnName("commerical_opportunity_id")%>")) return false; 
 		if(!checkNull("contract_id","<%=domainInstance.getPropertyCnName("contract_id")%>")) return false; 
-		<%if(needDrawBill){%>
-			if ($("#bill_money").val() == "" && $("#gather_money").val() == "") {
-				alert("<%=domainInstance.getPropertyCnName("bill_money")%> 和 <%=domainInstance.getPropertyCnName("gather_money")%> 必须填写一项");
-				return false;
-			}
-			if ($("#bill_money").val() != "") {
-				if(!checkNull("bill_date","<%=domainInstance.getPropertyCnName("bill_date")%>")) return false; 
-			}
-			if ($("#gather_money").val() != "") {
-				if(!checkNull("gather_date","<%=domainInstance.getPropertyCnName("gather_date")%>")) return false; 
-			}
-		<%} else {%>
-			if(!checkNull("gather_money","<%=domainInstance.getPropertyCnName("gather_money")%>")) return false; 
+		if ($("#bill_money").val() == "" && $("#gather_money").val() == "") {
+			alert("<%=domainInstance.getPropertyCnName("bill_money")%> 和 <%=domainInstance.getPropertyCnName("gather_money")%> 必须填写一项");
+			return false;
+		}
+		if ($("#bill_money").val() != "") {
+			if(!checkNull("bill_date","<%=domainInstance.getPropertyCnName("bill_date")%>")) return false; 
+		}
+		if ($("#gather_money").val() != "") {
 			if(!checkNull("gather_date","<%=domainInstance.getPropertyCnName("gather_date")%>")) return false; 
-		<%}%>
+		}
 					 
 			// 修改 
 			if("true"=="<%=isModify%>") 
@@ -159,21 +150,6 @@
 				</tr>
 				<tr>
 					<td>
-						<%=domainInstance.getPropertyCnName("gather_money")%>:
-					</td>
-					<td>
-						<input name="gather_money" type="text" id="gather_money" value="<%=StringUtil.formatDouble(domainInstance.getGather_money(), 2)%>" size="20">
-					</td>
-					<td><%=domainInstance.getPropertyCnName("gather_date")%>:
-					</td>
-					<td>
-						<input name="gather_date" type="text" id="gather_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd"), "")%>" size="20"
-							onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
-					</td>
-				</tr>
-				<%if(needDrawBill){ %>
-				<tr>
-					<td>
 						<%=domainInstance.getPropertyCnName("bill_money")%>:
 					</td>
 					<td>
@@ -183,6 +159,20 @@
 					</td>
 					<td>
 						<input name="bill_date" type="text" id="bill_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getBill_date(), "yyyy-MM-dd"), "")%>" size="20"
+							onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%=domainInstance.getPropertyCnName("gather_money")%>:
+					</td>
+					<td>
+						<input name="gather_money" type="text" id="gather_money" value="<%=StringUtil.formatDouble(domainInstance.getGather_money(), 2)%>" size="20">
+					</td>
+					<td><%=domainInstance.getPropertyCnName("gather_date")%>:
+					</td>
+					<td>
+						<input name="gather_date" type="text" id="gather_date" value="<%=StringUtil.getNotEmptyStr(TimeUtil.date2str(domainInstance.getGather_date(), "yyyy-MM-dd"), "")%>" size="20"
 							onFocus="WdatePicker({isShowClear:false,readOnly:false,highLineWeekDay:true,dateFmt:'yyyy-MM-dd'})">
 					</td>
 				</tr>
@@ -199,7 +189,6 @@
 						<%=DictionaryUtil.getSelectHtml("是否字典", "bill_receipt", StringUtil.getNotEmptyStr(domainInstance.getBill_receipt(), "否"))%>
 					</td>
 				</tr>
-				<%} %>
 				<tr>
 					<td>
 						<%=domainInstance.getPropertyCnName("comment")%>:
